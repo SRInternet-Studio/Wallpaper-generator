@@ -25,6 +25,7 @@ def phone_background():
     try:
         #print(response.text())
         outputurl = json.dumps(response.json())
+        print(outputurl)
         output = outputurl[10:-3]
 
         image = io.imread(output)
@@ -82,7 +83,7 @@ configuration.iconbitmap('ico.ico')
 configuration.title('MirlKoi - AI画图')
 configuration.geometry("383x220")
 configuration.resizable(width=False, height=False)
-label=Label(configuration,text="                 思锐壁纸生成器 1.0",font=('微软雅黑', 15, 'bold'))
+label=Label(configuration,text="                     AI 画图",font=('微软雅黑', 15, 'bold'))
 label.place(x=0,y=0)
 button=Button(configuration, width=52,height=2, text='在线生成 - 电脑壁纸 (可能包含未过审图片！)', command=pc_background)
 button.place(x=3,y=50)
