@@ -21,6 +21,7 @@ def phone_background():
         "type": "json",
         'num': 1
     }
+    print(type(parameters))
     response = requests.get(api, params=parameters)
     try:
         #print(response.text())
