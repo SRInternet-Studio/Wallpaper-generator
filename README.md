@@ -1,2 +1,5 @@
-# Wallpaper generator
+暑假开始复更啦！
+
+很抱歉停更这么久，思锐工作室不会辜负你们的期望的！
+# 🥳Wallpaper generator
  可以联网让AI随机作出一张美人（概率较高）或景色（概率较低）壁纸。
