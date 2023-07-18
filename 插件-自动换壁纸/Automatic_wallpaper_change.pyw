@@ -51,7 +51,7 @@ class Ui_MainWindow(object):
         MainWindow.setStyleSheet("#centralwidget{image: url(Bg.jpg);}")
         MainWindow.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)
         MainWindow.setFixedSize(MainWindow.width(), MainWindow.height());
-        MainWindow.setWindowIcon(QtGui.QIcon("ico.ico"))
+        MainWindow.setWindowIcon(QtGui.QIcon(".\\ico.ico"))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.checkBox = QtWidgets.QCheckBox(self.centralwidget)
