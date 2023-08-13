@@ -1,0 +1,103 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+壁纸生成器
+</name>
+</assembly>
+<members>
+<member name="T:Wallpaper_generator.My.MyWpfExtension">
+ <summary>
+ 用于定义“我的 WPF 命名空间”中的可用属性的模块
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="P:Wallpaper_generator.My.MyWpfExtension.Application">
+ <summary>
+ 返回正在运行的应用程序的应用程序对象
+ </summary>
+</member>
+<member name="P:Wallpaper_generator.My.MyWpfExtension.Computer">
+ <summary>
+ 返回有关主机计算机的信息。
+ </summary>
+</member>
+<member name="P:Wallpaper_generator.My.MyWpfExtension.User">
+ <summary>
+ 返回当前用户的信息。  如果希望使用当前的 
+ Windows 用户凭据来运行应用程序，请调用 My.User.InitializeWithWindowsUser()。
+ </summary>
+</member>
+<member name="P:Wallpaper_generator.My.MyWpfExtension.Log">
+ <summary>
+ 返回应用程序日志。可以使用应用程序的配置文件配置侦听器。
+ </summary>
+</member>
+<member name="P:Wallpaper_generator.My.MyWpfExtension.Windows">
+ <summary>
+ 返回项目中定义的 Windows 集合。
+ </summary>
+</member>
+<member name="T:Wallpaper_generator.My.Resources.Resources">
+<summary>
+  一个强类型的资源类，用于查找本地化的字符串等。
+</summary>
+</member>
+<member name="P:Wallpaper_generator.My.Resources.Resources.ResourceManager">
+<summary>
+  返回此类使用的缓存的 ResourceManager 实例。
+</summary>
+</member>
+<member name="P:Wallpaper_generator.My.Resources.Resources.Culture">
+<summary>
+  重写当前线程的 CurrentUICulture 属性，对
+  使用此强类型资源类的所有资源查找执行重写。
+</summary>
+</member>
+<member name="T:Wallpaper_generator.Window1">
+<summary>
+Window1
+</summary>
+</member>
+<member name="M:Wallpaper_generator.Window1.InitializeComponent">
+<summary>
+InitializeComponent
+</summary>
+</member>
+<member name="T:Wallpaper_generator.Window5">
+<summary>
+Window5
+</summary>
+</member>
+<member name="M:Wallpaper_generator.Window5.InitializeComponent">
+<summary>
+InitializeComponent
+</summary>
+</member>
+<member name="T:Wallpaper_generator.Application">
+<summary>
+Application
+</summary>
+</member>
+<member name="M:Wallpaper_generator.Application.InitializeComponent">
+<summary>
+InitializeComponent
+</summary>
+</member>
+<member name="M:Wallpaper_generator.Application.Main">
+<summary>
+Application Entry Point.
+</summary>
+</member>
+<member name="T:Wallpaper_generator.MainWindow">
+<summary>
+MainWindow
+</summary>
+</member>
+<member name="M:Wallpaper_generator.MainWindow.InitializeComponent">
+<summary>
+InitializeComponent
+</summary>
+</member>
+</members>
+</doc>

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Blend for Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "壁纸生成器-自动壁纸设置界面", "壁纸生成器-自动壁纸设置界面.vbproj", "{6CDB0456-854D-402A-83CC-F5E4AD603210}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6CDB0456-854D-402A-83CC-F5E4AD603210}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CDB0456-854D-402A-83CC-F5E4AD603210}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CDB0456-854D-402A-83CC-F5E4AD603210}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CDB0456-854D-402A-83CC-F5E4AD603210}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F25A61FC-F680-4DD1-A03F-F9F3431805C0}
+	EndGlobalSection
+EndGlobal

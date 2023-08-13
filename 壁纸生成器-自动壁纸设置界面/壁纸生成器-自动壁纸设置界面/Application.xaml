@@ -1,0 +1,9 @@
+﻿<Application x:Class="Application"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:壁纸生成器_自动壁纸设置界面"
+    StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        
+    </Application.Resources>
+</Application>

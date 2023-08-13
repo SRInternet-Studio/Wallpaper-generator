@@ -1,0 +1,33 @@
+﻿<Window x:Class="Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wallpaper_generator"
+        mc:Ignorable="d"
+        Title="关于" Height="235.6" Width="633.6" ResizeMode="NoResize" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Icon="壁纸生成器新图标.png">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <LinearGradientBrush.RelativeTransform>
+                <TransformGroup>
+                    <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                    <RotateTransform Angle="840.379" CenterY="0.5" CenterX="0.5"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </LinearGradientBrush.RelativeTransform>
+            <GradientStop Color="#FF00D8F7" Offset="1"/>
+            <GradientStop Color="#FF8625EB"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <Grid>
+        <Image HorizontalAlignment="Left" Height="120.8" VerticalAlignment="Top" Width="120.8" Margin="13.6,37.6,0,0" Source="壁纸生成器新图标.png"/>
+        <TextBlock HorizontalAlignment="Left" Height="19.2" Margin="82.2,137.8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50.4" Foreground="White" FontSize="14" Text="正式版" TextAlignment="Center" Background="#FF0DE000" FontWeight="Bold"/>
+
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="148,12.8,0,0" FontSize="20" Width="467.2" Height="181.2" Foreground="Black"><Run Text="名称："/><Run Text="壁纸生成器"/><Run Text="（Wallpaper-generator）"/><LineBreak/><Run Text="版本："/><Run Text="3.0 "/><LineBreak/><Run/><Run Text="制造：思锐工作室"/><Run Text=" SR Studio"/><LineBreak/><Run Text="网站："/><Run/><LineBreak/><Run Text="开源"/><Run Text="："/><LineBreak/><Run/><LineBreak/><Run Text="依赖：请在图像生成功能中的"/><Run Text="["/><Run Text="关于"/><Run Text="]"/><Run Text="查看"/><LineBreak/><LineBreak/><Run/><LineBreak/><Run/></TextBlock>
+        <TextBlock x:Name="link1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="208,88.8,0,0" FontSize="20" Width="191.2" Height="25.2" Foreground="#FF00CDFF" Text="srinternet-2.icoc.vc" TextDecorations="Underline" Cursor="Hand"/>
+        <TextBlock x:Name="link2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="208,114.4,0,0" FontSize="20" Width="407.2" Height="25.2" Foreground="#FF00CDFF" TextDecorations="Underline" Cursor="Hand"><Run Text="https://github.com/SRInternet/Wallpaper-generator/"/></TextBlock>
+        <TextBlock x:Name="link2_1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="148,140.2,0,0" FontSize="20" Width="112" Height="25.2" Foreground="#FF00CDFF" TextDecorations="Underline" Text="generator/" Cursor="Hand"/>
+
+    </Grid>
+</Window>

@@ -67,11 +67,11 @@ def add_to_startup():
     key = winreg.HKEY_LOCAL_MACHINE
     key_path = r"Software\Microsoft\Windows\CurrentVersion\Run"
     value_name = "WallpaperGenerator"
-    script_path = os.path.abspath(sys.argv[0])
+    script_path = os.path.realpath(sys.argv[0])
     value_data = sys.executable + ' "' + script_path + '"'
     
     try:
-        with winreg.OpenKey(key, key_path, 0, winreg.KEY_SET_VALUE) as reg_key:
+        with winreg.OpenKey(key, key_path, 0, winreg.KEY_ALL_ACCESS|winreg.KEY_WRITE|winreg.KEY_CREATE_SUB_KEY) as reg_key:
             winreg.SetValueEx(reg_key, value_name, 0, winreg.REG_SZ, value_data)
             return True
     except:
@@ -84,7 +84,7 @@ def is_added_to_startup():
     value_name = "WallpaperGenerator"
     
     try:
-        with winreg.OpenKey(key, key_path, 0, winreg.KEY_READ) as reg_key:
+        with winreg.OpenKey(key, key_path, 0, winreg.KEY_ALL_ACCESS|winreg.KEY_WRITE|winreg.KEY_CREATE_SUB_KEY) as reg_key:
             value = winreg.QueryValueEx(reg_key, value_name)
             script_path = os.path.abspath(sys.argv[0])
             if value[0] == sys.executable + ' "' + script_path + '"':
@@ -100,7 +100,7 @@ def remove_from_startup():
     value_name = "WallpaperGenerator"
     
     try:
-        with winreg.OpenKey(key, key_path, 0, winreg.KEY_SET_VALUE) as reg_key:
+        with winreg.OpenKey(key, key_path, 0, winreg.KEY_ALL_ACCESS|winreg.KEY_WRITE|winreg.KEY_CREATE_SUB_KEY) as reg_key:
             winreg.DeleteValue(reg_key, value_name)
             return True
     except FileNotFoundError as re:
@@ -235,6 +235,16 @@ class Ui_MainWindow(object):
         self.label_4.setFont(font)
         self.label_4.setStyleSheet("")
         self.label_4.setObjectName("label_4")
+        self.radioButton_6 = QtWidgets.QRadioButton(self.centralwidget)
+        self.radioButton_6.setGeometry(QtCore.QRect(20, 480, 361, 19))
+        font = QtGui.QFont()
+        font.setFamily("微软雅黑")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.radioButton_6.setFont(font)
+        self.radioButton_6.setStyleSheet("")
+        self.radioButton_6.setObjectName("radioButton_6")
         self.label_2.raise_()
         self.checkBox.raise_()
         self.label.raise_()
@@ -242,6 +252,7 @@ class Ui_MainWindow(object):
         self.radioButton_3.raise_()
         self.radioButton_4.raise_()
         self.radioButton_5.raise_()
+        self.radioButton_6.raise_()
         self.pushButton.raise_()
         self.pushButton.clicked.connect(main_function.save)
         self.pushButton_2.raise_()
@@ -270,12 +281,14 @@ class Ui_MainWindow(object):
         self.pushButton_3.setText(_translate("MainWindow", "关于"))
         self.label_3.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt; color:#000000;\">刷新的壁纸类型</span></p></body></html>"))
         self.label_4.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">更多功能敬请期待……</span></p></body></html>"))
+        self.radioButton_6.setText(_translate("MainWindow", "AI 推荐（新）"))
+        self.radioButton_6.setStyleSheet("color: red")
 
 class main_function(Ui_MainWindow):
 
 
     def about():
-        messagebox.showinfo('关于','名称：壁纸生成器 2.1 图片生成插件 - 托盘自动壁纸程序\n依赖API：MirlKoiAPI\n        API源：https://api.iw233.cn/api.php?\n        打包：思锐工作室\n\n')
+        messagebox.showinfo('关于','名称：壁纸生成器 3.0 图片生成插件 - 托盘自动壁纸程序\n依赖API：MirlKoiAPI\n        API源：https://api.iw233.cn/api.php?\n        打包：思锐工作室\n\n')
 
     def MakeLink2(path, target, args='', icon=',0'):
         shell = client.Dispatch('Wscript.Shell')
@@ -648,6 +661,8 @@ if __name__ == '__main__':
     #MainWindow.show()
     # Main = icon_set()
     #tray_process.join()
+
+
 
 
 

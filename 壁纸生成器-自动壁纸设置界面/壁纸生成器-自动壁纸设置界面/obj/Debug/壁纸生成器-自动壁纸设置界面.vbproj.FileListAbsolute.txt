@@ -1,0 +1,17 @@
+E:\XAML学习\壁纸生成器-自动壁纸设置界面\壁纸生成器-自动壁纸设置界面\bin\Debug\壁纸生成器-自动壁纸设置界面.exe.config
+E:\XAML学习\壁纸生成器-自动壁纸设置界面\壁纸生成器-自动壁纸设置界面\bin\Debug\壁纸生成器-自动壁纸设置界面.exe
+E:\XAML学习\壁纸生成器-自动壁纸设置界面\壁纸生成器-自动壁纸设置界面\bin\Debug\壁纸生成器-自动壁纸设置界面.pdb
+E:\XAML学习\壁纸生成器-自动壁纸设置界面\壁纸生成器-自动壁纸设置界面\bin\Debug\壁纸生成器-自动壁纸设置界面.xml
+E:\XAML学习\壁纸生成器-自动壁纸设置界面\壁纸生成器-自动壁纸设置界面\obj\Debug\壁纸生成器-自动壁纸设置界面.vbproj.AssemblyReference.cache
+E:\XAML学习\壁纸生成器-自动壁纸设置界面\壁纸生成器-自动壁纸设置界面\obj\Debug\MainWindow.g.vb
+E:\XAML学习\壁纸生成器-自动壁纸设置界面\壁纸生成器-自动壁纸设置界面\obj\Debug\Application.g.vb
+E:\XAML学习\壁纸生成器-自动壁纸设置界面\壁纸生成器-自动壁纸设置界面\obj\Debug\壁纸生成器-自动壁纸设置界面_MarkupCompile.cache
+E:\XAML学习\壁纸生成器-自动壁纸设置界面\壁纸生成器-自动壁纸设置界面\obj\Debug\壁纸生成器-自动壁纸设置界面_MarkupCompile.lref
+E:\XAML学习\壁纸生成器-自动壁纸设置界面\壁纸生成器-自动壁纸设置界面\obj\Debug\MainWindow.baml
+E:\XAML学习\壁纸生成器-自动壁纸设置界面\壁纸生成器-自动壁纸设置界面\obj\Debug\壁纸生成器-自动壁纸设置界面.g.resources
+E:\XAML学习\壁纸生成器-自动壁纸设置界面\壁纸生成器-自动壁纸设置界面\obj\Debug\壁纸生成器_自动壁纸设置界面.Resources.resources
+E:\XAML学习\壁纸生成器-自动壁纸设置界面\壁纸生成器-自动壁纸设置界面\obj\Debug\壁纸生成器-自动壁纸设置界面.vbproj.GenerateResource.cache
+E:\XAML学习\壁纸生成器-自动壁纸设置界面\壁纸生成器-自动壁纸设置界面\obj\Debug\壁纸生成器-自动壁纸设置界面.vbproj.CoreCompileInputs.cache
+E:\XAML学习\壁纸生成器-自动壁纸设置界面\壁纸生成器-自动壁纸设置界面\obj\Debug\壁纸生成器-自动壁纸设置界面.exe
+E:\XAML学习\壁纸生成器-自动壁纸设置界面\壁纸生成器-自动壁纸设置界面\obj\Debug\壁纸生成器-自动壁纸设置界面.xml
+E:\XAML学习\壁纸生成器-自动壁纸设置界面\壁纸生成器-自动壁纸设置界面\obj\Debug\壁纸生成器-自动壁纸设置界面.pdb

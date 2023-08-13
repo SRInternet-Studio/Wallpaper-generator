@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Blend for Visual Studio Version 16
+VisualStudioVersion = 16.0.33529.622
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "壁纸生成器", "壁纸生成器.vbproj", "{72461F34-CECC-40E7-8C8D-7C063AB93D4B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{72461F34-CECC-40E7-8C8D-7C063AB93D4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72461F34-CECC-40E7-8C8D-7C063AB93D4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72461F34-CECC-40E7-8C8D-7C063AB93D4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72461F34-CECC-40E7-8C8D-7C063AB93D4B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7AB09F42-4AF3-4D36-BE15-1BF567E4934A}
+	EndGlobalSection
+EndGlobal

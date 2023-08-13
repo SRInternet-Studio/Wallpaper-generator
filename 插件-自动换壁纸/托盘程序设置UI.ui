@@ -14,7 +14,7 @@
    <string>托盘程序设置</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">image: url(:/JPG/Bg.jpg);</string>
+   <string notr="true">#centralwidget{image: url(:/JPG/Bg.jpg);}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QCheckBox" name="checkBox">
@@ -280,6 +280,30 @@
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;更多功能敬请期待……&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
+   <widget class="QRadioButton" name="radioButton_6">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>480</y>
+      <width>361</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>AI 推荐（新）</string>
+    </property>
+   </widget>
    <zorder>label_2</zorder>
    <zorder>checkBox</zorder>
    <zorder>label</zorder>
@@ -292,6 +316,7 @@
    <zorder>pushButton_3</zorder>
    <zorder>label_3</zorder>
    <zorder>label_4</zorder>
+   <zorder>radioButton_6</zorder>
   </widget>
  </widget>
  <resources>
