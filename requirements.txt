@@ -1,0 +1,13 @@
+PyQt5
+requests
+scikit-image
+matplotlib
+pyperclip
+asyncio
+easygui
+queue
+pywin32
+ctypes
+webbrowser
+wxpython
+psutil
