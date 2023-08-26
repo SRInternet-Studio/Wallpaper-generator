@@ -58,19 +58,7 @@
 2. 根据安装程序的提示安装 Python
 3. 下载所需的第三方库
    ```
-   pip3 install PyQt5
-   pip3 install requests
-   pip3 install scikit-image
-   pip3 install matplotlib
-   pip3 install pyperclip
-   pip3 install asyncio
-   pip3 install easygui
-   pip3 install queue
-   pip3 install pywin32
-   pip3 install ctypes
-   pip3 install webbrowser
-   pip3 install wxpython
-   pip3 install psutil
+   python -m pip install -r requirements.txt
    ```
    所需库可能有所变动，请根据代码中实际导入语句来配置第三方库。
 
