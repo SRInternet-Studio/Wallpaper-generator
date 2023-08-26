@@ -20,7 +20,7 @@
 
 [Buy us a coffee!](https://afdian.net/a/srinternet)
 
-[Follow us（Tiktok）](https://www.douyin.com/user/MS4wLjABAAAATzdjtBBrLLCn69TtPMeseuEUzztbNZzw-9f13adrfiM?relation=0&vid=7143257533807873316)
+[Follow us（Douyin）](https://www.douyin.com/user/MS4wLjABAAAATzdjtBBrLLCn69TtPMeseuEUzztbNZzw-9f13adrfiM?relation=0&vid=7143257533807873316)
 
 [Follow us（Bilibili）](https://space.bilibili.com/1969160969?spm_id_from=333.1007.0.0)
 
@@ -29,7 +29,7 @@
 ## 如何使用
 
 ### 安装
-1. 下载 [releases](https://github.com/SRInternet/Wallpaper-generator/releases) 中的最新版安装程序（.exe）
+1. 下载 [Releases](https://github.com/SRInternet/Wallpaper-generator/releases) 中的最新版安装程序（.exe）
 2. 双击安装，跟着提示一步步来
 3. 启动软件
 
@@ -48,7 +48,7 @@
 6. 点击 保存并关闭 即可完成开机自启
 
 ### 如何反馈
-请在GitHub上反馈。软件中可先点击 渐变色壁纸 再点击 关于 ，这样就会打开 关于 界面，点击界面中的GitHub链接即可跳转到此页。您也可以通过我们的邮箱 srinternet@qq.com 进行反馈。
+您可以在[这里](https://github.com/SRInternet/Wallpaper-generator/issues/new)提交Issuse。您也可以通过我们的邮箱 srinternet@qq.com 进行反馈。
 
 ## 如何部署源代码
 > 壁纸生成器 3.0.0 采用了 Python 和 Visual Basic.NET 双代码结合[^1]的方式进行编写，这要求你的电脑中需要包含 Python 3.9 的标准环境和所需环境[^2] 以及 Blend for Visual Studio 2019 。
@@ -60,7 +60,7 @@
    ```
    python -m pip install -r requirements.txt
    ```
-   所需库可能有所变动，请根据代码中实际导入语句来配置第三方库。
+
 
 ### 配置所需 VB.NET 环境
 1. 前往[官网](https://visualstudio.microsoft.com)下载并安装 Visual Studio Installer。
