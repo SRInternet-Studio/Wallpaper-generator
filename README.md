@@ -1,8 +1,9 @@
-暑假开始复更啦！
-
-很抱歉停更这么久，思锐工作室不会辜负你们的期望的！
 # 🥳Wallpaper generator
  从此个性化你的电脑。
+ 
+快速了解我们：[观看 壁纸生成器 宣传片](https://www.bilibili.com/video/BV1yF411k7Rm/?spm_id_from=333.999.0.0)
+ 
+ *本系列产品包含 [Android 版](https://github.com/SRInternet/Wallpaper-generator/) 和 [Android 版独立分支](https://github.com/SRInternet/Pixiv-generator/)。
 
 ## 详细信息
 
