@@ -1,0 +1,9 @@
+easygui==0.98.3
+numpy==1.26.4
+PySide6==6.4.2
+Pyside6-Fluent-Widgets==1.6.0
+Pillow==10.4.0
+wxpython==4.2.1
+psutil==5.9.8
+matplotlib==3.6.2
+requests==2.31.0

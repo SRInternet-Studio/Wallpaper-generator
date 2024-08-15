@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pillow = "==10.4.0"
+easygui = "==0.98.3"
+pyside6 = "==6.4.2"
+wxpython = "==4.2.1"
+pyside6-fluent-widgets = "==1.6.0"
+psutil = "==5.9.8"
+matplotlib = "==3.6.2"
+pyinstall = "*"
+numpy = "==1.26.4"
+requests = "==2.31.0"
+py2exe-gui = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"

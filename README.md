@@ -1,9 +1,9 @@
-# 🥳Wallpaper generator
- 从此个性化你的电脑。
+# <div align="center">🥳Wallpaper generator</div>
+ <div align="center">从此个性化你的电脑。</div>
  
 快速了解我们：[观看 壁纸生成器 宣传片](https://www.bilibili.com/video/BV1yF411k7Rm/?spm_id_from=333.999.0.0)
  
- *本系列产品包含 [Android 版](https://github.com/SRInternet/Wallpaper-generator/) 和 [Android 版独立分支](https://github.com/SRInternet/Pixiv-generator/)。
+ > 若您希望在 Android 系列操作系统上使用，请前往： [Android 版](https://github.com/SRInternet/Wallpaper-generator/) 和 [Android 版独立分支](https://github.com/SRInternet/Pixiv-generator/)。
 
 ## 详细信息
 
@@ -21,32 +21,35 @@
 
 [Buy us a coffee!](https://afdian.net/a/srinternet)
 
-[Follow us（Douyin）](https://www.douyin.com/user/MS4wLjABAAAATzdjtBBrLLCn69TtPMeseuEUzztbNZzw-9f13adrfiM?relation=0&vid=7143257533807873316)
 
-[Follow us（Bilibili）](https://space.bilibili.com/1969160969?spm_id_from=333.1007.0.0)
+Follow us on:
 
-[Follow us（Youtube）](https://www.youtube.com/channel/UCEPXlJTTAoKun8cYY1ix3ew)
+ - [Douyin](https://www.douyin.com/user/MS4wLjABAAAATzdjtBBrLLCn69TtPMeseuEUzztbNZzw-9f13adrfiM?relation=0&vid=7143257533807873316)
+
+ - [Bilibili](https://space.bilibili.com/1969160969)
+
+ - [Youtube](https://www.youtube.com/channel/UCEPXlJTTAoKun8cYY1ix3ew)
 
 ## 如何使用
 
 ### 安装
-1. 下载 [Releases](https://github.com/SRInternet/Wallpaper-generator/releases) 中的最新版安装程序（.exe）
-2. 双击安装，跟着提示一步步来
-3. 启动软件
+1. 下载 [Releases](https://github.com/SRInternet/Wallpaper-generator/releases) 中的最新版安装程序（.exe）；
+2. 双击安装，跟着提示一步步来；
+3. 启动软件。
 
 ### 生成壁纸
-1. 在软件主界面点击 图像生成
-2. 在弹出的新窗口（不是命令行窗口）中选择你想生成的壁纸类型，点击按钮
-3. 选择保存的路径和文件名
-4. 等待提示生成结束（单张生成在结束后会弹出壁纸，批量生成在结束后会弹出壁纸的保存路径）
+1. 在软件主界面点击 图像生成；
+2. 在弹出的新窗口（不是命令行窗口）中选择你想生成的壁纸类型，点击按钮；
+3. 选择保存的路径和文件名；
+4. 等待提示生成结束（单张生成在结束后会弹出壁纸，批量生成在结束后会弹出壁纸的保存路径）。
 
 ### 如何开机自启
-1. 在软件主界面点击 自动更换壁纸的托盘程序
-2. 首次使用加载时间较长，请等待托盘程序的设置界面的弹出（若不是首次使用托盘程序则跳过此步）
-3. 您会看到在任务栏右下方托盘处多出一个图标，图标中是一个动漫人物的头像（若您没有看到则可能被隐藏起来了，请点击托盘处最左侧的向上的箭头的图标 *^* 以展开被隐藏的托盘图标）
-4. 右键托盘图标，点击 打开设置 以打开设置界面（首次使用会直接弹出设置界面）
-5. 勾选 开机自启动 和 启动后自动更换壁纸
-6. 点击 保存并关闭 即可完成开机自启
+1. 在软件主界面点击 自动更换壁纸的托盘程序；
+2. 首次使用加载时间较长，请等待托盘程序的设置界面的弹出（若不是首次使用托盘程序则跳过此步）；
+3. 您会看到在任务栏右下方托盘处多出一个图标，图标中是一个动漫人物的头像（若您没有看到则可能被隐藏起来了，请点击托盘处最左侧的向上的箭头的图标 *^* 以展开被隐藏的托盘图标）；
+4. 右键托盘图标，点击 打开设置 以打开设置界面（首次使用会直接弹出设置界面）；
+5. 勾选 开机自启动 和 启动后自动更换壁纸；
+6. 点击 保存并关闭 即可完成开机自启。
 
 ### 如何反馈
 您可以在[这里](https://github.com/SRInternet/Wallpaper-generator/issues/new)提交Issuse。您也可以通过我们的邮箱 srinternet@qq.com 进行反馈。
@@ -55,10 +58,10 @@
 > 壁纸生成器 3.0.0 采用了 Python 和 Visual Basic.NET 双代码结合[^1]的方式进行编写，这要求你的电脑中需要包含 Python 3.9 的标准环境和所需环境[^2] 以及 Blend for Visual Studio 2019 。
 
 ### 配置所需 Python 环境
-1. 前往[官网](https://www.python.org)下载 Python 3.9 及以上版本，推荐 Python 3.11
-2. 根据安装程序的提示安装 Python
-3. 下载所需的第三方库
-   ```
+1. 前往[官网](https://www.python.org)下载 Python 3.9 及以上版本，推荐 Python 3.11；
+2. 根据安装程序的提示安装 Python；
+3. 下载所需的第三方库；
+   ```python
    python -m pip install -r requirements.txt
    ```
 

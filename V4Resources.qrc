@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="PNG">
+    <file>PNG/oyama-mahiro-ai~2.png</file>
+    <file>PNG/oyama-mahiro-ai~1.png</file>
+  </qresource>
+</RCC>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>525</width>
+    <height>278</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>关于 壁纸生成器 4</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+#Dialog {
+	background-color: rgb(240, 240, 240);
+   
+    background-repeat: no-repeat; /* 禁止平铺 */
+    background-position: center; /* 图片居中 */
+    background-attachment: fixed; /* 图片固定不滚动 */
+    background-size: cover; /* 拉伸图片以填充整个背景 */
+}
+</string>
+  </property>
+  <widget class="PixmapLabel" name="PixmapLabel">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>81</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/ICO/NewIcon.ico);</string>
+   </property>
+  </widget>
+  <widget class="SubtitleLabel" name="SubtitleLabel">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>20</y>
+     <width>120</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>壁纸生成器 4</string>
+   </property>
+  </widget>
+  <widget class="StrongBodyLabel" name="StrongBodyLabel">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>50</y>
+     <width>171</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Wallpaper Generator V4</string>
+   </property>
+  </widget>
+  <widget class="BodyLabel" name="BodyLabel">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>80</y>
+     <width>411</width>
+     <height>141</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;版本号：4.0.0.0&lt;/p&gt;&lt;p&gt;依赖：Mikirol API，Lolicon API，Stable Diffusion API&lt;/p&gt;&lt;p&gt;版权：接口及其返回的资源版权归接口制作者和资源创作者所有&lt;/p&gt;&lt;p&gt;壁纸生成器 Made by 思锐工作室（SR Studio）&lt;/p&gt;&lt;p&gt;开源地址：&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="HyperlinkButton" name="HyperlinkButton">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>230</y>
+     <width>391</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>https://github.com/SRInternet-Studio/Wallpaper-generator</string>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="url">
+    <url>
+     <string>https://github.com/SRInternet-Studio/Wallpaper-generator</string>
+    </url>
+   </property>
+  </widget>
+  <widget class="QCommandLinkButton" name="commandLinkButton">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>10</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>支持我们</string>
+   </property>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>HyperlinkButton</class>
+   <extends>PushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>PushButton</class>
+   <extends>QPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>PixmapLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>BodyLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>StrongBodyLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>SubtitleLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="about.qrc"/>
+ </resources>
+ <connections/>
+</ui>

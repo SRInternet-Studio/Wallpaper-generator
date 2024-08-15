@@ -1,0 +1,16 @@
+nuitka --mingw64 --show-progress --standalone --disable-console --show-progress --enable-plugin=pyside6 --plugin-enable=tk-inter --plugin-enable=numpy --windows-icon-from-ico=Minsize.ico --onefile AutoWpChange_V4.pyw
+
+
+ --windows-company-name=SR_Studio --windows-product-name=AutoWpChange_V4 --include-module=MinUI.py
+
+<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly manifestVersion="1.0" xmlns="urn:schemas-microsoft-com:asm.v1" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <assemblyIdentity version="1.0.0.0" name="SeewoStart" />
+    <trustInfo xmlns="urn:schemas-microsoft-com:asm.v3">
+        <security>
+            <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+                <requestedExecutionLevel level="requireAdministrator" uiAccess="false" />
+            </requestedPrivileges>
+        </security>
+    </trustInfo>
+</asmv1:assembly>

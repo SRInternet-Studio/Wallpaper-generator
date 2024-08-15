@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1207</width>
+    <height>646</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#centralwidget{image: url(:/.png/G:/Tencent Files/QQ/169368309/Doucuments/oyama-mahiro-夜空-ai~1.png);}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QStackedWidget" name="stackedWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>50</y>
+      <width>1091</width>
+      <height>481</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="currentIndex">
+     <number>1</number>
+    </property>
+    <widget class="QWidget" name="page_3"/>
+    <widget class="QWidget" name="page">
+     <property name="styleSheet">
+      <string notr="true">background: none;</string>
+     </property>
+     <widget class="DisplayLabel" name="DisplayLabel">
+      <property name="geometry">
+       <rect>
+        <x>330</x>
+        <y>70</y>
+        <width>441</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Segoe UI</family>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>欢迎 Welcome</string>
+      </property>
+     </widget>
+     <widget class="SubtitleLabel" name="SubtitleLabel">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>180</y>
+        <width>421</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Segoe UI</family>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>壁纸生成器 可以帮助你快速生成各种精美壁纸。</string>
+      </property>
+     </widget>
+     <widget class="PushButton" name="PushButton">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>290</y>
+        <width>241</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>基础壁纸分类</string>
+      </property>
+     </widget>
+     <widget class="PushButton" name="PushButton_2">
+      <property name="geometry">
+       <rect>
+        <x>420</x>
+        <y>290</y>
+        <width>241</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>从 Pixiv 生成</string>
+      </property>
+     </widget>
+     <widget class="PushButton" name="PushButton_3">
+      <property name="geometry">
+       <rect>
+        <x>720</x>
+        <y>290</y>
+        <width>241</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>尝试新的 SRIntelligence AI画图</string>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="SegmentedWidget" name="SegmentedWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>361</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">PivotItem {
+    padding: 10px 12px;
+    color: black;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    margin: 0;
+}
+
+PivotItem[isSelected=true]:hover {
+    color: rgba(0, 0, 0, 0.63);
+}
+
+PivotItem[isSelected=true]:pressed {
+    color: rgba(0, 0, 0, 0.53);
+}
+
+PivotItem[isSelected=false]:pressed {
+    color: rgba(0, 0, 0, 0.75);
+}
+
+PivotItem[hasIcon=false] {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+PivotItem[hasIcon=true] {
+    padding-left: 36px;
+    padding-right: 12px;
+}
+
+Pivot {
+    border: none;
+    background-color: transparent;
+}
+
+#view {
+    background-color: transparent;
+}
+
+SegmentedToolItem {
+    padding: 5px 9px 6px 8px;
+}
+
+SegmentedWidget, SegmentedToolWidget {
+    background-color: rgba(0, 0, 0, 0.0241);
+    border: 1px solid rgba(0, 0, 0, 0.0578);
+    border-radius: 6px;
+}
+
+SegmentedItem[isSelected=false],
+SegmentedToolItem[isSelected=false] {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    margin: 3px 2px;
+}
+
+SegmentedItem[isSelected=false]:hover,
+SegmentedToolItem[isSelected=false]:hover {
+    background-color: rgba(0, 0, 0, 9);
+}
+
+SegmentedItem[isSelected=false]:pressed,
+SegmentedToolItem[isSelected=false]:pressed {
+    background-color: rgba(0, 0, 0, 6);
+    margin: 3px 4px 3px 4px;
+}
+
+SegmentedItem[isSelected=true],
+SegmentedToolItem[isSelected=true] {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0, 0, 0, 0.073);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.183);
+    border-radius: 6px;
+    margin: 0px;
+    color: black;
+}
+
+SegmentedItem[isSelected=true]:hover,
+SegmentedItem[isSelected=true]:pressed,
+SegmentedToolItem[isSelected=true]:hover,
+SegmentedToolItem[isSelected=true]:pressed {
+    color: black;
+}
+
+background: transparent;</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>800</y>
+      <width>160</width>
+      <height>80</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout"/>
+   </widget>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PushButton</class>
+   <extends>QPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>SubtitleLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>DisplayLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>Pivot</class>
+   <extends>QWidget</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>SegmentedWidget</class>
+   <extends>Pivot</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="V4Resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>

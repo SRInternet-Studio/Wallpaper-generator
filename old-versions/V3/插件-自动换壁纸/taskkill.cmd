@@ -1,0 +1,1 @@
+taskkill /f /im Automatic_wallpaper_change.exe

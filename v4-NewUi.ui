@@ -1,0 +1,4227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <author>SR Studio</author>
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1070</width>
+    <height>650</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">border-image: url(:/PNG/PNG/oyama-mahiro-ai~1.png);</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QWidget" name="widget_3" native="true">
+     <property name="styleSheet">
+      <string notr="true">border-image: transparent;
+background: transparent;</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_7">
+      <item>
+       <widget class="SegmentedWidget" name="TopMenu">
+        <property name="styleSheet">
+         <string notr="true">PivotItem {
+    padding: 10px 12px;
+    color: white;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    margin: 0;
+}
+
+PivotItem[isSelected=true]:hover {
+    color: rgba(0, 0, 0, 0.63);
+}
+
+PivotItem[isSelected=true]:pressed {
+    color: rgba(0, 0, 0, 0.53);
+}
+
+PivotItem[isSelected=false]:pressed {
+    color: rgba(0, 0, 0, 0.75);
+}
+
+PivotItem[hasIcon=false] {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+PivotItem[hasIcon=true] {
+    padding-left: 36px;
+    padding-right: 12px;
+}
+
+Pivot {
+    border: none;
+    background-color: transparent;
+}
+
+#view {
+    background-color: transparent;
+}
+
+SegmentedToolItem {
+    padding: 5px 9px 6px 8px;
+}
+
+SegmentedWidget, SegmentedToolWidget {
+    background-color: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.0578);
+    border-radius: 6px;
+}
+
+SegmentedItem[isSelected=false],
+SegmentedToolItem[isSelected=false] {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    margin: 3px 2px;
+}
+
+SegmentedItem[isSelected=false]:hover,
+SegmentedToolItem[isSelected=false]:hover {
+    background-color: rgba(0, 0, 0, 9);
+}
+
+SegmentedItem[isSelected=false]:pressed,
+SegmentedToolItem[isSelected=false]:pressed {
+    background-color: rgba(0, 0, 0, 6);
+    margin: 3px 4px 3px 4px;
+}
+
+SegmentedItem[isSelected=true],
+SegmentedToolItem[isSelected=true] {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0, 0, 0, 0.073);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.183);
+    border-radius: 6px;
+    margin: 0px;
+    color: black;
+}
+
+SegmentedItem[isSelected=true]:hover,
+SegmentedItem[isSelected=true]:pressed,
+SegmentedToolItem[isSelected=true]:hover,
+SegmentedToolItem[isSelected=true]:pressed {
+    color: black;
+}</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="OpacityAniStackedWidget" name="OpacityAniStackedWidget">
+     <property name="styleSheet">
+      <string notr="true">border-image: transparent;
+background: transparent;</string>
+     </property>
+     <property name="currentIndex">
+      <number>3</number>
+     </property>
+     <widget class="QWidget" name="page">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="1" column="0">
+          <widget class="TitleLabel" name="TitleLabel">
+           <property name="font">
+            <font>
+             <family>HarmonyOS Sans SC</family>
+             <pointsize>18</pointsize>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:51pt;&quot;&gt;欢迎 Welcome&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+           </property>
+           <property name="lightColor" stdset="0">
+            <color>
+             <red>245</red>
+             <green>245</green>
+             <blue>245</blue>
+            </color>
+           </property>
+           <property name="darkColor" stdset="0">
+            <color>
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <spacer name="verticalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>100</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="2" column="0">
+          <widget class="DisplayLabel" name="DisplayLabel">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>HarmonyOS Sans SC</family>
+             <pointsize>51</pointsize>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;壁纸生成器 可以快速地帮你生成一张精美二次元壁纸。&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+           </property>
+           <property name="lightColor" stdset="0">
+            <color>
+             <red>245</red>
+             <green>245</green>
+             <blue>245</blue>
+            </color>
+           </property>
+           <property name="darkColor" stdset="0">
+            <color>
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_10">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>100</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Expanding</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="PushButton" name="ToACG">
+           <property name="minimumSize">
+            <size>
+             <width>200</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>200</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>自动化更换 ACG 壁纸</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="PushButton" name="ToAI">
+           <property name="minimumSize">
+            <size>
+             <width>200</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>200</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>制作渐变色壁纸</string>
+           </property>
+           <property name="hasIcon" stdset="0">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>151</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="page_2">
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="SimpleCardWidget" name="SimpleCardWidget">
+         <property name="minimumSize">
+          <size>
+           <width>361</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>361</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <widget class="SmoothScrollArea" name="SmoothScrollArea">
+            <property name="styleSheet">
+             <string notr="true">background: transparent;
+border: none;</string>
+            </property>
+            <property name="widgetResizable">
+             <bool>true</bool>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <widget class="QWidget" name="scrollAreaWidgetContents">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>343</width>
+               <height>539</height>
+              </rect>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_2">
+              <item row="4" column="1" colspan="3">
+               <widget class="ComboBox" name="ACGKind">
+                <property name="styleSheet">
+                 <string notr="true">ComboBox {
+    border: 1px solid rgba(0, 0, 0, 0.073);
+    border-radius: 5px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.183);
+    padding: 5px 31px 6px 11px;
+    /* font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC'; */
+    color: black;
+    background-color: rgba(255, 255, 255, 0.7);
+    text-align: left;
+}
+
+ComboBox:hover {
+    background-color: rgba(249, 249, 249, 0.5);
+}
+
+ComboBox:pressed {
+    background-color: rgba(249, 249, 249, 0.3);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.073);
+    color: rgba(0, 0, 0, 0.63);
+}
+
+ComboBox:disabled {
+    color: rgba(0, 0, 0, 0.36);
+    background: rgba(249, 249, 249, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+</string>
+                </property>
+                <property name="text">
+                 <string>1</string>
+                </property>
+                <property name="default">
+                 <bool>true</bool>
+                </property>
+                <property name="flat">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0" colspan="2">
+               <widget class="RadioButton" name="ACGContentKind">
+                <property name="text">
+                 <string>按内容类型</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="9" column="2">
+               <spacer name="verticalSpacer_8">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Preferred</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>30</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="1" column="2">
+               <spacer name="verticalSpacer_4">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Preferred</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="5" column="0">
+               <spacer name="verticalSpacer_6">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>5</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="2" column="2" colspan="2">
+               <widget class="RadioButton" name="ACGDevicesKind">
+                <property name="text">
+                 <string>按尺寸类型</string>
+                </property>
+               </widget>
+              </item>
+              <item row="12" column="0" colspan="4">
+               <widget class="IndeterminateProgressBar" name="ACGProgress"/>
+              </item>
+              <item row="10" column="0" colspan="4">
+               <widget class="PrimaryPushButton" name="AGCStart">
+                <property name="text">
+                 <string>生成</string>
+                </property>
+               </widget>
+              </item>
+              <item row="8" column="0" colspan="4">
+               <widget class="Slider" name="ACGSlider">
+                <property name="minimumSize">
+                 <size>
+                  <width>200</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <spacer name="verticalSpacer_5">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>5</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="11" column="0">
+               <spacer name="verticalSpacer_21">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>10</width>
+                  <height>10</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="0" column="0" colspan="4">
+               <widget class="SubtitleLabel" name="SubtitleLabel">
+                <property name="font">
+                 <font>
+                  <family>HarmonyOS Sans SC</family>
+                  <pointsize>20</pointsize>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>AGC 美图生成器</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="7" column="0">
+               <spacer name="verticalSpacer_7">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>0</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="6" column="3">
+               <widget class="SpinBox" name="ACGNumber">
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>100</number>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="0" colspan="3">
+               <widget class="StrongBodyLabel" name="StrongBodyLabel_2">
+                <property name="font">
+                 <font>
+                  <family>HarmonyOS Sans SC</family>
+                  <pointsize>16</pointsize>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>生成数量 (1~100)：</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="0">
+               <widget class="StrongBodyLabel" name="StrongBodyLabel">
+                <property name="font">
+                 <font>
+                  <family>HarmonyOS Sans SC</family>
+                  <pointsize>16</pointsize>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>筛选类型：</string>
+                </property>
+               </widget>
+              </item>
+              <item row="13" column="0">
+               <spacer name="verticalSpacer_9">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </widget>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="widget" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>361</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QVBoxLayout {
+    alignment: center;
+}</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetDefaultConstraint</enum>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <item>
+           <widget class="ElevatedCardWidget" name="ElevatedCardWidget">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>450</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_10">
+             <item>
+              <widget class="HorizontalFlipView" name="ACGImages"/>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="widget_7" native="true">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>51</height>
+             </size>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <item>
+              <spacer name="horizontalSpacer_5">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>210</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_9">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Preferred</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="HorizontalPipsPager" name="ACGShow">
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item>
+                <property name="text">
+                 <string>6</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_7">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>210</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="SpinBox" name="ACGShowNumber">
+               <property name="maximumSize">
+                <size>
+                 <width>150</width>
+                 <height>33</height>
+                </size>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>100</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="CommandBar" name="ACGCommandBar">
+            <property name="minimumSize">
+             <size>
+              <width>1</width>
+              <height>34</height>
+             </size>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Plain</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="page_3">
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <item>
+        <widget class="SimpleCardWidget" name="SimpleCardWidget_2">
+         <property name="minimumSize">
+          <size>
+           <width>361</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>361</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_5">
+          <item>
+           <widget class="SmoothScrollArea" name="SmoothScrollArea_2">
+            <property name="styleSheet">
+             <string notr="true">background: transparent;
+border: none;</string>
+            </property>
+            <property name="widgetResizable">
+             <bool>true</bool>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <widget class="QWidget" name="scrollAreaWidgetContents_2">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>343</width>
+               <height>513</height>
+              </rect>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_4">
+              <item row="16" column="1">
+               <spacer name="verticalSpacer_17">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="12" column="2">
+               <spacer name="verticalSpacer_12">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Preferred</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>30</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="4" column="1">
+               <widget class="StrongBodyLabel" name="StrongBodyLabel_4">
+                <property name="font">
+                 <font>
+                  <family>HarmonyOS Sans SC</family>
+                  <pointsize>14</pointsize>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>作者 UID (可选)：</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2">
+               <spacer name="verticalSpacer_13">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Preferred</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="15" column="1" colspan="3">
+               <widget class="IndeterminateProgressBar" name="PixivProgress"/>
+              </item>
+              <item row="7" column="1" colspan="3">
+               <widget class="LineEdit" name="PixivTags">
+                <property name="text">
+                 <string>萝莉&amp;少女&amp;白丝&amp;银发&amp;猫娘</string>
+                </property>
+               </widget>
+              </item>
+              <item row="9" column="1" colspan="2">
+               <widget class="StrongBodyLabel" name="StrongBodyLabel_3">
+                <property name="font">
+                 <font>
+                  <family>HarmonyOS Sans SC</family>
+                  <pointsize>14</pointsize>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>生成数量 (1~15)：</string>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="1">
+               <spacer name="verticalSpacer_20">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>5</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="2" column="1">
+               <widget class="CheckBox" name="PixivIsAI">
+                <property name="font">
+                 <font>
+                  <family>Segoe UI</family>
+                  <pointsize>-1</pointsize>
+                  <italic>false</italic>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">CheckBox {
+    color: black;
+    font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';
+    spacing: 8px;
+    min-width: 28px;
+    min-height: 22px;
+    outline: none;
+    margin-left: 1px;
+}
+
+CheckBox::indicator {
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.48);
+    background-color: rgba(0, 0, 0, 0.022);
+}
+
+CheckBox::indicator:hover {
+    border: 1px solid rgba(0, 0, 0, 0.56);
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+CheckBox::indicator:pressed {
+    border: 1px solid rgba(0, 0, 0, 0.27);
+    background-color: rgba(0, 0, 0, 0.12);
+}
+
+CheckBox::indicator:checked,
+CheckBox::indicator:indeterminate {
+    border: 1px solid #0096fa;
+    background-color: #0096fa;
+}
+
+
+CheckBox::indicator:checked:hover,
+CheckBox::indicator:indeterminate:hover {
+    border: 1px solid #00a7b3;
+    background-color: #00a7b3;
+}
+
+CheckBox::indicator:checked:pressed,
+CheckBox::indicator:indeterminate:pressed {
+    border: 1px solid #3eabb3;
+    background-color: #3eabb3;
+}
+
+CheckBox:disabled {
+    color: rgba(0, 0, 0, 110);
+}
+
+CheckBox::indicator:disabled {
+    border: 1px solid rgba(0, 0, 0, 0.27);
+    background-color: transparent;
+}
+
+CheckBox::indicator:checked:disabled,
+CheckBox::indicator:indeterminate:disabled {
+    border: 1px solid rgb(199, 199, 199);
+    background-color: rgb(199, 199, 199);
+}</string>
+                </property>
+                <property name="text">
+                 <string>去除 AI</string>
+                </property>
+               </widget>
+              </item>
+              <item row="10" column="1">
+               <spacer name="verticalSpacer_16">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>0</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="8" column="1">
+               <spacer name="verticalSpacer_14">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>5</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="3" column="1">
+               <spacer name="verticalSpacer_15">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>5</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="9" column="3">
+               <widget class="SpinBox" name="PixivNumber">
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>100</number>
+                </property>
+               </widget>
+              </item>
+              <item row="13" column="1" colspan="3">
+               <widget class="PrimaryPushButton" name="PixivStart">
+                <property name="styleSheet">
+                 <string notr="true">PushButton, ToolButton, ToggleButton, ToggleToolButton {
+    color: black;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0, 0, 0, 0.073);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.183);
+    border-radius: 5px;
+    /* font: 14px 'Segoe UI', 'Microsoft YaHei'; */
+    padding: 5px 12px 6px 12px;
+    outline: none;
+}
+
+ToolButton {
+    padding: 5px 9px 6px 8px;
+}
+
+PushButton[hasIcon=false] {
+    padding: 5px 12px 6px 12px;
+}
+
+PushButton[hasIcon=true] {
+    padding: 5px 12px 6px 36px;
+}
+
+DropDownToolButton, PrimaryDropDownToolButton {
+    padding: 5px 31px 6px 8px;
+}
+
+DropDownPushButton[hasIcon=false],
+PrimaryDropDownPushButton[hasIcon=false] {
+    padding: 5px 31px 6px 12px;
+}
+
+DropDownPushButton[hasIcon=true],
+PrimaryDropDownPushButton[hasIcon=true] {
+    padding: 5px 31px 6px 36px;
+}
+
+PushButton:hover, ToolButton:hover, ToggleButton:hover, ToggleToolButton:hover {
+    background: rgba(249, 249, 249, 0.5);
+}
+
+PushButton:pressed, ToolButton:pressed, ToggleButton:pressed, ToggleToolButton:pressed {
+    color: rgba(0, 0, 0, 0.63);
+    background: rgba(249, 249, 249, 0.3);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.073);
+}
+
+PushButton:disabled, ToolButton:disabled, ToggleButton:disabled, ToggleToolButton:disabled {
+    color: rgba(0, 0, 0, 0.36);
+    background: rgba(249, 249, 249, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+
+PrimaryPushButton,
+PrimaryToolButton,
+ToggleButton:checked,
+ToggleToolButton:checked {
+    color: white;
+    background-color: #0096fa;
+    border: 1px solid #19a0fa;
+    border-bottom: 1px solid #64befa;
+}
+
+PrimaryPushButton:hover,
+PrimaryToolButton:hover,
+ToggleButton:checked:hover,
+ToggleToolButton:checked:hover {
+    background-color: #19a0fa;
+    border: 1px solid #19a0fa;
+    border-bottom: 1px solid #64befa;
+}
+
+PrimaryPushButton:pressed,
+PrimaryToolButton:pressed,
+ToggleButton:checked:pressed,
+ToggleToolButton:checked:pressed {
+    color: rgba(255, 255, 255, 0.63);
+    background-color: #19a0fa;
+    border: 1px solid #19a0fa;
+}
+
+PrimaryPushButton:disabled,
+PrimaryToolButton:disabled,
+ToggleButton:checked:disabled,
+ToggleToolButton:checked:disabled {
+    color: rgba(255, 255, 255, 0.9);
+    background-color: rgb(205, 205, 205);
+    border: 1px solid rgb(205, 205, 205);
+}
+
+SplitDropButton,
+PrimarySplitDropButton {
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+#splitPushButton,
+#splitToolButton,
+#primarySplitPushButton,
+#primarySplitToolButton {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#splitPushButton:pressed,
+#splitToolButton:pressed,
+SplitDropButton:pressed {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.183);
+}
+
+PrimarySplitDropButton:pressed {
+    border-bottom: 1px solid #64befa;
+}
+
+#primarySplitPushButton, #primarySplitToolButton {
+    border-right: 1px solid #19a0fa;
+}
+
+#primarySplitPushButton:pressed, #primarySplitToolButton:pressed {
+    border-bottom: 1px solid #64befa;
+}
+
+HyperlinkButton {
+    /* font: 14px 'Segoe UI', 'Microsoft YaHei'; */
+    padding: 6px 12px 6px 12px;
+    color: #0096fa;
+    border: none;
+    border-radius: 6px;
+    background-color: transparent;
+}
+
+HyperlinkButton[hasIcon=false] {
+    padding: 6px 12px 6px 12px;
+}
+
+HyperlinkButton[hasIcon=true] {
+    padding: 6px 12px 6px 36px;
+}
+
+HyperlinkButton:hover {
+    color: #0096fa;
+    background-color: rgba(0, 0, 0, 10);
+    border: none;
+}
+
+HyperlinkButton:pressed {
+    color: #0096fa;
+    background-color: rgba(0, 0, 0, 6);
+    border: none;
+}
+
+HyperlinkButton:disabled {
+    color: rgba(0, 0, 0, 0.43);
+    background-color: transparent;
+    border: none;
+}
+
+
+RadioButton {
+    min-height: 24px;
+    max-height: 24px;
+    background-color: transparent;
+    font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';
+    color: black;
+}
+
+RadioButton::indicator {
+    width: 18px;
+    height: 18px;
+    border-radius: 11px;
+    border: 2px solid #999999;
+    background-color: rgba(0, 0, 0, 5);
+    margin-right: 4px;
+}
+
+RadioButton::indicator:hover {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+RadioButton::indicator:pressed {
+    border: 2px solid #bbbbbb;
+    background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5,
+            stop:0 rgb(255, 255, 255),
+            stop:0.5 rgb(255, 255, 255),
+            stop:0.6 rgb(225, 224, 223),
+            stop:1 rgb(225, 224, 223));
+}
+
+RadioButton::indicator:checked {
+    height: 22px;
+    width: 22px;
+    border: none;
+    border-radius: 11px;
+    background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5,
+            stop:0 rgb(255, 255, 255),
+            stop:0.5 rgb(255, 255, 255),
+            stop:0.6 #0096fa,
+            stop:1 #0096fa);
+}
+
+RadioButton::indicator:checked:hover {
+    background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5,
+            stop:0 rgb(255, 255, 255),
+            stop:0.6 rgb(255, 255, 255),
+            stop:0.7 #0096fa,
+            stop:1 #0096fa);
+}
+
+RadioButton::indicator:checked:pressed {
+    background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5,
+            stop:0 rgb(255, 255, 255),
+            stop:0.5 rgb(255, 255, 255),
+            stop:0.6 #0096fa,
+            stop:1 #0096fa);
+}
+
+RadioButton:disabled {
+    color: rgba(0, 0, 0, 110);
+}
+
+RadioButton::indicator:disabled {
+    border: 2px solid #bbbbbb;
+    background-color: transparent;
+}
+
+RadioButton::indicator:disabled:checked {
+    border: none;
+    background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5,
+            stop:0 rgb(255, 255, 255),
+            stop:0.5 rgb(255, 255, 255),
+            stop:0.6 rgba(0, 0, 0, 0.2169),
+            stop:1 rgba(0, 0, 0, 0.2169));
+}
+
+TransparentToolButton,
+TransparentToggleToolButton,
+TransparentDropDownToolButton,
+TransparentPushButton,
+TransparentDropDownPushButton,
+TransparentTogglePushButton {
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    margin: 0;
+}
+
+TransparentToolButton:hover,
+TransparentToggleToolButton:hover,
+TransparentDropDownToolButton:hover,
+TransparentPushButton:hover,
+TransparentDropDownPushButton:hover,
+TransparentTogglePushButton:hover {
+    background-color: rgba(0, 0, 0, 9);
+    border: none;
+}
+
+TransparentToolButton:pressed,
+TransparentToggleToolButton:pressed,
+TransparentDropDownToolButton:pressed,
+TransparentPushButton:pressed,
+TransparentDropDownPushButton:pressed,
+TransparentTogglePushButton:pressed {
+    background-color: rgba(0, 0, 0, 6);
+    border: none;
+}
+
+TransparentToolButton:disabled,
+TransparentToggleToolButton:disabled,
+TransparentDropDownToolButton:disabled,
+TransprentPushButton:disabled,
+TransparentDropDownPushButton:disabled,
+TransprentTogglePushButton:disabled {
+    background-color: transparent;
+    border: none;
+}
+
+
+PillPushButton,
+PillPushButton:hover,
+PillPushButton:pressed,
+PillPushButton:disabled,
+PillPushButton:checked,
+PillPushButton:checked:hover,
+PillPushButton:checked:pressed,
+PillPushButton:disabled:checked,
+PillToolButton,
+PillToolButton:hover,
+PillToolButton:pressed,
+PillToolButton:disabled,
+PillToolButton:checked,
+PillToolButton:checked:hover,
+PillToolButton:checked:pressed,
+PillToolButton:disabled:checked {
+    background-color: transparent;
+    border: none;
+}
+</string>
+                </property>
+                <property name="text">
+                 <string>生成</string>
+                </property>
+               </widget>
+              </item>
+              <item row="14" column="1">
+               <spacer name="verticalSpacer_22">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>10</width>
+                  <height>10</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="2" column="2" colspan="2">
+               <widget class="CheckBox" name="PixivIsR18">
+                <property name="font">
+                 <font>
+                  <family>Segoe UI</family>
+                  <pointsize>-1</pointsize>
+                  <italic>false</italic>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">CheckBox {
+    color: black;
+    font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';
+    spacing: 8px;
+    min-width: 28px;
+    min-height: 22px;
+    outline: none;
+    margin-left: 1px;
+}
+
+CheckBox::indicator {
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.48);
+    background-color: rgba(0, 0, 0, 0.022);
+}
+
+CheckBox::indicator:hover {
+    border: 1px solid rgba(0, 0, 0, 0.56);
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+CheckBox::indicator:pressed {
+    border: 1px solid rgba(0, 0, 0, 0.27);
+    background-color: rgba(0, 0, 0, 0.12);
+}
+
+CheckBox::indicator:checked,
+CheckBox::indicator:indeterminate {
+    border: 1px solid #0096fa;
+    background-color: #0096fa;
+}
+
+
+CheckBox::indicator:checked:hover,
+CheckBox::indicator:indeterminate:hover {
+    border: 1px solid #00a7b3;
+    background-color: #00a7b3;
+}
+
+CheckBox::indicator:checked:pressed,
+CheckBox::indicator:indeterminate:pressed {
+    border: 1px solid #3eabb3;
+    background-color: #3eabb3;
+}
+
+CheckBox:disabled {
+    color: rgba(0, 0, 0, 110);
+}
+
+CheckBox::indicator:disabled {
+    border: 1px solid rgba(0, 0, 0, 0.27);
+    background-color: transparent;
+}
+
+CheckBox::indicator:checked:disabled,
+CheckBox::indicator:indeterminate:disabled {
+    border: 1px solid rgb(199, 199, 199);
+    background-color: rgb(199, 199, 199);
+}</string>
+                </property>
+                <property name="text">
+                 <string>包含 R18</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1" colspan="3">
+               <widget class="SubtitleLabel" name="SubtitleLabel_2">
+                <property name="font">
+                 <font>
+                  <family>钉钉进步体</family>
+                  <pointsize>20</pointsize>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#0096fa;&quot;&gt;Pixiv 生成器&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <property name="lightColor" stdset="0">
+                 <color>
+                  <red>0</red>
+                  <green>150</green>
+                  <blue>250</blue>
+                 </color>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="2" colspan="2">
+               <widget class="LineEdit" name="PixivUID">
+                <property name="text">
+                 <string>367798007</string>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="1" colspan="3">
+               <widget class="StrongBodyLabel" name="StrongBodyLabel_5">
+                <property name="font">
+                 <font>
+                  <family>HarmonyOS Sans SC</family>
+                  <pointsize>14</pointsize>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>标签 Tags (可选，使用 &amp; 分割)：</string>
+                </property>
+                <property name="lightColor" stdset="0">
+                 <color>
+                  <red>0</red>
+                  <green>0</green>
+                  <blue>0</blue>
+                 </color>
+                </property>
+               </widget>
+              </item>
+              <item row="11" column="1" colspan="3">
+               <widget class="Slider" name="PixivSlider">
+                <property name="minimumSize">
+                 <size>
+                  <width>200</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </widget>
+          </item>
+          <item>
+           <widget class="HyperlinkLabel" name="HyperlinkLabel">
+            <property name="font">
+             <font>
+              <family>HarmonyOS Sans SC</family>
+              <pointsize>11</pointsize>
+              <bold>true</bold>
+              <underline>false</underline>
+              <strikeout>false</strikeout>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">HyperlinkLabel {
+    color: #0096fa;
+    border: none;
+    background-color: transparent;
+    text-align: left;
+    padding: 0;
+    margin: 0;
+}
+
+HyperlinkLabel[underline=true] {
+    text-decoration: underline;
+}
+
+HyperlinkLabel[underline=false] {
+    text-decoration: none;
+}
+
+HyperlinkLabel:hover {
+    color: #007780;
+}
+
+HyperlinkLabel:pressed {
+    color: #00a7b3;
+}</string>
+            </property>
+            <property name="text">
+             <string>使用即代表您同意《免责声明》</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="widget_2" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>361</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QVBoxLayout {
+    alignment: center;
+}</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_6">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetDefaultConstraint</enum>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <item>
+           <widget class="ElevatedCardWidget" name="ElevatedCardWidget_2">
+            <property name="minimumSize">
+             <size>
+              <width>361</width>
+              <height>450</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_5">
+             <item row="0" column="0">
+              <widget class="HorizontalFlipView" name="PixivImages"/>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="widget_6" native="true">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>51</height>
+             </size>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_4">
+             <item>
+              <spacer name="horizontalSpacer_8">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>210</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_6">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Preferred</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="HorizontalPipsPager" name="PixivShow">
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item>
+                <property name="text">
+                 <string>6</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_10">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>210</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="SpinBox" name="PixivShowNumber">
+               <property name="maximumSize">
+                <size>
+                 <width>150</width>
+                 <height>33</height>
+                </size>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>100</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="CommandBar" name="PixivCommandBar">
+            <property name="minimumSize">
+             <size>
+              <width>1</width>
+              <height>34</height>
+             </size>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Plain</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="page_5">
+      <layout class="QHBoxLayout" name="horizontalLayout_7">
+       <item>
+        <widget class="SimpleCardWidget" name="SimpleCardWidget_4">
+         <property name="minimumSize">
+          <size>
+           <width>380</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>361</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_9">
+          <item>
+           <widget class="SegmentedToolWidget" name="AIPages"/>
+          </item>
+          <item>
+           <widget class="OpacityAniStackedWidget" name="OpacityAniStackedWidget_2">
+            <property name="currentIndex">
+             <number>0</number>
+            </property>
+            <widget class="QWidget" name="page_6">
+             <layout class="QGridLayout" name="gridLayout_10">
+              <item row="0" column="0">
+               <widget class="SmoothScrollArea" name="SmoothScrollArea_3">
+                <property name="styleSheet">
+                 <string notr="true">background: transparent;
+border: none;</string>
+                </property>
+                <property name="widgetResizable">
+                 <bool>true</bool>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <widget class="QWidget" name="scrollAreaWidgetContents_3">
+                 <property name="geometry">
+                  <rect>
+                   <x>0</x>
+                   <y>0</y>
+                   <width>344</width>
+                   <height>765</height>
+                  </rect>
+                 </property>
+                 <layout class="QGridLayout" name="gridLayout_9">
+                  <item row="4" column="1" colspan="3">
+                   <widget class="PlainTextEdit" name="AIGoodTags">
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>150</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">LineEdit, TextEdit, PlainTextEdit {
+    color: black;
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0, 0, 0, 13);
+    border-bottom: 1px solid rgba(0, 0, 0, 100);
+    border-radius: 5px;
+    /* font: 14px &quot;Segoe UI&quot;, &quot;Microsoft YaHei&quot;; */
+    padding: 0px 10px;
+    selection-background-color: #8b2be7;
+}
+
+TextEdit,
+PlainTextEdit {
+    padding: 2px 3px 2px 8px;
+}
+
+LineEdit:hover, TextEdit:hover, PlainTextEdit:hover {
+    background-color: rgba(249, 249, 249, 0.5);
+    border: 1px solid rgba(0, 0, 0, 13);
+    border-bottom: 1px solid rgba(0, 0, 0, 100);
+}
+
+LineEdit:focus {
+    border-bottom: 1px solid rgba(0, 0, 0, 13);
+    background-color: white;
+}
+
+TextEdit:focus,
+PlainTextEdit:focus {
+    border-bottom: 1px solid #009faa;
+    background-color: white;
+}
+
+LineEdit:disabled, TextEdit:disabled,
+PlainTextEdit:disabled {
+    color: rgba(0, 0, 0, 150);
+    background-color: rgba(249, 249, 249, 0.3);
+    border: 1px solid rgba(0, 0, 0, 13);
+    border-bottom: 1px solid rgba(0, 0, 0, 13);
+}
+
+#lineEditButton {
+    background-color: transparent;
+    border-radius: 4px;
+    margin: 0;
+}
+
+#lineEditButton:hover {
+    background-color: rgba(0, 0, 0, 9);
+}
+
+#lineEditButton:pressed {
+    background-color: rgba(0, 0, 0, 6);
+}
+</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="12" column="1">
+                   <widget class="StrongBodyLabel" name="StrongBodyLabel_10">
+                    <property name="font">
+                     <font>
+                      <family>HarmonyOS Sans SC</family>
+                      <pointsize>14</pointsize>
+                      <bold>false</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>最低分辨率：</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="14" column="1">
+                   <spacer name="verticalSpacer_37">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                     <enum>QSizePolicy::Fixed</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="7" column="1" colspan="3">
+                   <widget class="PlainTextEdit" name="AIBadTags">
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>100</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">LineEdit, TextEdit, PlainTextEdit {
+    color: black;
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0, 0, 0, 13);
+    border-bottom: 1px solid rgba(0, 0, 0, 100);
+    border-radius: 5px;
+    /* font: 14px &quot;Segoe UI&quot;, &quot;Microsoft YaHei&quot;; */
+    padding: 0px 10px;
+    selection-background-color: #8b2be7;
+}
+
+TextEdit,
+PlainTextEdit {
+    padding: 2px 3px 2px 8px;
+}
+
+LineEdit:hover, TextEdit:hover, PlainTextEdit:hover {
+    background-color: rgba(249, 249, 249, 0.5);
+    border: 1px solid rgba(0, 0, 0, 13);
+    border-bottom: 1px solid rgba(0, 0, 0, 100);
+}
+
+LineEdit:focus {
+    border-bottom: 1px solid rgba(0, 0, 0, 13);
+    background-color: white;
+}
+
+TextEdit:focus,
+PlainTextEdit:focus {
+    border-bottom: 1px solid #009faa;
+    background-color: white;
+}
+
+LineEdit:disabled, TextEdit:disabled,
+PlainTextEdit:disabled {
+    color: rgba(0, 0, 0, 150);
+    background-color: rgba(249, 249, 249, 0.3);
+    border: 1px solid rgba(0, 0, 0, 13);
+    border-bottom: 1px solid rgba(0, 0, 0, 13);
+}
+
+#lineEditButton {
+    background-color: transparent;
+    border-radius: 4px;
+    margin: 0;
+}
+
+#lineEditButton:hover {
+    background-color: rgba(0, 0, 0, 9);
+}
+
+#lineEditButton:pressed {
+    background-color: rgba(0, 0, 0, 6);
+}
+</string>
+                    </property>
+                    <property name="plainText">
+                     <string>EasyNegative, nsfw, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="16" column="2">
+                   <spacer name="verticalSpacer_33">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                     <enum>QSizePolicy::Fixed</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>5</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="27" column="1">
+                   <spacer name="verticalSpacer_36">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="17" column="1" colspan="2">
+                   <widget class="StrongBodyLabel" name="StrongBodyLabel_12">
+                    <property name="font">
+                     <font>
+                      <family>HarmonyOS Sans SC</family>
+                      <pointsize>14</pointsize>
+                      <bold>false</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>高清修复 (1~10)：</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="23" column="1" colspan="3">
+                   <widget class="StrongBodyLabel" name="StrongBodyLabel_15">
+                    <property name="font">
+                     <font>
+                      <family>HarmonyOS Sans SC</family>
+                      <pointsize>14</pointsize>
+                      <bold>false</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>采样方法：                      Euler a</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="9" column="1">
+                   <spacer name="verticalSpacer_30">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                     <enum>QSizePolicy::Fixed</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>5</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="10" column="1">
+                   <widget class="StrongBodyLabel" name="StrongBodyLabel_7">
+                    <property name="font">
+                     <font>
+                      <family>HarmonyOS Sans SC</family>
+                      <pointsize>14</pointsize>
+                      <bold>false</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>超分倍数 (1~2)：</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="1" colspan="3">
+                   <widget class="SubtitleLabel" name="SubtitleLabel_5">
+                    <property name="font">
+                     <font>
+                      <family>钉钉进步体</family>
+                      <pointsize>20</pointsize>
+                      <bold>false</bold>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(170, 58, 217, 255), stop:1 rgba(106, 55, 233, 255));</string>
+                    </property>
+                    <property name="text">
+                     <string>SRIntelligence AI画图</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="lightColor" stdset="0">
+                     <color>
+                      <red>139</red>
+                      <green>43</green>
+                      <blue>231</blue>
+                     </color>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="2">
+                   <spacer name="verticalSpacer_34">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                     <enum>QSizePolicy::Preferred</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="3" column="1" colspan="3">
+                   <widget class="StrongBodyLabel" name="StrongBodyLabel_8">
+                    <property name="font">
+                     <font>
+                      <family>HarmonyOS Sans SC</family>
+                      <pointsize>14</pointsize>
+                      <bold>false</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>标签 或 描述你想要生成的内容：</string>
+                    </property>
+                    <property name="lightColor" stdset="0">
+                     <color>
+                      <red>0</red>
+                      <green>0</green>
+                      <blue>0</blue>
+                     </color>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="18" column="1">
+                   <spacer name="verticalSpacer_40">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                     <enum>QSizePolicy::Fixed</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>5</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="25" column="1" colspan="3">
+                   <widget class="PrimaryPushButton" name="AIStart">
+                    <property name="styleSheet">
+                     <string notr="true">PushButton, ToolButton, ToggleButton, ToggleToolButton {
+    color: black;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0, 0, 0, 0.073);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.183);
+    border-radius: 5px;
+    /* font: 14px 'Segoe UI', 'Microsoft YaHei'; */
+    padding: 5px 12px 6px 12px;
+    outline: none;
+}
+
+ToolButton {
+    padding: 5px 9px 6px 8px;
+}
+
+PushButton[hasIcon=false] {
+    padding: 5px 12px 6px 12px;
+}
+
+PushButton[hasIcon=true] {
+    padding: 5px 12px 6px 36px;
+}
+
+DropDownToolButton, PrimaryDropDownToolButton {
+    padding: 5px 31px 6px 8px;
+}
+
+DropDownPushButton[hasIcon=false],
+PrimaryDropDownPushButton[hasIcon=false] {
+    padding: 5px 31px 6px 12px;
+}
+
+DropDownPushButton[hasIcon=true],
+PrimaryDropDownPushButton[hasIcon=true] {
+    padding: 5px 31px 6px 36px;
+}
+
+PushButton:hover, ToolButton:hover, ToggleButton:hover, ToggleToolButton:hover {
+    background: rgba(249, 249, 249, 0.5);
+}
+
+PushButton:pressed, ToolButton:pressed, ToggleButton:pressed, ToggleToolButton:pressed {
+    color: rgba(0, 0, 0, 0.63);
+    background: rgba(249, 249, 249, 0.3);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.073);
+}
+
+PushButton:disabled, ToolButton:disabled, ToggleButton:disabled, ToggleToolButton:disabled {
+    color: rgba(0, 0, 0, 0.36);
+    background: rgba(249, 249, 249, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+
+PrimaryPushButton,
+PrimaryToolButton,
+ToggleButton:checked,
+ToggleToolButton:checked {
+    color: white;
+    background-color: #8b2be7;
+    border: 1px solid #b52fff;
+    border-bottom: 1px solid #6c21b3;
+}
+
+PrimaryPushButton:hover,
+PrimaryToolButton:hover,
+ToggleButton:checked:hover,
+ToggleToolButton:checked:hover {
+    background-color: #b52fff;
+    border: 1px solid #2daab3;
+    border-bottom: 1px solid #6c21b3;
+}
+
+PrimaryPushButton:pressed,
+PrimaryToolButton:pressed,
+ToggleButton:checked:pressed,
+ToggleToolButton:checked:pressed {
+    color: rgba(255, 255, 255, 0.63);
+    background-color: #c22fff;
+    border: 1px solid #c22fff;
+}
+
+PrimaryPushButton:disabled,
+PrimaryToolButton:disabled,
+ToggleButton:checked:disabled,
+ToggleToolButton:checked:disabled {
+    color: rgba(255, 255, 255, 0.9);
+    background-color: rgb(205, 205, 205);
+    border: 1px solid rgb(205, 205, 205);
+}
+
+SplitDropButton,
+PrimarySplitDropButton {
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+#splitPushButton,
+#splitToolButton,
+#primarySplitPushButton,
+#primarySplitToolButton {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#splitPushButton:pressed,
+#splitToolButton:pressed,
+SplitDropButton:pressed {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.183);
+}
+
+PrimarySplitDropButton:pressed {
+    border-bottom: 1px solid #6c21b3;
+}
+
+#primarySplitPushButton, #primarySplitToolButton {
+    border-right: 1px solid #c22fff;
+}
+
+#primarySplitPushButton:pressed, #primarySplitToolButton:pressed {
+    border-bottom: 1px solid #6c21b3;
+}
+
+HyperlinkButton {
+    /* font: 14px 'Segoe UI', 'Microsoft YaHei'; */
+    padding: 6px 12px 6px 12px;
+    color: #8b2be7;
+    border: none;
+    border-radius: 6px;
+    background-color: transparent;
+}
+
+HyperlinkButton[hasIcon=false] {
+    padding: 6px 12px 6px 12px;
+}
+
+HyperlinkButton[hasIcon=true] {
+    padding: 6px 12px 6px 36px;
+}
+
+HyperlinkButton:hover {
+    color: #8b2be7;
+    background-color: rgba(0, 0, 0, 10);
+    border: none;
+}
+
+HyperlinkButton:pressed {
+    color: #8b2be7;
+    background-color: rgba(0, 0, 0, 6);
+    border: none;
+}
+
+HyperlinkButton:disabled {
+    color: rgba(0, 0, 0, 0.43);
+    background-color: transparent;
+    border: none;
+}
+
+
+RadioButton {
+    min-height: 24px;
+    max-height: 24px;
+    background-color: transparent;
+    font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC';
+    color: black;
+}
+
+RadioButton::indicator {
+    width: 18px;
+    height: 18px;
+    border-radius: 11px;
+    border: 2px solid #999999;
+    background-color: rgba(0, 0, 0, 5);
+    margin-right: 4px;
+}
+
+RadioButton::indicator:hover {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+RadioButton::indicator:pressed {
+    border: 2px solid #bbbbbb;
+    background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5,
+            stop:0 rgb(255, 255, 255),
+            stop:0.5 rgb(255, 255, 255),
+            stop:0.6 rgb(225, 224, 223),
+            stop:1 rgb(225, 224, 223));
+}
+
+RadioButton::indicator:checked {
+    height: 22px;
+    width: 22px;
+    border: none;
+    border-radius: 11px;
+    background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5,
+            stop:0 rgb(255, 255, 255),
+            stop:0.5 rgb(255, 255, 255),
+            stop:0.6 #8b2be7,
+            stop:1 #8b2be7);
+}
+
+RadioButton::indicator:checked:hover {
+    background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5,
+            stop:0 rgb(255, 255, 255),
+            stop:0.6 rgb(255, 255, 255),
+            stop:0.7 #8b2be7,
+            stop:1 #8b2be7);
+}
+
+RadioButton::indicator:checked:pressed {
+    background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5,
+            stop:0 rgb(255, 255, 255),
+            stop:0.5 rgb(255, 255, 255),
+            stop:0.6 #8b2be7,
+            stop:1 #8b2be7);
+}
+
+RadioButton:disabled {
+    color: rgba(0, 0, 0, 110);
+}
+
+RadioButton::indicator:disabled {
+    border: 2px solid #bbbbbb;
+    background-color: transparent;
+}
+
+RadioButton::indicator:disabled:checked {
+    border: none;
+    background-color: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5,
+            stop:0 rgb(255, 255, 255),
+            stop:0.5 rgb(255, 255, 255),
+            stop:0.6 rgba(0, 0, 0, 0.2169),
+            stop:1 rgba(0, 0, 0, 0.2169));
+}
+
+TransparentToolButton,
+TransparentToggleToolButton,
+TransparentDropDownToolButton,
+TransparentPushButton,
+TransparentDropDownPushButton,
+TransparentTogglePushButton {
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    margin: 0;
+}
+
+TransparentToolButton:hover,
+TransparentToggleToolButton:hover,
+TransparentDropDownToolButton:hover,
+TransparentPushButton:hover,
+TransparentDropDownPushButton:hover,
+TransparentTogglePushButton:hover {
+    background-color: rgba(0, 0, 0, 9);
+    border: none;
+}
+
+TransparentToolButton:pressed,
+TransparentToggleToolButton:pressed,
+TransparentDropDownToolButton:pressed,
+TransparentPushButton:pressed,
+TransparentDropDownPushButton:pressed,
+TransparentTogglePushButton:pressed {
+    background-color: rgba(0, 0, 0, 6);
+    border: none;
+}
+
+TransparentToolButton:disabled,
+TransparentToggleToolButton:disabled,
+TransparentDropDownToolButton:disabled,
+TransprentPushButton:disabled,
+TransparentDropDownPushButton:disabled,
+TransprentTogglePushButton:disabled {
+    background-color: transparent;
+    border: none;
+}
+
+
+PillPushButton,
+PillPushButton:hover,
+PillPushButton:pressed,
+PillPushButton:disabled,
+PillPushButton:checked,
+PillPushButton:checked:hover,
+PillPushButton:checked:pressed,
+PillPushButton:disabled:checked,
+PillToolButton,
+PillToolButton:hover,
+PillToolButton:pressed,
+PillToolButton:disabled,
+PillToolButton:checked,
+PillToolButton:checked:hover,
+PillToolButton:checked:pressed,
+PillToolButton:disabled:checked {
+    background-color: transparent;
+    border: none;
+}
+</string>
+                    </property>
+                    <property name="text">
+                     <string>进入生成列队</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="1" colspan="3">
+                   <widget class="StrongBodyLabel" name="StrongBodyLabel_9">
+                    <property name="font">
+                     <font>
+                      <family>HarmonyOS Sans SC</family>
+                      <pointsize>14</pointsize>
+                      <bold>false</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>反向标签（排除、纠错）：</string>
+                    </property>
+                    <property name="lightColor" stdset="0">
+                     <color>
+                      <red>0</red>
+                      <green>0</green>
+                      <blue>0</blue>
+                     </color>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="26" column="1">
+                   <spacer name="verticalSpacer_35">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                     <enum>QSizePolicy::Fixed</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>10</width>
+                      <height>10</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="19" column="1" colspan="3">
+                   <widget class="StrongBodyLabel" name="StrongBodyLabel_16">
+                    <property name="font">
+                     <font>
+                      <family>HarmonyOS Sans SC</family>
+                      <pointsize>14</pointsize>
+                      <bold>false</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>其他常量：</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="22" column="1" colspan="3">
+                   <widget class="StrongBodyLabel" name="StrongBodyLabel_14">
+                    <property name="font">
+                     <font>
+                      <family>HarmonyOS Sans SC</family>
+                      <pointsize>14</pointsize>
+                      <bold>false</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>迭代步数：                      20</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="12" column="3">
+                   <widget class="ComboBox" name="AISize">
+                    <property name="styleSheet">
+                     <string notr="true">ComboBox {
+    border: 1px solid rgba(0, 0, 0, 0.073);
+    border-radius: 5px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.183);
+    padding: 5px 31px 6px 11px;
+    /* font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC'; */
+    color: black;
+    background-color: rgba(255, 255, 255, 0.7);
+    text-align: left;
+    selection-background-color: #8b2be7
+}
+
+ComboBox:hover {
+    background-color: rgba(249, 249, 249, 0.5);
+}
+
+ComboBox:pressed {
+    background-color: rgba(249, 249, 249, 0.3);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.073);
+    color: rgba(0, 0, 0, 0.63);
+}
+
+ComboBox:disabled {
+    color: rgba(0, 0, 0, 0.36);
+    background: rgba(249, 249, 249, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+</string>
+                    </property>
+                    <property name="text">
+                     <string>1024</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="11" column="1">
+                   <spacer name="verticalSpacer_31">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                     <enum>QSizePolicy::Fixed</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>5</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="13" column="1">
+                   <spacer name="verticalSpacer_38">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                     <enum>QSizePolicy::Fixed</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>5</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="15" column="3">
+                   <widget class="SpinBox" name="AIObey">
+                    <property name="styleSheet">
+                     <string notr="true">SpinBox, DoubleSpinBox, DateEdit, DateTimeEdit, TimeEdit,
+CompactSpinBox,
+CompactDoubleSpinBox,
+CompactDateEdit,
+CompactDateTimeEdit,
+CompactTimeEdit {
+    color: black;
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0, 0, 0, 13);
+    border-bottom: 1px solid rgba(0, 0, 0, 100);
+    border-radius: 5px;
+    /* font: 14px &quot;Segoe UI&quot;, &quot;Microsoft YaHei&quot;; */
+    padding: 0px 80px 0 10px;
+    selection-background-color: #8b2be7;
+}
+
+CompactSpinBox,
+CompactDoubleSpinBox,
+CompactDateEdit,
+CompactDateTimeEdit,
+CompactTimeEdit {
+    padding: 0px 26px 0 10px;
+}
+
+SpinBox:hover,
+DoubleSpinBox:hover,
+DateEdit:hover,
+DateTimeEdit:hover,
+TimeEdit:hover,
+CompactSpinBox:hover,
+CompactDoubleSpinBox:hover,
+CompactDateEdit:hover,
+CompactDateTimeEdit:hover,
+CompactTimeEdit:hover {
+    background-color: rgba(249, 249, 249, 0.5);
+    border: 1px solid rgba(0, 0, 0, 13);
+    border-bottom: 1px solid rgba(0, 0, 0, 100);
+}
+
+SpinBox:focus,
+DoubleSpinBox:focus,
+DateEdit:focus,
+DateTimeEdit:focus,
+TimeEdit:focus,
+CompactSpinBox:focus,
+CompactDoubleSpinBox:focus,
+CompactDateEdit:focus,
+CompactDateTimeEdit:focus,
+CompactTimeEdit:focus {
+    border-bottom: 1px solid rgba(0, 0, 0, 13);
+    background-color: white;
+}
+
+SpinBox:disabled,
+DoubleSpinBox:disabled,
+DateEdit:disabled,
+DateTimeEdit:disabled,
+TimeEdit:disabled,
+CompactSpinBox:disabled,
+CompactDoubleSpinBox:disabled,
+CompactDateEdit:disabled,
+CompactDateTimeEdit:disabled,
+CompactTimeEdit:disabled {
+    color: rgba(0, 0, 0, 150);
+    background-color: rgba(249, 249, 249, 0.5);
+    border: 1px solid rgba(0, 0, 0, 13);
+    border-bottom: 1px solid rgba(0, 0, 0, 13);
+}
+
+SpinButton {
+    background-color: transparent;
+    border-radius: 4px;
+    margin: 0;
+}
+
+SpinButton:hover {
+    background-color: rgba(0, 0, 0, 9);
+}
+
+SpinButton:pressed {
+    background-color: rgba(0, 0, 0, 6);
+}</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="17" column="3">
+                   <widget class="SpinBox" name="AIFix">
+                    <property name="styleSheet">
+                     <string notr="true">SpinBox, DoubleSpinBox, DateEdit, DateTimeEdit, TimeEdit,
+CompactSpinBox,
+CompactDoubleSpinBox,
+CompactDateEdit,
+CompactDateTimeEdit,
+CompactTimeEdit {
+    color: black;
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0, 0, 0, 13);
+    border-bottom: 1px solid rgba(0, 0, 0, 100);
+    border-radius: 5px;
+    /* font: 14px &quot;Segoe UI&quot;, &quot;Microsoft YaHei&quot;; */
+    padding: 0px 80px 0 10px;
+    selection-background-color: #8b2be7;
+}
+
+CompactSpinBox,
+CompactDoubleSpinBox,
+CompactDateEdit,
+CompactDateTimeEdit,
+CompactTimeEdit {
+    padding: 0px 26px 0 10px;
+}
+
+SpinBox:hover,
+DoubleSpinBox:hover,
+DateEdit:hover,
+DateTimeEdit:hover,
+TimeEdit:hover,
+CompactSpinBox:hover,
+CompactDoubleSpinBox:hover,
+CompactDateEdit:hover,
+CompactDateTimeEdit:hover,
+CompactTimeEdit:hover {
+    background-color: rgba(249, 249, 249, 0.5);
+    border: 1px solid rgba(0, 0, 0, 13);
+    border-bottom: 1px solid rgba(0, 0, 0, 100);
+}
+
+SpinBox:focus,
+DoubleSpinBox:focus,
+DateEdit:focus,
+DateTimeEdit:focus,
+TimeEdit:focus,
+CompactSpinBox:focus,
+CompactDoubleSpinBox:focus,
+CompactDateEdit:focus,
+CompactDateTimeEdit:focus,
+CompactTimeEdit:focus {
+    border-bottom: 1px solid rgba(0, 0, 0, 13);
+    background-color: white;
+}
+
+SpinBox:disabled,
+DoubleSpinBox:disabled,
+DateEdit:disabled,
+DateTimeEdit:disabled,
+TimeEdit:disabled,
+CompactSpinBox:disabled,
+CompactDoubleSpinBox:disabled,
+CompactDateEdit:disabled,
+CompactDateTimeEdit:disabled,
+CompactTimeEdit:disabled {
+    color: rgba(0, 0, 0, 150);
+    background-color: rgba(249, 249, 249, 0.5);
+    border: 1px solid rgba(0, 0, 0, 13);
+    border-bottom: 1px solid rgba(0, 0, 0, 13);
+}
+
+SpinButton {
+    background-color: transparent;
+    border-radius: 4px;
+    margin: 0;
+}
+
+SpinButton:hover {
+    background-color: rgba(0, 0, 0, 9);
+}
+
+SpinButton:pressed {
+    background-color: rgba(0, 0, 0, 6);
+}</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="15" column="1" colspan="2">
+                   <widget class="StrongBodyLabel" name="StrongBodyLabel_11">
+                    <property name="font">
+                     <font>
+                      <family>HarmonyOS Sans SC</family>
+                      <pointsize>14</pointsize>
+                      <bold>false</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>标签契合度 (1~10)：</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="1">
+                   <spacer name="verticalSpacer_32">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                     <enum>QSizePolicy::Fixed</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>5</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="21" column="1" colspan="3">
+                   <widget class="StrongBodyLabel" name="StrongBodyLabel_13">
+                    <property name="font">
+                     <font>
+                      <family>HarmonyOS Sans SC</family>
+                      <pointsize>14</pointsize>
+                      <bold>false</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>超分算法：                      Lanczos</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="20" column="1" colspan="3">
+                   <widget class="StrongBodyLabel" name="StrongBodyLabel_6">
+                    <property name="font">
+                     <font>
+                      <family>HarmonyOS Sans SC</family>
+                      <pointsize>14</pointsize>
+                      <bold>false</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>重绘幅度：                      0.5</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="24" column="1">
+                   <spacer name="verticalSpacer_39">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                     <enum>QSizePolicy::Fixed</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>5</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="10" column="3">
+                   <widget class="DoubleSpinBox" name="DoubleSpinBox"/>
+                  </item>
+                 </layout>
+                </widget>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="page_7">
+             <layout class="QGridLayout" name="gridLayout_12">
+              <item row="0" column="0">
+               <widget class="SmoothScrollArea" name="SmoothScrollArea_4">
+                <property name="styleSheet">
+                 <string notr="true">background: transparent;
+border: none;</string>
+                </property>
+                <property name="widgetResizable">
+                 <bool>true</bool>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <widget class="QWidget" name="scrollAreaWidgetContents_4">
+                 <property name="geometry">
+                  <rect>
+                   <x>0</x>
+                   <y>0</y>
+                   <width>344</width>
+                   <height>434</height>
+                  </rect>
+                 </property>
+                 <layout class="QGridLayout" name="gridLayout_11">
+                  <item row="4" column="1" colspan="2">
+                   <widget class="IndeterminateProgressBar" name="AIProgress">
+                    <property name="styleSheet">
+                     <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(170, 58, 217, 255), stop:1 rgba(106, 55, 233, 255));
+border-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(170, 58, 217, 255), stop:1 rgba(106, 55, 233, 255));
+color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(170, 58, 217, 255), stop:1 rgba(106, 55, 233, 255));
+gridline-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(170, 58, 217, 255), stop:1 rgba(106, 55, 233, 255));</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="1">
+                   <widget class="TableView" name="AIList"/>
+                  </item>
+                  <item row="1" column="1" colspan="2">
+                   <widget class="SubtitleLabel" name="SubtitleLabel_6">
+                    <property name="font">
+                     <font>
+                      <family>钉钉进步体</family>
+                      <pointsize>20</pointsize>
+                      <bold>false</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#8b2be7;&quot;&gt;生成队列 — 正在进行&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="lightColor" stdset="0">
+                     <color>
+                      <red>139</red>
+                      <green>43</green>
+                      <blue>231</blue>
+                     </color>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="1">
+                   <spacer name="verticalSpacer_49">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                     <enum>QSizePolicy::Fixed</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="5" column="1">
+                   <spacer name="verticalSpacer_41">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                     <enum>QSizePolicy::Fixed</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>5</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </widget>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </widget>
+          </item>
+          <item>
+           <widget class="BodyLabel" name="BodyLabel_2">
+            <property name="text">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;基于 &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:700;&quot;&gt;Stable Diffusion&lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt; v1 构建&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="BodyLabel" name="BodyLabel">
+            <property name="text">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;由 &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:700; text-decoration: underline;&quot;&gt;SRIntelligence Service服务器集群&lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt; 提供云端处理支持&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="widget_4" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>361</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_8" stretch="0,0,0">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetDefaultConstraint</enum>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <item>
+           <widget class="ElevatedCardWidget" name="ElevatedCardWidget_3">
+            <property name="minimumSize">
+             <size>
+              <width>361</width>
+              <height>450</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_8">
+             <item row="0" column="0">
+              <widget class="HorizontalFlipView" name="AIImages">
+               <property name="minimumSize">
+                <size>
+                 <width>480</width>
+                 <height>270</height>
+                </size>
+               </property>
+               <property name="sizeIncrement">
+                <size>
+                 <width>0</width>
+                 <height>-1</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="widget_5" native="true">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>51</height>
+             </size>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_6">
+             <item>
+              <spacer name="horizontalSpacer_13">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>163</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_14">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Preferred</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>27</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="HorizontalPipsPager" name="AIShow">
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item/>
+               <item>
+                <property name="text">
+                 <string>6</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_15">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>162</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="SpinBox" name="AIShowNumber">
+               <property name="maximumSize">
+                <size>
+                 <width>150</width>
+                 <height>33</height>
+                </size>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>100</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="CommandBar" name="AICommandBar">
+            <property name="minimumSize">
+             <size>
+              <width>1</width>
+              <height>34</height>
+             </size>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Plain</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="page_4">
+      <layout class="QGridLayout" name="gridLayout_7">
+       <item row="0" column="0">
+        <widget class="SimpleCardWidget" name="SimpleCardWidget_3">
+         <layout class="QGridLayout" name="gridLayout_6">
+          <item row="13" column="2" colspan="5">
+           <widget class="LineEdit" name="UserInputAgency">
+            <property name="text">
+             <string>http://</string>
+            </property>
+           </widget>
+          </item>
+          <item row="17" column="6" rowspan="2">
+           <widget class="PrimaryPushButton" name="SaveSettings">
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>应用</string>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="1">
+           <widget class="RadioButton" name="InsiderAgency">
+            <property name="text">
+             <string>内置代理</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <spacer name="verticalSpacer_27">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>5</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="18" column="8">
+           <spacer name="verticalSpacer_26">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>10</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="20" column="6">
+           <spacer name="verticalSpacer_25">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>10</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="7" column="1">
+           <spacer name="verticalSpacer_24">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>10</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="14" column="2">
+           <spacer name="verticalSpacer_23">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="8" column="0">
+           <spacer name="horizontalSpacer_12">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>15</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="13" column="1">
+           <widget class="RadioButton" name="UserAgency">
+            <property name="text">
+             <string>自定义代理：</string>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="1">
+           <widget class="SubtitleLabel" name="SubtitleLabel_4">
+            <property name="text">
+             <string>Pixiv 代理设置：</string>
+            </property>
+           </widget>
+          </item>
+          <item row="12" column="1">
+           <widget class="RadioButton" name="NoAgency">
+            <property name="text">
+             <string>无代理/系统代理</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="4">
+           <spacer name="horizontalSpacer_11">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="5" column="1" colspan="5">
+           <widget class="LineEdit" name="SavePath"/>
+          </item>
+          <item row="5" column="6">
+           <widget class="PushButton" name="ChosePath">
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>选取 </string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="LargeTitleLabel" name="LargeTitleLabel">
+            <property name="font">
+             <font>
+              <family>HarmonyOS Sans SC</family>
+              <pointsize>32</pointsize>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>设置</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="SubtitleLabel" name="SubtitleLabel_3">
+            <property name="text">
+             <string>图片保存路径：</string>
+            </property>
+           </widget>
+          </item>
+          <item row="18" column="1">
+           <widget class="PushButton" name="AboutButton">
+            <property name="minimumSize">
+             <size>
+              <width>140</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>关于 壁纸生成器</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>ComboBox</class>
+   <extends>QPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>PushButton</class>
+   <extends>QPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>PrimaryPushButton</class>
+   <extends>PushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>RadioButton</class>
+   <extends>QRadioButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>Slider</class>
+   <extends>QSlider</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>CardWidget</class>
+   <extends>QFrame</extends>
+   <header>qfluentwidgets</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ElevatedCardWidget</class>
+   <extends>SimpleCardWidget</extends>
+   <header>qfluentwidgets</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SimpleCardWidget</class>
+   <extends>CardWidget</extends>
+   <header>qfluentwidgets</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SmoothScrollArea</class>
+   <extends>QScrollArea</extends>
+   <header>qfluentwidgets</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>OpacityAniStackedWidget</class>
+   <extends>QStackedWidget</extends>
+   <header>qfluentwidgets</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>BodyLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>StrongBodyLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>SubtitleLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>TitleLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>LargeTitleLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>DisplayLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>HyperlinkLabel</class>
+   <extends>QPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>Pivot</class>
+   <extends>QWidget</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>SegmentedWidget</class>
+   <extends>Pivot</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>SegmentedToolWidget</class>
+   <extends>Pivot</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>IndeterminateProgressBar</class>
+   <extends>QProgressBar</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>LineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>PlainTextEdit</class>
+   <extends>QPlainTextEdit</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>SpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>DoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>CommandBar</class>
+   <extends>QFrame</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>TableView</class>
+   <extends>QTableView</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>HorizontalFlipView</class>
+   <extends>QListWidget</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>HorizontalPipsPager</class>
+   <extends>QListWidget</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="V4Resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>

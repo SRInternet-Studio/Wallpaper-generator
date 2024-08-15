@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>908</width>
+    <height>448</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget {
+    border: none;
+    border-radius: 15px;
+}</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="SimpleCardWidget" name="SimpleCardWidget">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QWidget" name="widget_2" native="true">
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="TitleLabel" name="TitleLabel">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>HarmonyOS Sans SC</family>
+             <pointsize>21</pointsize>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>免责声明</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="BodyLabel" name="BodyLabel">
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>思锐工作室 对于《壁纸生成器》系列产品的用户须知和免责声明（以下简称《声明》），请所有用户在使用本产品前务必认真仔细阅读。使用本产品即代表您同意本《声明》。
+1. 本软件依赖于 Miklroi API、Lolicon API 等其他接口和开源项目，所有本产品相关的内容及所生成的任何图片均不可以用作任何商业用途，生成的图片由其作者保留所有权利，思锐工作室及其用户不承担任何责任和义务保护图片资源的规范和权利不受侵犯。若是AI生成的图片资源，则该图片无实际权利所有人，或按照生成该图片的AI机构认定权利归属。
+2. 本产品永不用于任何商业用途。若有图片作者认为本系列产品侵犯了其正当权益，请与接口提供商和开源项目负责人联系和交涉，思锐工作室及其用户不承担任何责任。
+3. 本产品所生成的任何图片资源均来源于接口提供商和开源项目，由接口提供商和开源项目通过爬取或代理（《Pixiv 生成器》除外）网络图片资源并返回给本产品。若图片有任何不规范的内容，思锐工作室及其用户不承担任何责任，所有图片资源均来自于网络。
+4. 请所有用户遵守以上须知并严格遵守中华人民共和国法律，不得用本产品进行任何非法活动或侵犯他人权利的活动，不得试图使用本产品生成任何不符合法律或规范的图片。
+5. 本产品仅供学习交流和娱乐使用，所有保存的图片请于24小时内删除。
+6. 变更通知
+若本《声明》的内容有任何变更，恕我们不另行通知，请用户每次更新本产品后及时阅读本《声明》以获得最新信息。
+思锐工作室 2024.1.28 思锐工作室保留所有权和最终解释权</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignJustify|Qt::AlignTop</set>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="widget" native="true">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>50</height>
+      </size>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="PrimaryPushButton" name="PrimaryPushButton">
+        <property name="text">
+         <string>同意</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="PushButton" name="PushButton">
+        <property name="text">
+         <string>取消</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PushButton</class>
+   <extends>QPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>PrimaryPushButton</class>
+   <extends>PushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>CardWidget</class>
+   <extends>QFrame</extends>
+   <header>qfluentwidgets</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SimpleCardWidget</class>
+   <extends>CardWidget</extends>
+   <header>qfluentwidgets</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>BodyLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>TitleLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
