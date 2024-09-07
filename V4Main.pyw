@@ -5,8 +5,8 @@ from 壁纸生成器V4 import Ui_Form  # 这里是转换后的 Python 文件
 
 class MainWindow(QWidget, Ui_Form):
     def __init__(self, parent=None):
-        super(MainWindow, self).__init__(parent)
-        self.setupUi(self)  # 初始化 UI 界面
+        super(MainWindow, self).__init__(parent) 
+        self.setupUi(self)  # 初始化 UI 界
 
     def resizeEvent(self, event):
         print("set background")
@@ -44,6 +44,7 @@ def main():
     # else:
     #     asyncio.set_event_loop(loop)
         
+
     sys.exit(app.exec())
 
 if __name__ == "__main__":

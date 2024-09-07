@@ -10,6 +10,7 @@
 
 import asyncio
 import base64
+import subprocess
 import psutil
 import re
 import ctypes
@@ -44,8 +45,8 @@ import V4Resources
 from datetime import datetime
 from PIL import Image
 
-import Dialog as DialogUi # type: ignore
-import V4About 
+import Dialog as DialogUi  # type: ignore
+import V4About
 
 import logging
 import os
@@ -138,7 +139,7 @@ class Ui_Form(object):
         self.MainUI.setStyleSheet(
             f"background-image: url('.//BACKIMG2.png'); background-repeat: no-repeat; background-position: center;")
 
-        pixmap = QPixmap('./BACKIMG1.png') #<---------------背景图片
+        pixmap = QPixmap('./BACKIMG1.png')  # <---------------背景图片
         self.pixmap = pixmap  # 加载图片
 
         # self.palette = QPalette()
@@ -283,7 +284,7 @@ class Ui_Form(object):
         self.effect_shadow.setOffset(0, 0)
         self.effect_shadow.setBlurRadius(30)
         self.effect_shadow.setColor(Qt.GlobalColor.gray)
-        
+
         self.DisplayLabel = DisplayLabel(self.page)
         self.DisplayLabel.setObjectName(u"DisplayLabel")
         self.DisplayLabel.setMaximumSize(QSize(16777215, 30))
@@ -294,7 +295,7 @@ class Ui_Form(object):
         self.DisplayLabel.setFont(font)
         self.DisplayLabel.setAlignment(Qt.AlignBottom | Qt.AlignHCenter)
         self.DisplayLabel.setProperty("lightColor", QColor(245, 245, 245))
-        #self.DisplayLabel.setProperty("lightColor", QColor(30, 30, 30))
+        # self.DisplayLabel.setProperty("lightColor", QColor(30, 30, 30))
         self.DisplayLabel.setProperty("darkColor", QColor(0, 0, 0))
         self.DisplayLabel.setGraphicsEffect(self.effect_shadow)
 
@@ -309,7 +310,7 @@ class Ui_Form(object):
         self.TitleLabel.setFont(font1)
         self.TitleLabel.setAlignment(Qt.AlignBottom | Qt.AlignHCenter)
         self.TitleLabel.setProperty("lightColor", QColor(245, 245, 245))
-        #self.TitleLabel.setProperty("lightColor", QColor(30, 30, 30))
+        # self.TitleLabel.setProperty("lightColor", QColor(30, 30, 30))
         self.TitleLabel.setProperty("darkColor", QColor(0, 0, 0))
         self.TitleLabel.setGraphicsEffect(self.effect_shadow)
 
@@ -973,7 +974,8 @@ class Ui_Form(object):
         self.PixivProgress = IndeterminateProgressBar(
             self.scrollAreaWidgetContents_2)
         self.PixivProgress.setObjectName(u"PixivProgress")
-        self.PixivProgress.setCustomBarColor(QColor(0, 150, 250), QColor(0, 150, 250))
+        self.PixivProgress.setCustomBarColor(
+            QColor(0, 150, 250), QColor(0, 150, 250))
         self.PixivProgress.setVisible(False)
 
         self.gridLayout_4.addWidget(self.PixivProgress, 15, 1, 1, 3)
@@ -2657,7 +2659,7 @@ class Ui_Form(object):
                                       "color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(170, 58, 217, 255), stop:1 rgba(106, 55, 233, 255));\n"
                                       "gridline-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(170, 58, 217, 255), stop:1 rgba(106, 55, 233, 255));")
         light = QColor(139, 43, 231)
-        self.AIProgress.setCustomBarColor(light,light)
+        self.AIProgress.setCustomBarColor(light, light)
         self.AIProgress.setVisible(False)
 
         self.gridLayout_11.addWidget(self.AIProgress, 4, 1, 1, 2)
@@ -3249,8 +3251,9 @@ class Ui_Form(object):
             "Form", u"\u9009\u53d6 ", None))
         self.UserInputAgency.setText(QCoreApplication.translate(
             "Form", u"不包含 http:// 或 https:// 的链接（例如 i.pixiv.re ）", None))
-        
-        self.AboutButton.setText(QCoreApplication.translate("Form", u"\u5173\u4e8e \u58c1\u7eb8\u751f\u6210\u5668", None))
+
+        self.AboutButton.setText(QCoreApplication.translate(
+            "Form", u"\u5173\u4e8e \u58c1\u7eb8\u751f\u6210\u5668", None))
 
         self.ACGShow.setPageNumber(self.ACGImages.count())
         self.PixivShow.setPageNumber(self.PixivImages.count())
@@ -3274,7 +3277,7 @@ class Ui_Form(object):
         # 使用正则表达式替换特殊字符为空
         cleaned_filename = re.sub(special_chars, '', filename)
         return cleaned_filename
-    
+
     def showAbout(self):
         BatchWindow = QDialog()
         ui1 = V4About.Ui_Dialog()
@@ -3385,7 +3388,7 @@ class Ui_Form(object):
             target=self.SaveSettings,
             parent=self,
             isClosable=True,
-            image=None
+
         )
 
     def ChoosePaths(self):
@@ -3399,6 +3402,18 @@ class Ui_Form(object):
             if proc.info['name'] == process_name:
                 return True
         return False
+    
+    def is_connected(self) -> bool:
+        try:
+            subprocess.check_call(
+                ['ping', 'cn.bing.com', '-n', '1'],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                creationflags=subprocess.CREATE_NO_WINDOW
+            )
+            return True
+        except subprocess.CalledProcessError:
+            return False
 
 
 # ———————————————————————————————————————
@@ -3442,8 +3457,11 @@ class Ui_Form(object):
                     FlyoutAnimationType.DROP_DOWN)
 
     def ACGSetBackground(self):
-        new_wall: str = self.GeneratedACG[self.ACGImages.currentIndex()]
-        ctypes.windll.user32.SystemParametersInfoW(20, 0, new_wall, 3)
+        new_wall: str = '"{}"'.format(self.GeneratedACG[self.ACGImages.currentIndex()])
+        # ctypes.windll.user32.SystemParametersInfoW(20, 0, new_wall, 3)
+        # os.startfile("Set_Wallpaper.exe", arguments=new_wall)
+        process = subprocess.Popen(f"Set_Wallpaper.exe {new_wall}")
+        process.wait()
 
         Flyout.create(
             icon=InfoBarIcon.SUCCESS,
@@ -3452,7 +3470,7 @@ class Ui_Form(object):
             target=self.ACGImages,
             parent=self,
             isClosable=True,
-            image=None
+
         )
 
         print("ACGSetBackground: " + new_wall)
@@ -3472,7 +3490,7 @@ class Ui_Form(object):
                     target=self.ToACG,
                     parent=self,
                     isClosable=True,
-                    image=None
+
                 )
         except:
             Flyout.create(
@@ -3482,10 +3500,8 @@ class Ui_Form(object):
                 target=self.ToACG,
                 parent=self,
                 isClosable=True,
-                image=None
+
             )
-        
-        
 
     # def ToPixivClicked(self):
     #     self.OpacityAniStackedWidget.setCurrentIndex(2)
@@ -3507,7 +3523,7 @@ class Ui_Form(object):
                     target=self.ToAI,
                     parent=self,
                     isClosable=True,
-                    image=None
+
                 )
         except:
             Flyout.create(
@@ -3517,7 +3533,7 @@ class Ui_Form(object):
                 target=self.ToAI,
                 parent=self,
                 isClosable=True,
-                image=None
+
             )
 
     def ACGUseContent(self, checked):
@@ -3559,6 +3575,32 @@ class Ui_Form(object):
         self.ACGImages.setCurrentIndex(self.ACGShow.currentIndex())
 
     def ACGStartGenerator(self):
+        if not self.is_connected():
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle("没有网络可供使用")
+            msg_box.setText("壁纸生成器 无法生成壁纸，因为需要一个活动的网络连接，但您的电脑没有链接到任何可用的网络。\n\n解决方案：单击系统任务栏右下角的网络图标，更换网络后重试。或右键网络图标，选择“诊断网络问题”或“疑难解答”。")
+            msg_box.setIcon(QMessageBox.Icon.Critical)
+            msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
+            msg_box.show()
+            msg_box.exec()
+
+            self.ACGStart.setText("生成")
+
+            self.ACGStart.setEnabled(True)
+            self.ACGProgress.setVisible(False)
+            self.TopMenu.setEnabled(True)
+
+            Flyout.create(
+                icon=InfoBarIcon.WARNING,
+                title=f'生成未成功',
+                content=r"请检查您的网络后重试 {{{(>_<)}}}",
+                target=self.ACGStart,
+                parent=self,
+                isClosable=True,
+
+            )
+            return
+
         try:
             print("StartGenerate")
 
@@ -3600,7 +3642,7 @@ class Ui_Form(object):
                 target=self.ACGStart,
                 parent=self,
                 isClosable=True,
-                image=None
+
             )
 
             parameters = {
@@ -3698,11 +3740,12 @@ class Ui_Form(object):
                 target=self.ACGStart,
                 parent=self,
                 isClosable=True,
-                image=None
+
             )
         except (TimeoutError, ConnectionError, ConnectionRefusedError, ConnectionResetError, ConnectionAbortedError, requests.exceptions.ConnectionError) as e:
 
-            e_list = str(traceback.format_exc()).split("\nDuring handling of the above exception, another exception occurred:\n")
+            e_list = str(traceback.format_exc()).split(
+                "\nDuring handling of the above exception, another exception occurred:\n")
             msg_box = QMessageBox()
             msg_box.setWindowTitle("由于遇到错误，壁纸生成停止")
             msg_box.setText(
@@ -3725,7 +3768,7 @@ class Ui_Form(object):
                 target=self.ACGStart,
                 parent=self,
                 isClosable=True,
-                image=None
+
             )
 
         except MemoryError as e:
@@ -3750,7 +3793,7 @@ class Ui_Form(object):
                 target=self.ACGStart,
                 parent=self,
                 isClosable=True,
-                image=None
+
             )
 
         except SystemError as e:
@@ -3776,7 +3819,7 @@ class Ui_Form(object):
                 target=self.ACGStart,
                 parent=self,
                 isClosable=True,
-                image=None
+
             )
 
         except OverflowError as e:
@@ -3802,7 +3845,7 @@ class Ui_Form(object):
                 target=self.ACGStart,
                 parent=self,
                 isClosable=True,
-                image=None
+
             )
 
         except Exception as e:
@@ -3829,7 +3872,7 @@ class Ui_Form(object):
                 target=self.ACGStart,
                 parent=self,
                 isClosable=True,
-                image=None
+
             )
 
 
@@ -3923,9 +3966,12 @@ class Ui_Form(object):
         BatchWindow.exec_()
 
     def PixivSetBackground(self):
-        new_wall: str = self.GeneratedPixiv[self.PixivImages.currentIndex(
-        )]['save']
-        ctypes.windll.user32.SystemParametersInfoW(20, 0, new_wall, 3)
+        new_wall: str = '"{}"'.format(self.GeneratedPixiv[self.PixivImages.currentIndex()]['save'])
+        # ctypes.windll.user32.SystemParametersInfoW(20, 0, new_wall, 3)
+        # os.startfile("Set_Wallpaper.exe", arguments=new_wall)
+        # process = subprocess.Popen(executable="Set_Wallpaper.exe", args=new_wall)
+        process = subprocess.Popen(f"Set_Wallpaper.exe {new_wall}")
+        process.wait()
 
         Flyout.create(
             icon=InfoBarIcon.SUCCESS,
@@ -3934,7 +3980,7 @@ class Ui_Form(object):
             target=self.PixivImages,
             parent=self,
             isClosable=True,
-            image=None
+
         )
 
         print("PixivSetBackground: " + new_wall)
@@ -3996,16 +4042,44 @@ class Ui_Form(object):
         print("Show dialog window.")
 
     def Pixiv_fetch_data(self, url):
+        print("Pixiv_fetch_data")
         try:
             response = requests.get(url)
             self.pixiv_request = response.json()
         except:
             self.pixiv_request = "Failed\n" + traceback.format_exc()
-        
+        print(f"response: {self.pixiv_request}")
+
         # print(args)
         # print(kwargs)
 
     async def PixivStartGenerator(self):
+        if not self.is_connected():
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle("没有网络可供使用")
+            msg_box.setText("壁纸生成器 无法生成壁纸，因为需要一个活动的网络连接，但您的电脑没有链接到任何可用的网络。\n\n解决方案：单击系统任务栏右下角的网络图标，更换网络后重试。或右键网络图标，选择“诊断网络问题”或“疑难解答”。")
+            msg_box.setIcon(QMessageBox.Icon.Critical)
+            msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
+            msg_box.show()
+            msg_box.exec()
+
+            self.ACGStart.setText("生成")
+
+            self.ACGStart.setEnabled(True)
+            self.ACGProgress.setVisible(False)
+            self.TopMenu.setEnabled(True)
+
+            Flyout.create(
+                icon=InfoBarIcon.WARNING,
+                title=f'生成未成功',
+                content=r"请检查您的网络后重试 {{{(>_<)}}}",
+                target=self.PixivStart,
+                parent=self,
+                isClosable=True,
+
+            )
+            return
+        
         try:
             print("StartPixiv")
 
@@ -4033,7 +4107,7 @@ class Ui_Form(object):
                 target=self.PixivStart,
                 parent=self,
                 isClosable=True,
-                image=None
+
             )
 
             print("Pixiv 拼接 Url")
@@ -4189,7 +4263,7 @@ class Ui_Form(object):
                     target=self.PixivStart,
                     parent=self,
                     isClosable=True,
-                    image=None
+
                 )
             else:
                 Flyout.create(
@@ -4199,7 +4273,7 @@ class Ui_Form(object):
                     target=self.PixivStart,
                     parent=self,
                     isClosable=True,
-                    image=None
+
                 )
 
         except IndexError as e:
@@ -4225,12 +4299,13 @@ class Ui_Form(object):
                 target=self.PixivStart,
                 parent=self,
                 isClosable=True,
-                image=None
+
             )
 
         except (TimeoutError, ConnectionError, ConnectionRefusedError, ConnectionResetError, ConnectionAbortedError, requests.exceptions.ConnectionError) as e:
 
-            e_list = str(e).split("\nDuring handling of the above exception, another exception occurred:\n")
+            e_list = str(e).split(
+                "\nDuring handling of the above exception, another exception occurred:\n")
             msg_box = QMessageBox()
             msg_box.setWindowTitle("由于遇到错误，壁纸生成停止")
             msg_box.setText(
@@ -4253,7 +4328,7 @@ class Ui_Form(object):
                 target=self.PixivStart,
                 parent=self,
                 isClosable=True,
-                image=None
+
             )
 
         except MemoryError as e:
@@ -4278,7 +4353,7 @@ class Ui_Form(object):
                 target=self.PixivStart,
                 parent=self,
                 isClosable=True,
-                image=None
+
             )
 
         except SystemError as e:
@@ -4304,7 +4379,7 @@ class Ui_Form(object):
                 target=self.PixivStart,
                 parent=self,
                 isClosable=True,
-                image=None
+
             )
 
         except OverflowError as e:
@@ -4330,10 +4405,11 @@ class Ui_Form(object):
                 target=self.PixivStart,
                 parent=self,
                 isClosable=True,
-                image=None
+
             )
 
         except Exception as e:
+            print(traceback.format_exc())
             msg_box = QMessageBox()
             msg_box.setWindowTitle("由于遇到错误，壁纸生成停止")
             msg_box.setText(
@@ -4356,7 +4432,7 @@ class Ui_Form(object):
                 target=self.PixivStart,
                 parent=self,
                 isClosable=True,
-                image=None
+
             )
 
 # ———————————————————————————————————————
@@ -4428,8 +4504,12 @@ class Ui_Form(object):
         self.AIShowNumber.setMaximum(0)
 
     def AISetBackground(self):
-        new_wall: str = self.GeneratedAI[self.AIImages.currentIndex()]
-        ctypes.windll.user32.SystemParametersInfoW(20, 0, new_wall, 3)
+        new_wall: str = '"{}"'.format(self.GeneratedAI[self.AIImages.currentIndex()])
+        # ctypes.windll.user32.SystemParametersInfoW(20, 0, new_wall, 3)
+        # os.startfile("Set_Wallpaper.exe", arguments=new_wall)
+        # 调用可执行文件并传入参数
+        process = subprocess.Popen(f"Set_Wallpaper.exe {new_wall}")
+        process.wait()
 
         Flyout.create(
             icon=InfoBarIcon.SUCCESS,
@@ -4438,7 +4518,7 @@ class Ui_Form(object):
             target=self.AIImages,
             parent=self,
             isClosable=True,
-            image=None
+
         )
 
         print("AISetBackground: " + new_wall)
@@ -4459,7 +4539,7 @@ class Ui_Form(object):
         self.AIImages.setCurrentIndex(self.AIShow.currentIndex())
 
     def GetAIGenerated(self, ToURL, payload):
-        
+
         try:
             nice = payload['prompt']
 
@@ -4478,7 +4558,9 @@ class Ui_Form(object):
             self.updateWorkingList(self.AIWorkingList)
             print(self.AIWorkingList)
 
-            response = requests.post(url=f"{ToURL}/sdapi/v1/txt2img", json=payload)
+            print(f"{ToURL}sdapi/v1/txt2img")
+            response = requests.post(
+                url=f"{ToURL}sdapi/v1/txt2img", json=payload)
             r = response.json()
             print(r)
 
@@ -4524,10 +4606,14 @@ class Ui_Form(object):
         except OverflowError as e:
             self.error_AIsignal.emit(f"o⅒{traceback.format_exc()}")
 
+        except requests.exceptions.JSONDecodeError as e:
+            self.error_AIsignal.emit(f"j⅒{traceback.format_exc()}")
+
+        except KeyError as e:
+            self.error_AIsignal.emit(f"k⅒{r}")
+
         except Exception as e:
             self.error_AIsignal.emit(f"e⅒{traceback.format_exc()}")
-
-        
 
     def GetAICompleted(self, saved_filename):
         self.AIImages.addImage(saved_filename)
@@ -4556,12 +4642,17 @@ class Ui_Form(object):
                     raise SystemError()
                 case "o":
                     raise OverflowError()
+                case "j":
+                    raise requests.exceptions.JSONDecodeError()
+                case "k":
+                    raise KeyError()
                 case "e":
                     raise Exception()
 
         except (TimeoutError, ConnectionError, ConnectionRefusedError, ConnectionResetError, ConnectionAbortedError, requests.exceptions.ConnectionError) as e:
 
-            e_list = str(em[1]).split("\nDuring handling of the above exception, another exception occurred:\n")
+            e_list = str(em[1]).split(
+                "\nDuring handling of the above exception, another exception occurred:\n")
             msg_box = QMessageBox()
             msg_box.setWindowTitle("由于遇到错误，壁纸生成停止")
             msg_box.setText(
@@ -4584,9 +4675,9 @@ class Ui_Form(object):
                 target=self.AIStart,
                 parent=self,
                 isClosable=True,
-                image=None
+
             )
-            #pass
+            # pass
 
         except MemoryError as e:
             msg_box = QMessageBox()
@@ -4610,7 +4701,7 @@ class Ui_Form(object):
                 target=self.AIStart,
                 parent=self,
                 isClosable=True,
-                image=None
+
             )
 
         except SystemError as e:
@@ -4636,7 +4727,7 @@ class Ui_Form(object):
                 target=self.AIStart,
                 parent=self,
                 isClosable=True,
-                image=None
+
             )
 
         except OverflowError as e:
@@ -4662,8 +4753,60 @@ class Ui_Form(object):
                 target=self.AIStart,
                 parent=self,
                 isClosable=True,
-                image=None
+
             )
+
+        except requests.exceptions.JSONDecodeError as e:
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle("生成已超时")
+            msg_box.setText("一张图片的生成时间超出了我们的预期，或生成了无法被读取的内容。请您稍后再试。\n若全部图片均出现此类错误，请反馈给我们，因为这有可能是我们的服务器出现了以外的错误。")
+            msg_box.setIcon(QMessageBox.Icon.Warning)
+            msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
+            msg_box.show()
+            msg_box.exec()
+
+            self.AIStart.setText("生成")
+
+            self.AIStart.setEnabled(True)
+            self.AIProgress.setVisible(False)
+            self.TopMenu.setEnabled(True)
+
+            Flyout.create(
+                icon=InfoBarIcon.WARNING,
+                title=f'生成意外结束',
+                content=f"检查弹出的窗口信息，并向我们反馈必要的内容，谢谢帮助o(TヘTo)",
+                target=self.AIStart,
+                parent=self,
+                isClosable=True,
+
+            )
+
+        except KeyError as e:
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle("由于遇到错误，壁纸生成停止")
+            msg_box.setText(
+                "我们的模型服务器发生了错误，可能是因为生成质量超标。建议降低分辨率或超分倍数以避免此问题。\n若多次发生此类错误，可将以下详细信息截图并反馈：\n\n" + em[1])
+            msg_box.setIcon(QMessageBox.Icon.Critical)
+            msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
+            msg_box.show()
+            msg_box.exec()
+
+            self.AIStart.setText("生成")
+
+            self.AIStart.setEnabled(True)
+            self.AIProgress.setVisible(False)
+            self.TopMenu.setEnabled(True)
+
+            Flyout.create(
+                icon=InfoBarIcon.ERROR,
+                title=f'生成意外结束',
+                content=f"检查弹出的窗口信息，并向我们反馈必要的内容，谢谢帮助o(TヘTo)",
+                target=self.AIStart,
+                parent=self,
+                isClosable=True,
+
+            )
+
 
         except Exception as e:
             msg_box = QMessageBox()
@@ -4688,7 +4831,7 @@ class Ui_Form(object):
                 target=self.AIStart,
                 parent=self,
                 isClosable=True,
-                image=None
+
             )
 
         self.AIWorkingList.pop(0)
@@ -4697,8 +4840,32 @@ class Ui_Form(object):
 
         print(self.AIWorkingList)
 
-
     def AISStartGenerator(self):
+        if not self.is_connected():
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle("没有网络可供使用")
+            msg_box.setText("壁纸生成器 无法生成壁纸，因为需要一个活动的网络连接，但您的电脑没有链接到任何可用的网络。\n\n解决方案：单击系统任务栏右下角的网络图标，更换网络后重试。或右键网络图标，选择“诊断网络问题”或“疑难解答”。")
+            msg_box.setIcon(QMessageBox.Icon.Critical)
+            msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
+            msg_box.show()
+            msg_box.exec()
+
+            self.ACGStart.setText("生成")
+
+            self.ACGStart.setEnabled(True)
+            self.ACGProgress.setVisible(False)
+            self.TopMenu.setEnabled(True)
+
+            Flyout.create(
+                icon=InfoBarIcon.WARNING,
+                title=f'生成未成功',
+                content=r"请检查您的网络后重试 {{{(>_<)}}}",
+                target=self.AIStart,
+                parent=self,
+                isClosable=True,
+
+            )
+            return
 
         try:
             text = self.GeneratedAI[0]
@@ -4714,7 +4881,7 @@ class Ui_Form(object):
                 target=self.AIStart,
                 parent=self,
                 isClosable=True,
-                image=None
+
             )
 
         elif self.interval > 0:
@@ -4726,7 +4893,7 @@ class Ui_Form(object):
                 target=self.AIStart,
                 parent=self,
                 isClosable=True,
-                image=None
+
             )
 
         else:
@@ -4743,96 +4910,115 @@ class Ui_Form(object):
                     msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
                     msg_box.show()
                     msg_box.exec()
-                    ToURL = "http://127.0.0.1:7860"
+                    ToURL = "http://127.0.0.1:7860/"
                 else:
                     with open("EndPoint.yaml", "r") as file:
                         ToURL = file.read()
 
+            ToURL = ToURL + ("" if ToURL.endswith('/') else "/")
+
             nice = self.AIGoodTags.toPlainText()
-            not_nice = self.AIBadTags.toPlainText()
 
-            payload = {
-                "prompt": nice,
-                "negative_prompt": not_nice,
-                "styles": [],
-                "seed": -1,  # 使用随机种子
-                "subseed": -1,
-                "subseed_strength": 0,
-                "seed_resize_from_h": -1,
-                "seed_resize_from_w": -1,
-                "sampler_name": "Euler a",  # 采样方法
-                # "scheduler": "string",  #你可以指定具体的调度器名称
-                "batch_size": 1,
-                "n_iter": 1,
-                "steps": 20,  # 迭代步数
-                "cfg_scale": self.AIObey.value(),  # 提示词引导系数
-                "width": 640,  # 你可以根据需要设置更高的分辨率
-                "height": 640,  # 你可以根据需要设置更高的分辨率
-                "restore_faces": False,  # True
-                "tiling": False,  # 设置为False，如果不需要平铺模式
-                "do_not_save_samples": False,
-                "do_not_save_grid": False,
-                "eta": 0,
-                "denoising_strength": 0.5,  # 重绘幅度
-                "s_min_uncond": 0,
-                "s_churn": 0,
-                "s_tmax": 0,
-                "s_tmin": 0,
-                "s_noise": 0,
-                "override_settings": {},
-                "override_settings_restore_afterwards": True,
-                # "refiner_checkpoint": "string",
-                "refiner_switch_at": 0,
-                "disable_extra_networks": False,
-                # "firstpass_image": "string",
-                "comments": {},
-                "enable_hr": True,  # 启用高清修复 True
-                "firstphase_width": self.AISize.text(),  # 高清修复的第一阶段宽度
-                "firstphase_height": self.AISize.text(),  # 高清修复的第一阶段高度
-                "hr_scale": self.AISteps.value(),  # 通常设置为1.25，表示图像放大两倍
-                "hr_upscaler": "Lanczos",  # 高清修复算法
-                "hr_second_pass_steps": self.AIFix.text(),  # 高清修复步数
-                "hr_resize_x": 0,
-                "hr_resize_y": 0,
-                # "hr_checkpoint_name": "string",
-                # "hr_sampler_name": "string",
-                # "hr_scheduler": "string",
-                "hr_prompt": "",
-                "hr_negative_prompt": "",
-                # "force_task_id": "string",
-                "sampler_index": "Euler a",  # 指定采样器名称
-                # "script_name": "string",
-                "script_args": [],
-                "send_images": True,
-                "save_images": False,
-                "alwayson_scripts": {},
-                # "infotext": "string"
-            }
+            had_items = False
+            for geneating_item in self.AIWorkingList:
+                if geneating_item[0] == nice:
+                    had_items = True
+                    break
 
-            print(nice)
-            print(not_nice)
-            print(" ")
-            print(payload)
+            if not had_items:
+                not_nice = self.AIBadTags.toPlainText()
 
-            # print("Before append:", self.AIWorkingList)
-            # self.AIWorkingList.append([nice, "等待中"])
-            # print("After append:", self.AIWorkingList)
-            self.updateWorkingList(self.AIWorkingList)
+                payload = {
+                    "prompt": nice,
+                    "negative_prompt": not_nice,
+                    "styles": [],
+                    "seed": -1,  # 使用随机种子
+                    "subseed": -1,
+                    "subseed_strength": 0,
+                    "seed_resize_from_h": -1,
+                    "seed_resize_from_w": -1,
+                    "sampler_name": "Euler a",  # 采样方法
+                    # "scheduler": "string",  #你可以指定具体的调度器名称
+                    "batch_size": 1,
+                    "n_iter": 1,
+                    "steps": 20,  # 迭代步数
+                    "cfg_scale": self.AIObey.value(),  # 提示词引导系数
+                    "width": 640,  # 你可以根据需要设置更高的分辨率
+                    "height": 640,  # 你可以根据需要设置更高的分辨率
+                    "restore_faces": False,  # True
+                    "tiling": False,  # 设置为False，如果不需要平铺模式
+                    "do_not_save_samples": False,
+                    "do_not_save_grid": False,
+                    "eta": 0,
+                    "denoising_strength": 0.5,  # 重绘幅度
+                    "s_min_uncond": 0,
+                    "s_churn": 0,
+                    "s_tmax": 0,
+                    "s_tmin": 0,
+                    "s_noise": 0,
+                    "override_settings": {},
+                    "override_settings_restore_afterwards": True,
+                    # "refiner_checkpoint": "string",
+                    "refiner_switch_at": 0,
+                    "disable_extra_networks": False,
+                    # "firstpass_image": "string",
+                    "comments": {},
+                    "enable_hr": True,  # 启用高清修复 True
+                    "firstphase_width": self.AISize.text(),  # 高清修复的第一阶段宽度
+                    "firstphase_height": self.AISize.text(),  # 高清修复的第一阶段高度
+                    "hr_scale": self.AISteps.value(),  # 通常设置为1.25，表示图像放大两倍
+                    "hr_upscaler": "Lanczos",  # 高清修复算法
+                    "hr_second_pass_steps": self.AIFix.text(),  # 高清修复步数
+                    "hr_resize_x": 0,
+                    "hr_resize_y": 0,
+                    # "hr_checkpoint_name": "string",
+                    # "hr_sampler_name": "string",
+                    # "hr_scheduler": "string",
+                    "hr_prompt": "",
+                    "hr_negative_prompt": "",
+                    # "force_task_id": "string",
+                    "sampler_index": "Euler a",  # 指定采样器名称
+                    # "script_name": "string",
+                    "script_args": [],
+                    "send_images": True,
+                    "save_images": False,
+                    "alwayson_scripts": {},
+                    # "infotext": "string"
+                }
 
-            thread = threading.Thread(
-                target=self.GetAIGenerated, args=(ToURL, payload))
-            thread.start()
+                print(nice)
+                print(not_nice)
+                print(" ")
+                print(payload)
 
-            thread1 = threading.Thread(
-                target=self.DoInterval)
-            thread1.start()
+                # print("Before append:", self.AIWorkingList)
+                # self.AIWorkingList.append([nice, "等待中"])
+                # print("After append:", self.AIWorkingList)
+                self.updateWorkingList(self.AIWorkingList)
 
-            Flyout.create(
-                icon=InfoBarIcon.INFORMATION,
-                title='开始生成！',
-                content=f"前往生成队列查看生成进度(≧∇≦)ﾉ",
-                target=self.AIStart,
-                parent=self,
-                isClosable=True,
-                image=None
-            )
+                thread = threading.Thread(
+                    target=self.GetAIGenerated, args=(ToURL, payload))
+                thread.start()
+
+                thread1 = threading.Thread(
+                    target=self.DoInterval)
+                thread1.start()
+
+                Flyout.create(
+                    icon=InfoBarIcon.INFORMATION,
+                    title='开始生成！',
+                    content=f"前往生成队列查看生成进度(≧∇≦)ﾉ",
+                    target=self.AIStart,
+                    parent=self,
+                    isClosable=True,
+                )
+
+            else:
+                Flyout.create(
+                    icon=InfoBarIcon.WARNING,
+                    title='心急吃不了热豆腐哒',
+                    content=f"已经有完全相同的标签在队列中生成了，请改变标签再试噢(≧∇≦)ﾉ",
+                    target=self.AIStart,
+                    parent=self,
+                    isClosable=True,
+                )
