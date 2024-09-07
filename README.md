@@ -1,25 +1,31 @@
 # <div align="center">🥳Wallpaper generator</div>
- <div align="center">从此个性化你的电脑。</div>
+ <div align="center">免费开源的二次元AI聚合壁纸生成器：从此个性化你的电脑。</div>
  
-快速了解我们：[观看 壁纸生成器 宣传片](https://www.bilibili.com/video/BV1yF411k7Rm/?spm_id_from=333.999.0.0)
- 
- > 若您希望在 Android 系列操作系统上使用，请前往： [Android 版](https://github.com/SRInternet/Wallpaper-generator/) 和 [Android 版独立分支](https://github.com/SRInternet/Pixiv-generator/)。
+ 快速了解我们：[观看 壁纸生成器4 宣传片](https://www.bilibili.com/video/BV1piHdeGEk8/?share_source=copy_web&vd_source=30d79003a7fdec2cbcfbe2d49d21ea9a)
+
+> [!NOTE]  
+ > 若您希望在 Android 系列操作系统上使用，请前往： [Android 版](https://github.com/SRInternet/Wallpaper-generator-for-android/) 和 [Android 版独立分支](https://github.com/SRInternet/Pixiv-generator/)。
+
+> [!IMPORTANT]  
+ > 本 README 正在更新，请有选择性的观看以下内容，并在稍后再次观看
 
 ## 详细信息
 
 ### 功能/特点
-- ✨快速生成壁纸，支持多种类型
+- ✨极速生成壁纸，支持多种类型
+- ✨支持免代理从 Pixiv 浏览图片
+- ✨支持AI画图，_完全免费！_
 - ✨支持手搓渐变色壁纸
 - ✨支持开机自启动，托盘程序低占用
-- ✨可批量生成
+- ✨一键操作的开山鼻祖
 
 ### 兼容性
-- 支持 Windows7 SP1-Windows11 X64 操作系统
+- 支持 Windows10-Windows11 X64 操作系统
 
 > 需要.NET Framework (可以在这里[下载](https://download.microsoft.com/download/6/e/4/6e483240-dd87-40cd-adf4-0c47f5695b49/NDP481-Web.exe))
 
 
-[Buy us a coffee!](https://afdian.net/a/srinternet)
+[Buy us a coffee!](https://afdian.com/a/srinternet)
 
 
 Follow us on:
@@ -33,7 +39,7 @@ Follow us on:
 ## 如何使用
 
 ### 安装
-1. 下载 [Releases](https://github.com/SRInternet/Wallpaper-generator/releases) 中的最新版安装程序（.exe）；
+1. 下载 [Releases](https://github.com/SRInternet-studio/Wallpaper-generator/releases) 中的最新版安装程序（.exe）；
 2. 双击安装，跟着提示一步步来；
 3. 启动软件。
 
@@ -52,7 +58,7 @@ Follow us on:
 6. 点击 保存并关闭 即可完成开机自启。
 
 ### 如何反馈
-您可以在[这里](https://github.com/SRInternet/Wallpaper-generator/issues/new)提交Issuse。您也可以通过我们的邮箱 srinternet@qq.com 进行反馈。
+您可以在[这里](https://github.com/SRInternet-studio/Wallpaper-generator/issues/new)提交Issuse。您也可以通过我们的邮箱 srinternet@qq.com 进行反馈。
 
 ## 如何部署源代码
 > 壁纸生成器 3.0.0 采用了 Python 和 Visual Basic.NET 双代码结合[^1]的方式进行编写，这要求你的电脑中需要包含 Python 3.9 的标准环境和所需环境[^2] 以及 Blend for Visual Studio 2019 。
