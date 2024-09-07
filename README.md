@@ -1,4 +1,10 @@
 # <div align="center">🥳Wallpaper generator</div>
+<p align="center">
+ <img src="https://img.shields.io/badge/license-GPL_3.0%20license-yellow" alt="License">
+ <img src="https://img.shields.io/badge/language-python-blue" alt="Language">
+ <img src="https://img.shields.io/badge/AI-Stable%20Diffusion-red" alt="AI">
+ <img src="https://img.shields.io/badge/FREE-100%25-brightgreen" alt="FREE">
+</p>
  <div align="center">免费开源的二次元AI聚合壁纸生成器：从此个性化你的电脑。</div>
  
  快速了解我们：[观看 壁纸生成器4 宣传片](https://www.bilibili.com/video/BV1piHdeGEk8/?share_source=copy_web&vd_source=30d79003a7fdec2cbcfbe2d49d21ea9a)
