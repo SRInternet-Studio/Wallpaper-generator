@@ -1,0 +1,38 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.tag-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.category, .subcategory {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tag {
+    padding: 10px;
+    margin: 5px;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #8b2be7;
+    color: white;
+    cursor: pointer;
+}
+
+.tag:hover {
+    color: #8b2be7;
+    background-color: white;
+}
+
+.subcategory {
+    margin-top: 10px;
+}
+
+.hidden {
+    display: none;
+}
+

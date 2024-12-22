@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>525</width>
-    <height>278</height>
+    <width>571</width>
+    <height>319</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -43,7 +43,7 @@
     <rect>
      <x>120</x>
      <y>20</y>
-     <width>120</width>
+     <width>231</width>
      <height>27</height>
     </rect>
    </property>
@@ -56,7 +56,7 @@
     <rect>
      <x>120</x>
      <y>50</y>
-     <width>171</width>
+     <width>271</width>
      <height>19</height>
     </rect>
    </property>
@@ -68,13 +68,13 @@
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>80</y>
-     <width>411</width>
-     <height>141</height>
+     <y>70</y>
+     <width>441</width>
+     <height>211</height>
     </rect>
    </property>
    <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;版本号：4.0.0.0&lt;/p&gt;&lt;p&gt;依赖：Mikirol API，Lolicon API，Stable Diffusion API&lt;/p&gt;&lt;p&gt;版权：接口及其返回的资源版权归接口制作者和资源创作者所有&lt;/p&gt;&lt;p&gt;壁纸生成器 Made by 思锐工作室（SR Studio）&lt;/p&gt;&lt;p&gt;开源地址：&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;版本号：4.1.0.0 (Build 241222)&lt;/p&gt;&lt;p&gt;依赖：Mikirol API，Loliapi API，Lolicon API，Stable Diffusion API&lt;/p&gt;&lt;p&gt;版权：接口及其返回的资源版权归接口制作者和资源创作者所有&lt;/p&gt;&lt;p&gt;壁纸生成器 Made by 思锐工作室（SR Studio）&lt;/p&gt;&lt;p&gt;Bilibili：SR思锐Official&lt;/p&gt;&lt;p&gt;开源地址：&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="wordWrap">
     <bool>true</bool>
@@ -84,7 +84,7 @@
    <property name="geometry">
     <rect>
      <x>110</x>
-     <y>230</y>
+     <y>270</y>
      <width>391</width>
      <height>31</height>
     </rect>
@@ -104,7 +104,7 @@
   <widget class="QCommandLinkButton" name="commandLinkButton">
    <property name="geometry">
     <rect>
-     <x>400</x>
+     <x>450</x>
      <y>10</y>
      <width>111</width>
      <height>41</height>

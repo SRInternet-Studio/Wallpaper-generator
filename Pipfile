@@ -1,5 +1,5 @@
 [[source]]
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
@@ -14,7 +14,7 @@ matplotlib = "==3.6.2"
 pyinstall = "*"
 numpy = "==1.26.4"
 requests = "==2.31.0"
-py2exe-gui = "*"
+auto-py-to-exe = "*"
 
 [dev-packages]
 

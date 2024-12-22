@@ -25,10 +25,10 @@ import webbrowser as web
 # import about_rc
 
 class Ui_Dialog(object):
-    def setupUi(self, Dialog: QDialog):
+    def setupUi(self, Dialog):
         if not Dialog.objectName():
             Dialog.setObjectName(u"Dialog")
-        Dialog.resize(525, 278)
+        Dialog.resize(571, 319)
         Dialog.setStyleSheet(u"\n"
 "#Dialog {\n"
 "	background-color: rgb(240, 240, 240);\n"
@@ -46,22 +46,22 @@ class Ui_Dialog(object):
         self.PixmapLabel.setStyleSheet(u"border-image: url('NewIcon.ico');")
         self.SubtitleLabel = SubtitleLabel(Dialog)
         self.SubtitleLabel.setObjectName(u"SubtitleLabel")
-        self.SubtitleLabel.setGeometry(QRect(120, 20, 120, 27))
+        self.SubtitleLabel.setGeometry(QRect(120, 20, 231, 27))
         self.StrongBodyLabel = StrongBodyLabel(Dialog)
         self.StrongBodyLabel.setObjectName(u"StrongBodyLabel")
-        self.StrongBodyLabel.setGeometry(QRect(120, 50, 171, 19))
+        self.StrongBodyLabel.setGeometry(QRect(120, 50, 271, 19))
         self.BodyLabel = BodyLabel(Dialog)
         self.BodyLabel.setObjectName(u"BodyLabel")
-        self.BodyLabel.setGeometry(QRect(120, 80, 411, 141))
+        self.BodyLabel.setGeometry(QRect(120, 70, 441, 211))
         self.BodyLabel.setWordWrap(True)
         self.HyperlinkButton = HyperlinkButton(Dialog)
         self.HyperlinkButton.setObjectName(u"HyperlinkButton")
-        self.HyperlinkButton.setGeometry(QRect(110, 230, 391, 31))
+        self.HyperlinkButton.setGeometry(QRect(110, 270, 391, 31))
         self.HyperlinkButton.setCheckable(False)
         self.HyperlinkButton.setUrl(QUrl(u"https://github.com/SRInternet-Studio/Wallpaper-generator"))
         self.commandLinkButton = QCommandLinkButton(Dialog)
         self.commandLinkButton.setObjectName(u"commandLinkButton")
-        self.commandLinkButton.setGeometry(QRect(400, 10, 111, 41))
+        self.commandLinkButton.setGeometry(QRect(450, 10, 111, 41))
         self.commandLinkButton.clicked.connect(self.juanzeng)
 
         self.retranslateUi(Dialog)
@@ -73,11 +73,12 @@ class Ui_Dialog(object):
         Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"\u5173\u4e8e \u58c1\u7eb8\u751f\u6210\u5668 4", None))
         self.SubtitleLabel.setText(QCoreApplication.translate("Dialog", u"\u58c1\u7eb8\u751f\u6210\u5668 4", None))
         self.StrongBodyLabel.setText(QCoreApplication.translate("Dialog", u"Wallpaper Generator V4", None))
-        self.BodyLabel.setText(QCoreApplication.translate("Dialog", u"<html><head/><body><p>Bilibili：SR思锐Official</p><p>\u4f9d\u8d56\uff1aMikirol API\uff0cLolicon API\uff0cStable Diffusion API</p><p>\u7248\u6743\uff1a\u63a5\u53e3\u53ca\u5176\u8fd4\u56de\u7684\u8d44\u6e90\u7248\u6743\u5f52\u63a5\u53e3\u5236\u4f5c\u8005\u548c\u8d44\u6e90\u521b\u4f5c\u8005\u6240\u6709</p><p>\u58c1\u7eb8\u751f\u6210\u5668 Made by \u601d\u9510\u5de5\u4f5c\u5ba4\uff08SR Studio\uff09</p><p>\u5f00\u6e90\u5730\u5740\uff1a</p></body></html>", None))
+        self.BodyLabel.setText(QCoreApplication.translate("Dialog", u"<html><head/><body><p>\u7248\u672c\u53f7\uff1a4.1.0.0 (Build 241222)</p><p>\u4f9d\u8d56\uff1aMikirol API\uff0cLoliapi API\uff0cLolicon API\uff0cStable Diffusion API</p><p>\u7248\u6743\uff1a\u63a5\u53e3\u53ca\u5176\u8fd4\u56de\u7684\u8d44\u6e90\u7248\u6743\u5f52\u63a5\u53e3\u5236\u4f5c\u8005\u548c\u8d44\u6e90\u521b\u4f5c\u8005\u6240\u6709</p><p>\u58c1\u7eb8\u751f\u6210\u5668 Copyright \u601d\u9510\u5de5\u4f5c\u5ba4\uff08SR Studio\uff09 2022-2025</p><p>Bilibili\uff1aSR\u601d\u9510Official</p><p>\u5f00\u6e90\u5730\u5740\uff1a</p></body></html>", None))
         self.HyperlinkButton.setText(QCoreApplication.translate("Dialog", u"https://github.com/SRInternet-Studio/Wallpaper-generator", None))
         self.commandLinkButton.setText(QCoreApplication.translate("Dialog", u"\u652f\u6301\u6211\u4eec", None))
+    # retranslateUi
 
     def juanzeng(self):
         web.open('https://afdian.com/a/srinternet')
-    # retranslateUi
+        
 

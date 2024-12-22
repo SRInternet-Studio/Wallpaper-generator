@@ -19,7 +19,7 @@ from PySide6.QtWidgets import (QApplication, QHBoxLayout, QSizePolicy, QTableWid
     QWidget, QDialog)
 
 from qfluentwidgets import (BodyLabel, CardWidget, PrimaryPushButton, PushButton,
-    SimpleCardWidget, TitleLabel, TextEdit, TableWidget)
+    SimpleCardWidget, TitleLabel, TextEdit, SmoothScrollArea)
 
 class Ui_Form(QDialog):
     def __init__(self, title, content, TrueText, FalseText, Editable, Lists=None):
@@ -71,7 +71,8 @@ class Ui_Form(QDialog):
             self.BodyLabel = TextEdit(self.widget_2)
         else:
             self.BodyLabel = BodyLabel(self.widget_2)
-
+            
+        self.BodyLabel.setContentsMargins(0, 0, 20, 0)
         self.BodyLabel.setObjectName(u"BodyLabel")
         self.BodyLabel.setAutoFillBackground(False)
         self.BodyLabel.setAlignment(Qt.AlignJustify|Qt.AlignTop)
@@ -100,7 +101,12 @@ class Ui_Form(QDialog):
         # self.tableView.resizeColumnsToContents()
         # 下个版本启用
 
-        self.verticalLayout_2.addWidget(self.BodyLabel)
+        scroll_area = SmoothScrollArea(self)
+        scroll_area.setStyleSheet("QScrollArea { background: transparent; }")
+        scroll_area.setWidgetResizable(True)
+        scroll_area.setWidget(self.BodyLabel)
+
+        self.verticalLayout_2.addWidget(scroll_area)
 
 
         self.horizontalLayout_2.addWidget(self.widget_2)

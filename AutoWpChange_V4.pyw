@@ -16,7 +16,7 @@ import webbrowser as web
 import wx.adv
 import psutil
 from tkinter import messagebox
-from 壁纸生成器V4托盘 import Ui_MainWindow 
+from V4TrayIcon import Ui_MainWindow 
 
 # 获取程序所在的目录
 # script_path = sys.executable

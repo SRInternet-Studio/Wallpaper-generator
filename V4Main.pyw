@@ -1,7 +1,7 @@
 import sys, os
 from PySide6.QtGui import QPixmap
 from PySide6.QtWidgets import QApplication, QSplashScreen, QWidget
-from 壁纸生成器V4 import Ui_Form  # 这里是转换后的 Python 文件
+from V4Kernel import Ui_Form  # 这里是转换后的 Python 文件
 
 class MainWindow(QWidget, Ui_Form):
     def __init__(self, parent=None):
@@ -32,7 +32,7 @@ def main():
     splash.show()
     
     main_window = MainWindow()
-    main_window.setWindowTitle("壁纸生成器 4")
+    main_window.setWindowTitle("壁纸生成器 4.1")
     splash.finish(main_window)
     main_window.show()
     print("Window should be visible now.")
