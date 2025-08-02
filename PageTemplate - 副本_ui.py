@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PageTemplate.ui'
+## Form generated from reading UI file 'PageTemplate - 副本.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.4.2
 ##
@@ -55,8 +55,43 @@ class Ui_Form(object):
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
         self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 343, 614))
-        self.verticalLayout_2 = QVBoxLayout(self.scrollAreaWidgetContents)
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.gridLayout_2 = QGridLayout(self.scrollAreaWidgetContents)
+        self.gridLayout_2.setObjectName(u"gridLayout_2")
+        self.StartButton = PrimaryPushButton(self.scrollAreaWidgetContents)
+        self.StartButton.setObjectName(u"StartButton")
+
+        self.gridLayout_2.addWidget(self.StartButton, 6, 0, 1, 3)
+
+        self.verticalSpacer_21 = QSpacerItem(10, 10, QSizePolicy.Minimum, QSizePolicy.Fixed)
+
+        self.gridLayout_2.addItem(self.verticalSpacer_21, 7, 0, 1, 1)
+
+        self.verticalSpacer_7 = QSpacerItem(20, 0, QSizePolicy.Minimum, QSizePolicy.Fixed)
+
+        self.gridLayout_2.addItem(self.verticalSpacer_7, 4, 0, 1, 1)
+
+        self.ProgressLine = IndeterminateProgressBar(self.scrollAreaWidgetContents)
+        self.ProgressLine.setObjectName(u"ProgressLine")
+
+        self.gridLayout_2.addWidget(self.ProgressLine, 8, 0, 1, 3)
+
+        self.verticalSpacer_9 = QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.gridLayout_2.addItem(self.verticalSpacer_9, 9, 0, 1, 1)
+
+        self.verticalSpacer_4 = QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Fixed)
+
+        self.gridLayout_2.addItem(self.verticalSpacer_4, 1, 1, 1, 1)
+
+        self.verticalSpacer_8 = QSpacerItem(20, 30, QSizePolicy.Minimum, QSizePolicy.Preferred)
+
+        self.gridLayout_2.addItem(self.verticalSpacer_8, 5, 1, 1, 1)
+
+        self.SubtitleLabel_2 = SubtitleLabel(self.scrollAreaWidgetContents)
+        self.SubtitleLabel_2.setObjectName(u"SubtitleLabel_2")
+
+        self.gridLayout_2.addWidget(self.SubtitleLabel_2, 3, 0, 1, 3)
+
         self.SubtitleLabel = SubtitleLabel(self.scrollAreaWidgetContents)
         self.SubtitleLabel.setObjectName(u"SubtitleLabel")
         font = QFont()
@@ -66,42 +101,7 @@ class Ui_Form(object):
         self.SubtitleLabel.setFont(font)
         self.SubtitleLabel.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout_2.addWidget(self.SubtitleLabel)
-
-        self.verticalSpacer_4 = QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Preferred)
-
-        self.verticalLayout_2.addItem(self.verticalSpacer_4)
-
-        self.SubtitleLabel_2 = SubtitleLabel(self.scrollAreaWidgetContents)
-        self.SubtitleLabel_2.setObjectName(u"SubtitleLabel_2")
-
-        self.verticalLayout_2.addWidget(self.SubtitleLabel_2)
-
-        self.verticalSpacer_7 = QSpacerItem(20, 0, QSizePolicy.Minimum, QSizePolicy.Fixed)
-
-        self.verticalLayout_2.addItem(self.verticalSpacer_7)
-
-        self.verticalSpacer_8 = QSpacerItem(20, 30, QSizePolicy.Minimum, QSizePolicy.Preferred)
-
-        self.verticalLayout_2.addItem(self.verticalSpacer_8)
-
-        self.StartButton = PrimaryPushButton(self.scrollAreaWidgetContents)
-        self.StartButton.setObjectName(u"StartButton")
-
-        self.verticalLayout_2.addWidget(self.StartButton)
-
-        self.verticalSpacer_21 = QSpacerItem(10, 10, QSizePolicy.Minimum, QSizePolicy.Fixed)
-
-        self.verticalLayout_2.addItem(self.verticalSpacer_21)
-
-        self.ProgressLine = IndeterminateProgressBar(self.scrollAreaWidgetContents)
-        self.ProgressLine.setObjectName(u"ProgressLine")
-
-        self.verticalLayout_2.addWidget(self.ProgressLine)
-
-        self.verticalSpacer_9 = QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.verticalLayout_2.addItem(self.verticalSpacer_9)
+        self.gridLayout_2.addWidget(self.SubtitleLabel, 0, 0, 1, 3)
 
         self.SmoothScrollArea.setWidget(self.scrollAreaWidgetContents)
 
@@ -127,22 +127,19 @@ class Ui_Form(object):
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.verticalLayout_4.setSizeConstraint(QLayout.SetDefaultConstraint)
         self.verticalLayout_4.setContentsMargins(-1, 1, -1, -1)
-        self.ElevatedCardWidget_3 = ElevatedCardWidget(self.widget)
-        self.ElevatedCardWidget_3.setObjectName(u"ElevatedCardWidget_3")
-        self.ElevatedCardWidget_3.setMinimumSize(QSize(361, 450))
-        self.ElevatedCardWidget_3.setMaximumSize(QSize(16777215, 16777215))
-        self.ElevatedCardWidget_3.setAutoFillBackground(False)
-        self.gridLayout_8 = QGridLayout(self.ElevatedCardWidget_3)
-        self.gridLayout_8.setObjectName(u"gridLayout_8")
-        self.Images_Area = HorizontalFlipView(self.ElevatedCardWidget_3)
+        self.ElevatedCardWidget = ElevatedCardWidget(self.widget)
+        self.ElevatedCardWidget.setObjectName(u"ElevatedCardWidget")
+        self.ElevatedCardWidget.setMinimumSize(QSize(0, 450))
+        self.ElevatedCardWidget.setMaximumSize(QSize(16777215, 16777215))
+        self.verticalLayout_10 = QVBoxLayout(self.ElevatedCardWidget)
+        self.verticalLayout_10.setObjectName(u"verticalLayout_10")
+        self.Images_Area = HorizontalFlipView(self.ElevatedCardWidget)
         self.Images_Area.setObjectName(u"Images_Area")
-        self.Images_Area.setMinimumSize(QSize(480, 270))
-        self.Images_Area.setSizeIncrement(QSize(0, -1))
 
-        self.gridLayout_8.addWidget(self.Images_Area, 0, 0, 1, 1)
+        self.verticalLayout_10.addWidget(self.Images_Area)
 
 
-        self.verticalLayout_4.addWidget(self.ElevatedCardWidget_3)
+        self.verticalLayout_4.addWidget(self.ElevatedCardWidget)
 
         self.widget_7 = QWidget(self.widget)
         self.widget_7.setObjectName(u"widget_7")
@@ -158,11 +155,6 @@ class Ui_Form(object):
         self.horizontalLayout.addItem(self.horizontalSpacer_9)
 
         self.Images_Indicator = HorizontalPipsPager(self.widget_7)
-        QListWidgetItem(self.Images_Indicator)
-        QListWidgetItem(self.Images_Indicator)
-        QListWidgetItem(self.Images_Indicator)
-        QListWidgetItem(self.Images_Indicator)
-        QListWidgetItem(self.Images_Indicator)
         QListWidgetItem(self.Images_Indicator)
         QListWidgetItem(self.Images_Indicator)
         QListWidgetItem(self.Images_Indicator)
@@ -457,13 +449,13 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-        self.SubtitleLabel.setText(QCoreApplication.translate("Form", u"API Title", None))
-        self.SubtitleLabel_2.setText(QCoreApplication.translate("Form", u"<html><head/><body><p><span style=\" font-size:15pt;\">Content</span></p></body></html>", None))
         self.StartButton.setText(QCoreApplication.translate("Form", u"\u751f\u6210", None))
+        self.SubtitleLabel_2.setText(QCoreApplication.translate("Form", u"<html><head/><body><p><span style=\" font-size:15pt;\">Content</span></p></body></html>", None))
+        self.SubtitleLabel.setText(QCoreApplication.translate("Form", u"API Title", None))
 
         __sortingEnabled = self.Images_Indicator.isSortingEnabled()
         self.Images_Indicator.setSortingEnabled(False)
-        ___qlistwidgetitem = self.Images_Indicator.item(260)
+        ___qlistwidgetitem = self.Images_Indicator.item(255)
         ___qlistwidgetitem.setText(QCoreApplication.translate("Form", u"6", None));
         self.Images_Indicator.setSortingEnabled(__sortingEnabled)
 
