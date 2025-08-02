@@ -4,7 +4,7 @@ import requests
 import difflib
 import asyncio
 
-with open("github_pat.txt", "r") as f:
+with open("github_token.txt", "r") as f:
     GITHUB_TOKEN = f.read().strip()
     
 REPO_NAME = "IntelliMarkets/Wallpaper_API_Index"
