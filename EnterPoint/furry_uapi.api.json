@@ -1,0 +1,29 @@
+{
+    "friendly_name": "Furry稿图", 
+    "intro": "UAPI-Furry福瑞图片", 
+    "icon": "https://uapis.cn/static/img/UApi_ico.png",
+    "link": "https://uapis.cn/api/imgapi/furry",
+    "func": "GET",
+    "APICORE_version": "1.0",
+    "parameters": [
+        {
+            "type": "enum",
+            "required": true,
+            "value": ["szs8k.php", "imgz4k.php", "img4k.php", "imgs4k.php"], 
+            "friendly_value": ["兽装 3:4", "漫画 1:1", "漫画 16:9", "漫画 9:16"],
+            "friendly_name": "壁纸尺寸",
+            "min_value": null,
+            "max_value": null,
+            "split_str": null
+        }
+    ],
+    "response": {
+      "image": {
+        "content_type": "BINARY",
+        "path": "",
+        "is_list": false,
+        "is_base64": false
+      },
+      "others": []
+    }
+  }

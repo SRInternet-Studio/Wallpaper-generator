@@ -1,0 +1,118 @@
+{
+  "friendly_name": "Pixiv 生成", 
+  "intro": "从 Pixiv（国内代理） 随机获取一张图片，并下载到本地。", 
+  "icon": "https://img.icons8.com/?size=256&id=gVRdM4p4G9Ic&format=png",
+  "link": "https://api.lolicon.app/setu/v2",
+  "func": "GET",
+  "APICORE_version": "1.0",
+  "parameters": [
+    {
+      "name": "excludeAI",
+      "type": "boolean",
+      "required": true,
+      "value": false,
+      "friendly_name": "去除 AI",
+      "min_value": null,
+      "max_value": null,
+      "split_str": null
+    }, 
+    {
+      "name": "r18",
+      "type": "enum",
+      "required": true,
+      "value": [0, 1, 2],
+      "friendly_value": ["否", "是", "可能"],
+      "friendly_name": "包含 R18",
+      "min_value": null,
+      "max_value": null,
+      "split_str": null
+    }, 
+    {
+      "name": "uid", 
+      "type": "string",
+      "value": "",
+      "required": false,
+      "friendly_name": "作者 UID （可选）",
+      "min_value": null,
+      "max_value": null,
+      "split_str": null
+    }, 
+    {
+      "name": "tag",
+      "type": "list",
+      "required": false,
+      "value": ["萝莉", "蔚蓝档案"],
+      "friendly_name": "标签 Tags",
+      "min_value": null,
+      "max_value": null,
+      "split_str": "|"
+    }, 
+    {
+      "name": "num",
+      "type": "integer",
+      "required": true,
+      "value": 1,
+      "friendly_name": "生成数量",
+      "min_value": 1,
+      "max_value": 15,
+      "split_str": null
+    }
+  ],
+  "response": {
+    "image": {
+      "content_type": "URL",
+      "path": "data[*].urls.original",
+      "is_list": true,
+      "is_base64": false
+    },
+    "others": [
+      {
+        "friendly_name": "图片信息",
+        "data": [
+          {
+            "friendly_name": "标题",
+            "path": "data[*].title"
+          },
+          {
+            "friendly_name": "图片ID",
+            "path": "data[*].pid"
+          },
+          {
+            "friendly_name": "作者",
+            "path": "data[*].author"
+          },
+          {
+            "friendly_name": "作者ID",
+            "path": "data[*].uid"
+          },
+          {
+            "friendly_name": "画幅宽度",
+            "path": "data[*].width"
+          },
+          {
+            "friendly_name": "画幅高度",
+            "path": "data[*].height"
+          },
+          {
+            "friendly_name": "来源",
+            "path": "data[*].urls.original"
+          },
+          {
+            "friendly_name": "上传时间戳",
+            "path": "data[*].urls.uploadDate"
+          }
+        ]
+      }, 
+      {
+        "friendly_name": "图片标签",
+        "data": [
+          {
+            "friendly_name": "图片标签",
+            "path": "data[*].tags", 
+            "one-to-one-mapping": true
+          }
+        ]
+      }
+    ]
+  }
+}

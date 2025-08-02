@@ -1,0 +1,59 @@
+{
+  "friendly_name": "真人/动漫/风景",
+  "intro": "生成真人，动漫和风景图片，基于 i18 接口",
+  "icon": "https://www.i18.net/favicon.ico",
+  "link": "https://i18.net/api.php",
+  "func": "GET",
+  "APICORE_version": "1.0",
+  "parameters": [
+    {
+      "name": "zd",
+      "type": "enum",
+      "required": true,
+      "value": [
+        "zsy",
+        "pc",
+        "mobile"
+      ],
+      "friendly_value": [
+        "全部",
+        "电脑",
+        "手机"
+      ],
+      "friendly_name": "壁纸尺寸",
+      "min_value": null,
+      "max_value": null,
+      "split_str": null
+    },
+    {
+      "name": "fl",
+      "type": "enum",
+      "required": true,
+      "value": [
+        "suiji",
+        "meizi",
+        "dongman",
+        "fengjing"
+      ],
+      "friendly_value": [
+        "全部",
+        "真人",
+        "动漫",
+        "风景"
+      ],
+      "friendly_name": "壁纸类型",
+      "min_value": null,
+      "max_value": null,
+      "split_str": null
+    }
+  ],
+  "response": {
+    "image": {
+      "content_type": "BINARY",
+      "path": "",
+      "is_list": false,
+      "is_base64": false
+    },
+    "others": []
+  }
+}

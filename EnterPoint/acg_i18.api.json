@@ -1,0 +1,55 @@
+{
+    "APICORE_version": "1.0",
+    "friendly_name": "二次元ACG",
+    "func": "GET",
+    "icon": "https://www.i18.net/favicon.ico",
+    "intro": "生成二次元ACG图片，基于 i18 接口",
+    "link": "https://i18.net/acg.php",
+    "parameters": [
+        {
+            "friendly_name": "壁纸尺寸",
+            "friendly_value": [
+                "全部",
+                "电脑",
+                "手机"
+            ],
+            "max_value": null,
+            "min_value": null,
+            "name": "zd",
+            "required": true,
+            "split_str": null,
+            "type": "enum",
+            "value": [
+                "zsy",
+                "pc",
+                "mobile"
+            ]
+        },
+        {
+            "friendly_name": "壁纸数量",
+            "friendly_value": [
+                "单张",
+                "十张"
+            ],
+            "max_value": null,
+            "min_value": null,
+            "name": "return",
+            "required": true,
+            "split_str": null,
+            "type": "enum",
+            "value": [
+                "url",
+                "urlpro"
+            ]
+        }
+    ],
+    "response": {
+        "image": {
+            "content_type": "URL",
+            "is_base64": false,
+            "is_list": true,
+            "path": "[*]"
+        },
+        "others": []
+    }
+}

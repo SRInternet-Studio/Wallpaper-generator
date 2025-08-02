@@ -1,0 +1,62 @@
+{
+  "friendly_name": "原神、七濑胡桃和小狐狸",
+  "intro": "生成原神、七濑胡桃和小狐狸的可爱壁纸，基于 举个栗子API ",
+  "icon": "https://www.alcy.cc/upload/%E6%A0%97%E5%AD%90.webp",
+  "link": "https://t.alcy.cc/",
+  "func": "GET",
+  "APICORE_version": "1.0",
+  "parameters": [
+    {
+      "name": "json",
+      "type": "boolean",
+      "value": true,
+      "required": true,
+      "friendly_name": "",
+      "min_value": null,
+      "max_value": null,
+      "split_str": null,
+      "enable": false
+    },
+    {
+      "type": "enum",
+      "required": true,
+      "value": [
+        "lai",
+        "xhl",
+        "ysz",
+        "ys",
+        "ysmp"
+      ],
+      "friendly_value": [
+        "七濑胡桃",
+        "小狐狸",
+        "原！神！启动！",
+        "原神电脑壁纸",
+        "原神手机壁纸"
+      ],
+      "friendly_name": "萌图类型",
+      "min_value": null,
+      "max_value": null,
+      "split_str": null
+    },
+    {
+      "name": "quantity",
+      "type": "integer",
+      "required": true,
+      "value": 1,
+      "friendly_name": "生成数量",
+      "min_value": 1,
+      "max_value": 20,
+      "split_str": null
+    }
+  ],
+  "response": {
+    "image": {
+      "content_type": "URL",
+      "path": "[*]",
+      "is_list": true,
+      "is_base64": false
+    },
+    "others": []
+  }
+}

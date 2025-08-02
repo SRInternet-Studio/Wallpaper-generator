@@ -1,0 +1,29 @@
+{
+    "friendly_name": "随机表情", 
+    "intro": "UAPI-Furry随机怼图和表情包", 
+    "icon": "https://uapis.cn/static/img/UApi_ico.png",
+    "link": "https://uapis.cn/api/imgapi/bq",
+    "func": "GET",
+    "APICORE_version": "1.0",
+    "parameters": [
+        {
+            "type": "enum",
+            "required": true,
+            "value": ["youshou.php", "maomao.php", "eciyuan.php", "ikun.php", "xiongmao.php", "waiguoren.php"], 
+            "friendly_value": ["有兽焉表情", "猫猫表情", "二次元表情", "我家咯咯", "熊猫表情", "外国人表情"],
+            "friendly_name": "表情类型",
+            "min_value": null,
+            "max_value": null,
+            "split_str": null
+        }
+    ],
+    "response": {
+      "image": {
+        "content_type": "BINARY",
+        "path": "",
+        "is_list": false,
+        "is_base64": false
+      },
+      "others": []
+    }
+  }

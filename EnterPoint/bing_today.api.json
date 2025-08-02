@@ -1,0 +1,32 @@
+{
+    "APICORE_version": "1.0",
+    "friendly_name": "必应 今日图片",
+    "func": "GET",
+    "icon": "https://img.icons8.com/?size=512&id=pOADWgX6vV63&format=png",
+    "intro": "获取来自 Microsoft Bing 的今日图片",
+    "link": "https://bing.biturl.top/?resolution=UHD&format=json&index=0&mkt=zh-CN",
+    "parameters": [],
+    "response": {
+        "image": {
+            "content_type": "URL",
+            "is_base64": false,
+            "is_list": false,
+            "path": "url"
+        },
+        "others": [
+            {
+                "data": [
+                    {
+                        "friendly_name": "图片日期",
+                        "path": "end_date"
+                    },
+                    {
+                        "friendly_name": "描述和版权",
+                        "path": "copyright"
+                    }
+                ],
+                "friendly_name": "图片信息"
+            }
+        ]
+    }
+}

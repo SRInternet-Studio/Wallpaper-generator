@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="PNG">
+    <file>BACKIMG1.png</file>
+  </qresource>
+  <qresource prefix="ICO">
+    <file>NewIcon.ico</file>
+  </qresource>
+</RCC>

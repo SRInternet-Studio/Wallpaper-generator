@@ -1,0 +1,41 @@
+{
+    "friendly_name": "CosPlay", 
+    "intro": "CosPlay! 基于 i18 接口", 
+    "icon": "https://www.i18.net/favicon.ico",
+    "link": "https://i18.net/cos.php",
+    "func": "GET",
+    "APICORE_version": "1.0",
+    "parameters": [
+      {
+        "name": "zd", 
+        "type": "enum",
+        "required": true,
+        "value": ["zsy", "pc", "mobile"],
+        "friendly_value": ["全部", "电脑", "手机"],
+        "friendly_name": "壁纸尺寸",
+        "min_value": null,
+        "max_value": null,
+        "split_str": null
+      }, 
+      {
+        "name": "return", 
+        "type": "enum",
+        "required": true,
+        "value": ["url", "urlpro"],
+        "friendly_value": ["单张", "十张"],
+        "friendly_name": "壁纸数量",
+        "min_value": null,
+        "max_value": null,
+        "split_str": null
+      }
+    ],
+    "response": {
+      "image": {
+        "content_type": "URL",
+        "path": "[*]",
+        "is_list": true,
+        "is_base64": false
+      },
+      "others": []
+    }
+  }
