@@ -1,0 +1,35 @@
+{
+  "friendly_name": "ACG稿图",
+  "intro": "UAPI-Furry二次元壁纸图片",
+  "icon": "https://uapis.cn/static/img/UApi_ico.png",
+  "link": "https://uapis.cn/api/imgapi/acg",
+  "func": "GET",
+  "APICORE_version": "1.0",
+  "parameters": [
+    {
+      "type": "enum",
+      "required": true,
+      "value": [
+        "pc.php",
+        "mb.php"
+      ],
+      "friendly_value": [
+        "横屏壁纸",
+        "竖屏壁纸"
+      ],
+      "friendly_name": "壁纸类型",
+      "min_value": null,
+      "max_value": null,
+      "split_str": null
+    }
+  ],
+  "response": {
+    "image": {
+      "content_type": "BINARY",
+      "path": "",
+      "is_list": false,
+      "is_base64": false
+    },
+    "others": []
+  }
+}

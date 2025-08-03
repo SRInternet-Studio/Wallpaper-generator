@@ -1,0 +1,169 @@
+{
+ "version": "auto-py-to-exe-configuration_v1",
+ "pyinstallerOptions": [
+  {
+   "optionDest": "noconfirm",
+   "value": true
+  },
+  {
+   "optionDest": "filenames",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/MainWindow.py"
+  },
+  {
+   "optionDest": "onefile",
+   "value": false
+  },
+  {
+   "optionDest": "console",
+   "value": false
+  },
+  {
+   "optionDest": "icon_file",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/NewIcon.ico"
+  },
+  {
+   "optionDest": "name",
+   "value": "\u58c1\u7eb8\u751f\u6210\u5668 5 NEXT"
+  },
+  {
+   "optionDest": "clean_build",
+   "value": false
+  },
+  {
+   "optionDest": "strip",
+   "value": false
+  },
+  {
+   "optionDest": "noupx",
+   "value": false
+  },
+  {
+   "optionDest": "disable_windowed_traceback",
+   "value": false
+  },
+  {
+   "optionDest": "uac_admin",
+   "value": false
+  },
+  {
+   "optionDest": "uac_uiaccess",
+   "value": false
+  },
+  {
+   "optionDest": "argv_emulation",
+   "value": false
+  },
+  {
+   "optionDest": "bootloader_ignore_signals",
+   "value": false
+  },
+  {
+   "optionDest": "datas",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/NewIcon.ico;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/None.ico;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/BACKIMG1.png;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/AutoChangingPage_ui.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/boolean_ui.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/emum_ui.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/Exception_Handler.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/integer_ui.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/MainWindowTemplate_ui.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/MarketTemplate_ui.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/PageTemplate_ui.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/SettingsPage_ui.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/string_ui.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/V4Resources_rc.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/WelcomePage_ui.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/WelcomePageNext_ui.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/V4Resources.qrc;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/github_pat.txt;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/Set_Wallpaper.exe;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/Wallpaper_Gradient.exe;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/acw_next;acw_next/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/config;config/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/Kernel;Kernel/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/set_wallpaper;set_wallpaper/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/UI;UI/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/fonts;fonts/"
+  }
+ ],
+ "nonPyinstallerOptions": {
+  "increaseRecursionLimit": true,
+  "manualArguments": ""
+ }
+}

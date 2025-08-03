@@ -1,3 +1,4 @@
+from Kernel.Logger import logger
 import asyncio
 import subprocess
 import sys, random, base64, traceback, gc
@@ -7,7 +8,7 @@ from PySide6.QtGui import (QBrush, QColor, QIcon, QPainter,
     QPalette, QPixmap, QImage, QImageReader, QImageIOHandler)
 from PySide6.QtWidgets import (QApplication, 
     QWidget, QMessageBox, QDialog, QVBoxLayout)
-
+from fonts.font_loader import load_fonts
 from qasync import QEventLoop
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
@@ -16,14 +17,15 @@ from qfluentwidgets import (SplashScreen, FluentIcon, Flyout, FlyoutViewBase, In
                             FluentTranslator, HorizontalFlipView, CommandBarView, FlyoutAnimationType, PrimaryPushSettingCard)
 from qfluentwidgets import MessageBox as OriginalMessageBox
 
+app = QApplication(sys.argv)
+load_fonts()
+
 from APICORE import APICORE
 from UI import MainWindowTemplate_ui, PageTemplate_ui, WelcomePageNext_ui
 from UI.Controls import *
-from Kernel import MainKernal, SettingsKernal, APIKernal, MarketKernal, TrayIconKernal
-from Kernel.Logger import logger
-from Kernel.OsKernal import os
-
 from acw_next import AutoChageWallpaper
+from Kernel import MainKernal, SettingsKernal, APIKernal, MarketKernal, TrayIconKernal
+from Kernel.OsKernal import os
 
 from Exception_Handler import setup_global_exception_handler
 handler = setup_global_exception_handler(
@@ -190,6 +192,15 @@ class WelcomePage(QWidget, WelcomePageNext_ui.Ui_Form):
         global daily_img_path
         logger.info("正在获取今日图片……")
         file_name = daliy_img_path
+        if not os.path.exists(os.path.dirname(file_name)):
+            try:
+                os.makedirs(os.path.dirname(file_name))
+            except Exception as e:
+                logger.error(f"创建每日一图文件夹失败：{str(e)}")
+                logger.debug(traceback.format_exc())
+                self.main_window.trayIcon.show_notification("无法更新今日图片", str(e))
+                return
+            
         if os.path.exists(file_name) and not force_update:
             processed_path = os.path.normpath(file_name).replace('\\', '/')
             self.PixmapLabel.setStyleSheet(f"image: url('{processed_path}');")
@@ -481,8 +492,24 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
             *friendly_params 
         ]
         
-        with open(os.path.join(os.getcwd(), "EnterPoint", "acw_config", "_AutoConfig.api.json"), "w", encoding="utf-8") as f:
-            json.dump(auto_config, f, indent=2, ensure_ascii=False)
+        try:
+            if not os.path.exists(os.path.join(os.getcwd(), "EnterPoint", "acw_config")):
+                os.makedirs(os.path.join(os.getcwd(), "EnterPoint", "acw_config"))
+                
+            with open(os.path.join(os.getcwd(), "EnterPoint", "acw_config", "_AutoConfig.api.json"), "w", encoding="utf-8") as f:
+                json.dump(auto_config, f, indent=2, ensure_ascii=False)
+        except Exception as e:
+            logger.error(f"保存配置文件失败: {str(e)}")
+            logger.debug(traceback.format_exc())
+            Flyout.create(
+                icon=InfoBarIcon.SUCCESS,
+                title="保存配置文件失败",
+                content=f"无法写入文件，请检查权限或文件路径是否正确。",
+                target=self.StartButton,
+                parent=self,
+                isClosable=True,
+            )
+            return
             
         self.parent.auto_wallpaper_updated.emit()
         Flyout.create(
@@ -1012,6 +1039,7 @@ class MainWindow(QWidget, MainWindowTemplate_ui.Ui_Form):
             return False
 
     def on_close(self):
+        self.hide_firstly = False
         if self._finalize():
             QTimer.singleShot(0, lambda: (
                 QApplication.processEvents(),
@@ -1122,8 +1150,9 @@ if __name__ == '__main__':
     else:
         setThemeColor("#fa9bc2")
     
-    os.chdir(os.path.dirname(os.path.abspath(sys.argv[0])))
-    app = QApplication(sys.argv)
+    os.chdir(MainKernal.get_internal_dir())
+    
+    # 启动程序
     event_loop = QEventLoop(app)
     asyncio.set_event_loop(event_loop)
     

@@ -10,6 +10,8 @@
 /config.json
 /BACKIMG1_.png
 /github_pat.txt
+/output/
+/wpg_next/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -64,6 +64,7 @@ class AutoChageWallpaper(QWidget, Ui_Form):
         self.SaveSettings.clicked.connect(self.on_save_settings)
         self.CancelSettings.clicked.connect(self.on_close)
         self.ChosePath.clicked.connect(self.on_choose_path)
+        self.AutoStartButton.setEnabled(self.settings["enabled"])
         self.init_settings()
         # self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
         # self.setFixedSize(self.size())
@@ -114,7 +115,7 @@ class AutoChageWallpaper(QWidget, Ui_Form):
         except Exception as e:
             if show_error:
                 self.description_text = "没有自动更换壁纸的图片源配置。"
-                InfoBar.error(title='自动更换壁纸的配置加载失败', content=f"\n{str(e)}", orient=Qt.Horizontal,
+                InfoBar.error(title='自动更换壁纸的配置加载失败', content=f"{str(e)}", orient=Qt.Horizontal,
                     isClosable=True,
                     position=InfoBarPosition.TOP_RIGHT,
                     duration=6000, 
@@ -218,6 +219,11 @@ class AutoChageWallpaper(QWidget, Ui_Form):
         self.settings["enabled"] = self.EnabilityButton.isChecked()
         self.settings["path"] = self.TextPath.text()
         self.settings["interval"] = user_time.toString("hh:mm:ss")
+        if not self.settings["enabled"]:
+            self.AutoStartButton.setChecked(False)
+            self.AutoStartButton.setEnabled(False)
+        else:
+            self.AutoStartButton.setEnabled(True)
         
         try:
             if self.AutoStartButton.isChecked(): 
@@ -230,7 +236,7 @@ class AutoChageWallpaper(QWidget, Ui_Form):
         except Exception as e:
             logger.error(f"设置开机启动失败：{e}")
             logger.debug(traceback.format_exc())
-            InfoBar.error(title='开机启动设置失败', content=f"\n{str(e)}", orient=Qt.Horizontal,
+            InfoBar.error(title='开机启动设置失败', content=f"{str(e)}", orient=Qt.Horizontal,
                     isClosable=True,
                     position=InfoBarPosition.TOP_RIGHT,
                     duration=6000, 
@@ -246,6 +252,9 @@ class AutoChageWallpaper(QWidget, Ui_Form):
         if not self.settings["enabled"]:
             self.timer.stop()
             self.CurrentStage.setText(" 下次更换：未启用。")
+        else:
+            if not self.timer.isActive():
+                self.timer.start(1000)
             
         InfoBar.info(title='配置应用成功', content=f"将会立即生效", orient=Qt.Horizontal,
                     isClosable=True,

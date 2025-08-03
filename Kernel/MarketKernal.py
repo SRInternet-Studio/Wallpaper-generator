@@ -88,7 +88,7 @@ class MarketUI(QWidget, Ui_Form):
                 self.timer.setSingleShot(True)
                 self.timer.timeout.connect(
                     lambda content=content: self.addPlugin(content.get("friendly_name", "API"), content.get("intro", "没有介绍。"), content.get("icon", ""), None, "添加到 壁纸生成器", 
-                    lambda path=api.get("name", ""), content=content: self.on_add_clicked(path, content, "overview")) 
+                    lambda _, path=api.get("name", ""), content=content: self.on_add_clicked(path, content, "overview")) 
                     if api["category"] == self.NavigationBar.getCurrentItem()['text'] or "overview" in self.NavigationBar.getCurrentItem()['routeKey'] else None)
                 self.timer.start(0)
                 
@@ -125,12 +125,12 @@ class MarketUI(QWidget, Ui_Form):
         
     def restart_markets(self):
         self.delPlugin()
-        index = self.horizontalLayout.indexOf(self.NavigationBar)
+        index = self.verticalLayout.indexOf(self.NavigationBar)
         self.NavigationBar.deleteLater()
-        self.NavigationBar = NavigationBar(self)
+        self.NavigationBar = NavigationBar(self.scrollAreaWidgetContents_2)
         self.NavigationBar.setObjectName(u"NavigationBar")
         self.NavigationBar.setMaximumSize(QSize(72, 16777215))
-        self.horizontalLayout.insertWidget(index, self.NavigationBar)
+        self.verticalLayout.insertWidget(index, self.NavigationBar)
         
         self.SearchButton.setEnabled(False)
         self.SearchBox.setEnabled(False)
@@ -190,7 +190,7 @@ class MarketUI(QWidget, Ui_Form):
                 content.get("icon", ""), 
                 (api_basename not in self.exclude_apis) if "location" in item_id else None, 
                 "删除" if "location" in item_id else "添加到 壁纸生成器", 
-                lambda path=api.get("name", ""), content=content: self.on_remove_clicked(path, content, item_id) if "location" in item_id 
+                lambda _, path=api.get("name", ""), content=content: self.on_remove_clicked(path, content, item_id) if "location" in item_id 
                 else self.on_add_clicked(path, content, item_id), 
                 lambda state, api_basename=api_basename, : self.on_checked_changed(state, api_basename))
 

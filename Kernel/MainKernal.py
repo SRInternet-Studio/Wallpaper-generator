@@ -437,6 +437,20 @@ def copyToClipboard(self, text):
                 duration=3000, 
                 parent=self
             )
+    
+def get_internal_dir() -> str:
+    if getattr(sys, 'frozen', False):
+        base = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+        if base.rstrip(os.path.sep).endswith("_internal"):
+            return base
+        
+        if hasattr(sys, '_MEIPASS'):
+            # 单文件模式：_internal在_MEIxxxx下
+            return os.path.join(base, '_internal')
+        # 目录模式：_internal在sys._MEIPASS下
+        return os.path.join(base, '_internal') if os.path.exists(os.path.join(base, '_internal')) else base
+    else:
+        return os.path.dirname(os.path.realpath(sys.argv[0]))
 
 """链接解析"""
 def adaptive_link_splitter(text) -> List[str]:

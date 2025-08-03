@@ -9,7 +9,6 @@ from PySide6.QtGui import QColor, QIcon
 from qfluentwidgets import (InfoBarPosition, InfoBar, FluentIcon, ColorDialog, themeColor, Theme, EnumSerializer, 
                             PushSettingCard, ComboBoxSettingCard, OptionsSettingCard, SwitchSettingCard, 
                             OptionsConfigItem, OptionsValidator, BoolValidator, qconfig, isDarkThemeMode)
-import APICORE
 
 class AppSettings():
     def __init__(self):
