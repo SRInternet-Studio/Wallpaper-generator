@@ -59,9 +59,10 @@
 ## 如何使用
 
 ### 安装
-1. 下载 [Releases](https://github.com/SRInternet-studio/Wallpaper-generator/releases) 中的最新的 **Pre-release** 安装程序（.exe）；
-2. 双击安装，跟着提示一步步来；
-3. 启动软件。
+1. 阅读[《免责声明》](https://github.com/SRInternet-Studio/Wallpaper-generator/blob/NEXT-PREVIEW/DISCLAIMER.md)
+2. 下载 [Releases](https://github.com/SRInternet-studio/Wallpaper-generator/releases) 中的最新的 **Pre-release** 安装程序（.exe）；
+3. 双击安装，跟着提示一步步来；
+4. 启动软件。
 
 ### 生成壁纸
 1. 在软件主界面顶部的导航栏内可以切换不同的图片类型，以进入不同的生成模式；
