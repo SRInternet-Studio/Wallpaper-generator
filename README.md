@@ -9,11 +9,13 @@
  
  快速了解我们：[观看 壁纸生成器4 宣传片](https://www.bilibili.com/video/BV1piHdeGEk8/?share_source=copy_web&vd_source=30d79003a7fdec2cbcfbe2d49d21ea9a)
 
-> [!NOTE]  
- > 若您希望在 Android 系列操作系统上使用，请前往： [Android 版](https://github.com/SRInternet/Wallpaper-generator-for-android/) 和 [Android 版独立分支](https://github.com/SRInternet/Pixiv-generator/)。
+> [!NOTE]
+> 全新的 **壁纸生成器 NEXT** 已经公开测试。可以前往[预览版分支](https://github.com/SRInternet-Studio/Wallpaper-generator/tree/NEXT-PREVIEW)了解更多，或[下载](https://github.com/SRInternet-Studio/Wallpaper-generator/releases)全新版本。
+> 
+> 若您希望在 Android 系列操作系统上使用，请前往： [Android 版](https://github.com/SRInternet/Wallpaper-generator-for-android/) 和 [Android 版独立分支](https://github.com/SRInternet/Pixiv-generator/)。
 
 > [!IMPORTANT]  
- > 本 README 正在更新，请有选择性的观看以下内容，并在稍后再次观看
+> 本 README 正在更新，请有选择性的观看以下内容，并在稍后再次观看
 
 ## 详细信息
 
