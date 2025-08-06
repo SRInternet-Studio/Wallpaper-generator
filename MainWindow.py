@@ -113,7 +113,7 @@ class WelcomePage(QWidget, WelcomePageNext_ui.Ui_Form):
         
     def on_autowallpaper_clicked(self):
         if platform.system() != "Windows":
-            MessageBox("环境问题", "自动更换壁纸 目前仅适用于 Windows 系统，请更换系统后重试。", self)
+            MessageBox("环境问题", "自动更换壁纸 目前仅适用于 Windows 系统，请更换系统后重试。", self.window())
             return
         
         if hasattr(self.main_window, 'auto_wallpaper_window'):
@@ -134,11 +134,11 @@ class WelcomePage(QWidget, WelcomePageNext_ui.Ui_Form):
             
     def on_gradient_clicked(self):
         if platform.system() != "Windows":
-            MessageBox("环境问题", "制作渐变壁纸 目前仅适用于 Windows 系统，请更换系统后重试。", self)
+            MessageBox("环境问题", "制作渐变壁纸 目前仅适用于 Windows 系统，请更换系统后重试。", self.window())
             return
         
         if not MainKernal.is_process_running("Wallpaper_Gradient.exe"):
-            os.startfile("Wallpaper_Gradient.exe")
+            os.startfile(os.path.join(MainKernal.get_internal_dir(), "gradient", "Wallpaper_Gradient.exe"))
         else:
             Flyout.create(
                 icon=InfoBarIcon.SUCCESS,
@@ -151,6 +151,8 @@ class WelcomePage(QWidget, WelcomePageNext_ui.Ui_Form):
             )
                 
     async def start_kernal(self):
+        self.ApplicationTitle.setText(QCoreApplication.translate("Form", 
+                u"<html><head/><body><p><span style=\" font-size:18pt; font-weight:700;\">\u58c1\u7eb8\u751f\u6210\u5668 5 NEXT</span></p><p><span style=\" font-size:18pt; font-weight:700;\">for " + platform.system() + "</span></p></body></html>", None))
         connection = await MainKernal.check_network()
         if connection:
             if float(f"{connection:.2f}") > 80:
@@ -562,6 +564,9 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
             self._generated = []
             self._other_responses = []
             split_str = {}
+            if not os.path.isdir(self.parent.settings["download_path"]):
+                raise FileNotFoundError("设置的图片保存位置无法被使用，请前往设置进行更换")
+            
             for param in cfg.parameters():
                 for key, value in param.items():
                     if key == "split_str" and value:
@@ -814,7 +819,7 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
 
                 formatted_key, formatted_value = list(formatted.items())[0]
                 action = Action(FluentIcon.TAG, formatted_key, self)
-                action.triggered.connect(lambda fk=formatted_key, fv=formatted_value: self.show_background_tools(fk, fv))
+                action.triggered.connect(lambda _, fk=formatted_key, fv=formatted_value: self.show_background_tools(fk, fv))
                 self.CommandBar.addAction(action=action)
                 logger.debug(f"当前其他响应: {formatted}")
 
@@ -1050,11 +1055,14 @@ class MainWindow(QWidget, MainWindowTemplate_ui.Ui_Form):
             QApplication.quit()
             
     def closeEvent(self, event):
-        event.ignore()
-        self.window().hide()
-        if self.hide_firstly:
-            self.hide_firstly = False
-            self.trayIcon.show_notification("壁纸生成器", "已隐藏到托盘，右键托盘可显示")
+        if self.settings["trayicon_config"]:
+            event.ignore()
+            self.window().hide()
+            if self.hide_firstly:
+                self.hide_firstly = False
+                self.trayIcon.show_notification("壁纸生成器", "已隐藏到托盘，右键托盘可显示")
+        else:
+            self.on_close()
 
     def change_background(self, image_path=None):
         # 加载原始图片
@@ -1122,9 +1130,9 @@ def SetBackground(self, new_wall, target):
     except FileNotFoundError as e:
         logger.exception(str(e))
         MessageBox("错误", "壁纸设置工具不存在，未能找到 Set_Wallpaper.exe\n壁纸生成器 可能已经损坏，重新安装本程序可能解决此问题。", self.window())
-    except NotImplementedError:
+    except NotImplementedError as e:
         logger.exception(str(e))
-        MessageBox("环境问题", "设置壁纸 功能目前仅适用于 Windows 系统，请更换系统后重试。", self.window())
+        MessageBox("环境问题", "设置壁纸 功能目前仅适用于 GNOME 桌面和 Windows 系统，请更换系统后重试。", self.window())
     except Exception as e:
         logger.exception(str(e))
         Flyout.create(

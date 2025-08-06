@@ -277,14 +277,15 @@ class AutoChageWallpaper(QWidget, Ui_Form):
             now_after_secs = now_after.hour() * 3600 + now_after.minute() * 60 + now_after.second()
             seconds_left = self._count_seconds_left(now_after_secs)
             
-        hours = seconds_left // 3600
-        minutes = (seconds_left % 3600) // 60
-        seconds = seconds_left % 60
-        countdown = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
-        
-        # countdown = QTime(0, 0, 0).addSecs(abs(self.next_time.secsTo(QTime.currentTime()))).toString('hh:mm:ss')
-        if self.displayed:
-            self.CurrentStage.setText(f"{self.description_text}\n 下次更换：{countdown} 后 ({self.next_time.toString('hh:mm:ss')})")
+        if self.settings["enabled"]:
+            hours = seconds_left // 3600
+            minutes = (seconds_left % 3600) // 60
+            seconds = seconds_left % 60
+            countdown = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
+            
+            # countdown = QTime(0, 0, 0).addSecs(abs(self.next_time.secsTo(QTime.currentTime()))).toString('hh:mm:ss')
+            if self.displayed:
+                self.CurrentStage.setText(f"{self.description_text}\n 下次更换：{countdown} 后 ({self.next_time.toString('hh:mm:ss')})")
         
     async def change_wallpaper(self):
         try:

@@ -1,0 +1,29 @@
+{
+    "friendly_name": "LoliAPI", 
+    "intro": "二次元萝莉壁纸和头像", 
+    "icon": "https://cdn.iloli.love/img/liico.webp",
+    "link": "https://www.loliapi.com/",
+    "func": "GET",
+    "APICORE_version": "1.0",
+    "parameters": [
+        {
+            "type": "enum",
+            "required": true,
+            "value": ["bg", "acg/pp", "acg/pc", "acg/pe"], 
+            "friendly_value": ["随机", "头像", "电脑", "手机"],
+            "friendly_name": "壁纸类型",
+            "min_value": null,
+            "max_value": null,
+            "split_str": null
+        }
+    ],
+    "response": {
+      "image": {
+        "content_type": "BINARY",
+        "path": "",
+        "is_list": false,
+        "is_base64": false
+      },
+      "others": []
+    }
+  }

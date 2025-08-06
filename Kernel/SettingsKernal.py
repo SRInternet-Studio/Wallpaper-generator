@@ -30,7 +30,7 @@ class SettingsKernal():
         if not os.path.isfile(path):
             return {"download_path": os.path.abspath('./Images'), "theme_config": "Auto", 
                     "ThemeMode": "AUTO", "background_image_path": os.path.abspath('./BACKIMG1.png'), 
-                    "today_image_config": True}
+                    "today_image_config": True, "trayicon_config": True}
         
         with open(path, "r", encoding="utf-8") as f:
             settings = json.loads(f.read())
@@ -40,7 +40,8 @@ class SettingsKernal():
                 "theme_config": settings.get("theme_config", "Auto"), 
                 "ThemeMode": settings.get("ThemeMode", "AUTO"), 
                 "background_image_path": settings.get("background_image_path", os.path.abspath('./BACKIMG1.png')), 
-                "today_image_config": settings.get("today_image_config", True)}
+                "today_image_config": settings.get("today_image_config", True), 
+                "trayicon_config": settings.get("trayicon_config", True)}
     
     def read_autochange_settings(self):
         path = os.path.join(os.getcwd(), "acw_next", "config.json")
@@ -121,8 +122,18 @@ class SettingsUI(QWidget, Ui_Form):
         )
         self.today_image_card.setValue(self.settings["today_image_config"])
         today_image_config.valueChanged.connect(lambda option: self.settings.update({'today_image_config': option}))
+
+        trayicon_config = OptionsConfigItem("SettingsUI", "trayicon_config", True, BoolValidator())
+        self.trayicon_card = SwitchSettingCard(
+            icon=FluentIcon.ZOOM,
+            title="最小化到托盘",
+            content="关闭窗口后不立即退出，而是在托盘图标中继续运行",
+            configItem=trayicon_config
+        )
+        self.trayicon_card.setValue(self.settings["trayicon_config"])
+        trayicon_config.valueChanged.connect(lambda option: self.settings.update({'trayicon_config': option}))
         
-        settings_cards = [self.path_card, self.theme_card, self.dark_mode_card, self.backrgound_card, self.today_image_card]
+        settings_cards = [self.path_card, self.theme_card, self.dark_mode_card, self.backrgound_card, self.today_image_card, self.trayicon_card]
         for card in settings_cards:
             self.verticalLayout_5.addWidget(card)
             

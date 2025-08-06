@@ -14,7 +14,7 @@ import psutil
 from UI import Dialog, Reloading_Dialog
 from PySide6.QtWidgets import QDialog
 from PySide6.QtCore import QTimer, QProcess
-from qfluentwidgets import Flyout, InfoBarIcon
+from qfluentwidgets import Flyout, InfoBarIcon, isDarkThemeMode
 
 """装饰器：限制函数只能被本模块内的其他函数调用"""
 def internal_only(func):
@@ -618,8 +618,26 @@ def SetBackground(self, new_wall: str, is_dark_theme: bool, theme_color, target=
                 raise Exception(process.returncode)
         else:
             raise FileNotFoundError("壁纸设置工具不存在，未能找到 Set_Wallpaper.exe 。")
+    elif platform.system() == "Linux":
+        try:
+            new_wall = new_wall.rstrip("/").strip("\\").strip("\"")
+            desktop_env = os.getenv("XDG_CURRENT_DESKTOP", "").lower()
+            logger.debug(f"桌面环境: {desktop_env}, 壁纸路径: {new_wall}")
+            if "gnome" in desktop_env or "ubuntu" in desktop_env:
+                subprocess.run(["gsettings", "set", "org.gnome.desktop.background", "picture-uri", f"file://{new_wall}"])
+            elif "mate" in desktop_env:
+                subprocess.run(["gsettings", "set", "org.mate.background", "picture-filename", f"{new_wall}"])
+            elif "kde" in desktop_env:
+                subprocess.run(["dcop", "kdesktop", "org.kde.image", "/Picture", "setWallpaper", f"{new_wall}"])
+            else:
+                raise NotImplementedError("壁纸设置功能目前仅适用于 GNOME 桌面和Windows 系统。")
+        except Exception as e:
+            logger.error(f"壁纸设置失败: {str(e)}")
+            logger.debug(traceback.format_exc())
+            raise NotImplementedError("壁纸设置功能目前仅适用于 GNOME 桌面和Windows 系统。")
     else:
-        raise NotImplementedError("壁纸设置功能目前仅适用于 Windows 系统。")
+        logger.error(f"不适用于 {platform.system()}")
+        raise NotImplementedError("壁纸设置功能目前仅适用于 GNOME 桌面和Windows 系统。")
 
 """TEST CODE"""
 async def test_api() -> None:

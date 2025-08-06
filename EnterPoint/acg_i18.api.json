@@ -1,55 +1,55 @@
 {
-    "APICORE_version": "1.0",
-    "friendly_name": "二次元ACG",
-    "func": "GET",
-    "icon": "https://www.i18.net/favicon.ico",
-    "intro": "生成二次元ACG图片，基于 i18 接口",
-    "link": "https://i18.net/acg.php",
-    "parameters": [
-        {
-            "friendly_name": "壁纸尺寸",
-            "friendly_value": [
-                "全部",
-                "电脑",
-                "手机"
-            ],
-            "max_value": null,
-            "min_value": null,
-            "name": "zd",
-            "required": true,
-            "split_str": null,
-            "type": "enum",
-            "value": [
-                "zsy",
-                "pc",
-                "mobile"
-            ]
-        },
-        {
-            "friendly_name": "壁纸数量",
-            "friendly_value": [
-                "单张",
-                "十张"
-            ],
-            "max_value": null,
-            "min_value": null,
-            "name": "return",
-            "required": true,
-            "split_str": null,
-            "type": "enum",
-            "value": [
-                "url",
-                "urlpro"
-            ]
-        }
-    ],
-    "response": {
-        "image": {
-            "content_type": "URL",
-            "is_base64": false,
-            "is_list": true,
-            "path": "[*]"
-        },
-        "others": []
+  "friendly_name": "二次元ACG",
+  "intro": "生成二次元ACG图片，基于 i18 接口",
+  "icon": "https://www.i18.net/favicon.ico",
+  "link": "https://i18.net/acg.php",
+  "func": "GET",
+  "APICORE_version": "1.0",
+  "parameters": [
+    {
+      "name": "zd",
+      "type": "enum",
+      "required": true,
+      "value": [
+        "zsy",
+        "pc",
+        "mobile"
+      ],
+      "friendly_value": [
+        "全部",
+        "电脑",
+        "手机"
+      ],
+      "friendly_name": "壁纸尺寸",
+      "min_value": null,
+      "max_value": null,
+      "split_str": null
+    },
+    {
+      "name": "return",
+      "type": "enum",
+      "required": true,
+      "value": [
+        "url",
+        "urlpro"
+      ],
+      "friendly_value": [
+        "单张",
+        "十张"
+      ],
+      "friendly_name": "壁纸数量",
+      "min_value": null,
+      "max_value": null,
+      "split_str": null
     }
+  ],
+  "response": {
+    "image": {
+      "content_type": "URL",
+      "path": "[*]",
+      "is_list": true,
+      "is_base64": false
+    },
+    "others": []
+  }
 }

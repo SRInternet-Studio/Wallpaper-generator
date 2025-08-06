@@ -1,0 +1,18 @@
+{
+    "friendly_name": "Jiangtokoto 一言", 
+    "intro": "开发者们娱乐的日常发电行为", 
+    "icon": "https://hub.gitmirror.com/raw.githubusercontent.com/unDefFtr/jiangtokoto-images/refs/heads/main/images/JY_Is_MDCSPE.png",
+    "link": "https://api.jiangtokoto.cn/memes/random",
+    "func": "GET",
+    "APICORE_version": "1.0",
+    "parameters": [],
+    "response": {
+      "image": {
+        "content_type": "BINARY",
+        "path": "",
+        "is_list": false,
+        "is_base64": false
+      },
+      "others": []
+    }
+  }

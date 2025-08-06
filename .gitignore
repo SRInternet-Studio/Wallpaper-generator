@@ -12,6 +12,8 @@
 /github_pat.txt
 /output/
 /wpg_next/
+/wpg_next_linux/
+/_BACKIMG1.png
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

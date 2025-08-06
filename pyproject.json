@@ -131,14 +131,6 @@
   },
   {
    "optionDest": "datas",
-   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/Set_Wallpaper.exe;."
-  },
-  {
-   "optionDest": "datas",
-   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/Wallpaper_Gradient.exe;."
-  },
-  {
-   "optionDest": "datas",
    "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/acw_next;acw_next/"
   },
   {
@@ -160,6 +152,10 @@
   {
    "optionDest": "datas",
    "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/fonts;fonts/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/gradient;gradient/"
   }
  ],
  "nonPyinstallerOptions": {

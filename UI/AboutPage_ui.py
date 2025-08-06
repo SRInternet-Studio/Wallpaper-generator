@@ -112,7 +112,7 @@ class Ui_Dialog(object):
         if isDarkTheme():   self.commandLinkButton_2.setStyleSheet(u"QCommandLinkButton {	\n"
 "	color: rgb(250, 250, 250);\n"
 "}")
-        self.commandLinkButton_2.clicked.connect(lambda: webbrowser.open("https://afdian.com/a/srinternet/"))
+        self.commandLinkButton_2.clicked.connect(lambda: webbrowser.open("https://github.com/SRInternet-Studio/Wallpaper-generator/blob/NEXT-PREVIEW/DISCLAIMER.md"))
 
         self.horizontalLayout.addWidget(self.commandLinkButton_2)
 
