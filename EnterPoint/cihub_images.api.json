@@ -1,0 +1,18 @@
+{
+    "friendly_name": "CiHub 梗图", 
+    "intro": "Classisland 的表情包", 
+    "icon": "https://hub.classisland.tech/imgs/HelloWhiteRC.png",
+    "link": "https://cihub.8693.world/memes/random",
+    "func": "GET",
+    "APICORE_version": "1.0",
+    "parameters": [],
+    "response": {
+      "image": {
+        "content_type": "BINARY",
+        "path": "",
+        "is_list": false,
+        "is_base64": false
+      },
+      "others": []
+    }
+  }

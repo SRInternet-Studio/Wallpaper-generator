@@ -1,0 +1,82 @@
+{
+    "friendly_name": "pollinations.ai",
+    "intro": "提供简单易用的AI图像生成", 
+    "icon": "https://pollinations.ai/favicon-32x32.png",
+    "link": "https://image.pollinations.ai/prompt/",
+    "func": "GET",
+    "APICORE_version": "1.0",
+    "parameters": [
+      {
+        "type": "string",
+        "value": "",
+        "required": false,
+        "friendly_name": "描述你的图片（英语）",
+        "min_value": null,
+        "max_value": null,
+        "split_str": null
+      },
+      {
+        "name": "style",
+        "type": "enum",
+        "required": false,
+        "value": ["", "vintage"],
+        "friendly_value": ["无", "vintage"],
+        "friendly_name": "风格",
+        "min_value": null,
+        "max_value": null,
+        "split_str": null
+      },
+      {
+        "name": "nologo",
+        "type": "enum",
+        "required": true,
+        "value": ["true", "false"],
+        "friendly_value": ["不包含", "包含"],
+        "friendly_name": "正版水印",
+        "min_value": null,
+        "max_value": null,
+        "split_str": null
+      },
+      {
+        "name": "width",
+        "type": "enum",
+        "required": true,
+        "value": ["720", "1024", "1280", "1920"],
+        "friendly_value": ["720px", "1024px", "1280px", "1920px"],
+        "friendly_name": "图片宽度",
+        "min_value": null,
+        "max_value": null,
+        "split_str": null
+      },
+      {
+        "name": "height",
+        "type": "enum",
+        "required": true,
+        "value": ["720", "1024", "1280", "1920"],
+        "friendly_value": ["720px", "1024px", "1280px", "1920px"],
+        "friendly_name": "图片高度",
+        "min_value": null,
+        "max_value": null,
+        "split_str": null
+      },
+      {
+        "name": "image",
+        "type": "string",
+        "required": false,
+        "value": "",
+        "friendly_name": "参考图片URL",
+        "min_value": null,
+        "max_value": null,
+        "split_str": null
+      }
+    ],
+    "response": {
+      "image": {
+        "content_type": "BINARY",
+        "path": "",
+        "is_list": false,
+        "is_base64": false
+      },
+      "others": []
+    }
+  }

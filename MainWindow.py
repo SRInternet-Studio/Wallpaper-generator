@@ -414,8 +414,10 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
         for param in config.parameters():
             param_type = str(param.get('type')).lower()
             param_name = param.get('name', None)
+            if not param_name:
+                param_name = None
             if friendly_name:
-                _param_name = param.get('friendly_name', param.get('name', None))
+                _param_name = param.get('friendly_name', str(param_name))
             
             if not bool(param.get('enable', True)) and not friendly_name:
                 payload[param_name] = param.get('value')

@@ -12,8 +12,8 @@ from typing import Optional, Union, List, Dict, Tuple, Any
 
 import psutil
 from UI import Dialog, Reloading_Dialog
-from PySide6.QtWidgets import QDialog
-from PySide6.QtCore import QTimer, QProcess
+from PySide6.QtWidgets import QDialog, QApplication
+from PySide6.QtCore import QTimer
 from qfluentwidgets import Flyout, InfoBarIcon, isDarkThemeMode
 
 """装饰器：限制函数只能被本模块内的其他函数调用"""
@@ -539,60 +539,30 @@ def is_base64_like(s: str) -> bool:
         return True
     except:
         return False
-    
-    
-def _restart_program(self):
-    try:
-        BatchWindows = QDialog()
-        ui1 = Reloading_Dialog.Ui_Form()
-        ui1.setupUi(BatchWindows)
-        BatchWindows.show()
         
-        # 获取当前执行命令
+def restart_program(self):
+    try:
+        self.window().close()
+        QApplication.instance().quit()
+        
         if getattr(sys, 'frozen', False):
             executable = sys.executable
             args = []
         else:
             executable = sys.executable
             args = sys.argv
-        
+            
         if sys.platform == 'win32':
             if ' ' in executable and not executable.startswith('"'):
                 executable = f'"{executable}"'
-        
-        command = [executable] + (args if not getattr(sys, 'frozen', False) else [])
-        # logger.info(f"即将重启: {' '.join(command)}")
-        logger.info(f"即将重启: {executable} {args}")
-        
-        # if sys.platform == 'win32':
-        #     subprocess.Popen(['start', '""'] + command, shell=True)
-        #     os.startfile(os.path.dirname(executable), args)
-        #     os.execv
-        # else:
-        os.execv(executable, args)
-        
-        QTimer.singleShot(100, self.window().close)
-        
+            os.popen(f"start {executable} {' '.join(args)}")
+        else:
+            os.execv(executable, [executable] + args)
+            
     except Exception as e:
         logger.error(f"重启失败: {str(e)}")
         logger.debug(traceback.format_exc())
         QTimer.singleShot(0, self.window().show)
-        
-def restart_program(self):
-    new_args = []
-    if getattr(sys, 'frozen', False):
-        executable_path = sys.executable
-        command = [executable_path] + new_args
-        os.popen(f"start \"{executable_path}\"")
-    else:
-        python_executable = sys.executable
-        script_path = os.path.abspath(__file__)
-        command = [python_executable, script_path] + new_args
-        # subprocess.Popen(command)
-        os.popen(f"start \"{python_executable}\" \"{script_path}\"")
-
-    QTimer.singleShot(1000, self.window().close)
-    quit()
     
 def SetBackground(self, new_wall: str, is_dark_theme: bool, theme_color, target=None, no_window="false"):
     if platform.system() == "Windows":
