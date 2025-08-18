@@ -22,7 +22,7 @@
 ###### [观看快闪，快速了解颠覆性创新 →](https://b23.tv/BV1xp81zFE3H) </div>
 
 > [!NOTE]  
- > 若您希望在 Android 系列操作系统上使用，请前往： [Android 版](https://github.com/SRInternet/Wallpaper-generator-for-android/) 和 [Android 版独立分支](https://github.com/SRInternet/Pixiv-generator/)。
+ > 若您希望在 Android 系列操作系统上使用，请前往：[壁纸生成器 NEXT - 手机版](https://github.comesRInternet-Studio/Wallpaper-generator-Mobile)。
 
 > [!IMPORTANT]  
 > 你正在浏览预览版分支。预览版软件可能包含多种不确定性因素，造成运行不稳定、不流畅等多种情况。
