@@ -95,7 +95,7 @@ class AutoChageWallpaper(QWidget, Ui_Form):
         self.init_cfg()
         
     def init_cfg(self, show_error=True):
-        path = os.path.join(os.getcwd(), "EnterPoint", "acw_config", "_AutoConfig.api.json")
+        path = os.path.join(MainKernal.get_config_dir(), "EnterPoint", "acw_config", "_AutoConfig.api.json")
         try:
             if os.path.isfile(path):
                 cfg = APICORE(path).init()
@@ -244,7 +244,7 @@ class AutoChageWallpaper(QWidget, Ui_Form):
         
         self.settings["auto_start"] = self.startup_manager.IsAddedToStartup()
         self.AutoStartButton.setChecked(self.startup_manager.IsAddedToStartup())
-        with open(os.path.join(os.getcwd(), "acw_next", "config.json"), "w", encoding="utf-8") as f:
+        with open(os.path.join(MainKernal.get_config_dir(), "acw_next", "config.json"), "w", encoding="utf-8") as f:
             f.write(json.dumps(self.settings, indent=4, ensure_ascii=False))
             f.close()
             
@@ -337,7 +337,7 @@ class AutoChageWallpaper(QWidget, Ui_Form):
                 response = response[:1]
                 result = await MainKernal.download_images_binary(
                     response, 
-                    self.parentWidget.settings["download_path"],  # os.path.abspath(".//Images")
+                    self.parentWidget.settings["download_path"],
                 )
                     
             else: # URL
@@ -362,7 +362,7 @@ class AutoChageWallpaper(QWidget, Ui_Form):
                 response = response[:1]
                 result = await MainKernal.download_images(
                     response,
-                    self.parentWidget.settings["download_path"],  # os.path.abspath(".//Images")
+                    self.parentWidget.settings["download_path"], 
                     retries=1,
                     timeout=30
                 )

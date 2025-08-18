@@ -3,6 +3,7 @@ import traceback, shutil
 from UI.SettingsPage_ui import Ui_Form
 from UI.AboutPage_ui import Ui_Dialog
 from Kernel.Logger import logger
+from Kernel import MainKernal
 from PySide6.QtCore import Qt, QTime, QTimer
 from PySide6.QtWidgets import QWidget, QDialog, QFileDialog
 from PySide6.QtGui import QColor, QIcon
@@ -17,6 +18,10 @@ class AppSettings():
 class SettingsKernal():
     def Construct_control(self, path):
         api_json_files = []
+        if not os.path.isdir(path):
+            os.mkdir(path)
+            logger.info(f"Created {path}")
+            
         for file in os.listdir(path):
             full_path = os.path.join(path, file)
             logger.debug(f"Checking {full_path}")
@@ -26,28 +31,38 @@ class SettingsKernal():
         return api_json_files
     
     def read_settings(self):
-        path = os.path.join(os.getcwd(), "config.json")
+        path = os.path.join(MainKernal.get_config_dir(), "config.json")
+        if not os.path.isfile(os.path.join(MainKernal.get_config_dir(), 'BACKIMG1.png')):
+            import shutil
+            shutil.copyfile(os.path.join(MainKernal.get_internal_dir(), 'BACKIMG1.png'), os.path.join(MainKernal.get_config_dir(), 'BACKIMG1.png'))
+            logger.debug(f"Copied {os.path.join(MainKernal.get_internal_dir(), 'BACKIMG1.png')} to {os.path.join(MainKernal.get_config_dir(), 'BACKIMG1.png')}")
+            
+        if not os.path.isdir(os.path.join(MainKernal.get_config_dir(), 'Images')):
+            os.mkdir(os.path.join(MainKernal.get_config_dir(), 'Images'))
+            logger.info(f"Created {os.path.join(MainKernal.get_config_dir(), 'Images')}")
+            
         if not os.path.isfile(path):
-            return {"download_path": os.path.abspath('./Images'), "theme_config": "Auto", 
-                    "ThemeMode": "AUTO", "background_image_path": os.path.abspath('./BACKIMG1.png'), 
+            return {"download_path": os.path.join(MainKernal.get_config_dir(), 'Images'), "theme_config": "Auto", 
+                    "ThemeMode": "AUTO", "background_image_path": os.path.join(MainKernal.get_config_dir(), 'BACKIMG1.png'), 
                     "today_image_config": True, "trayicon_config": True}
         
         with open(path, "r", encoding="utf-8") as f:
             settings = json.loads(f.read())
             f.close()
 
-        return {"download_path": settings.get("download_path", os.path.abspath('./Images')), 
+        return {"download_path": settings.get("download_path", os.path.join(MainKernal.get_config_dir(), 'Images')), 
                 "theme_config": settings.get("theme_config", "Auto"), 
                 "ThemeMode": settings.get("ThemeMode", "AUTO"), 
-                "background_image_path": settings.get("background_image_path", os.path.abspath('./BACKIMG1.png')), 
+                "background_image_path": settings.get("background_image_path", os.path.join(MainKernal.get_config_dir(), 'BACKIMG1.png')), 
                 "today_image_config": settings.get("today_image_config", True), 
                 "trayicon_config": settings.get("trayicon_config", True)}
     
     def read_autochange_settings(self):
-        path = os.path.join(os.getcwd(), "acw_next", "config.json")
+        os.makedirs(os.path.join(MainKernal.get_config_dir(), "acw_next"), exist_ok=True)
+        path = os.path.join(MainKernal.get_config_dir(), "acw_next", "config.json")
         if not os.path.isfile(path):
             return {"enabled": False, "interval": "01:00:00", 
-                    "path": os.path.abspath("./Images"), "auto_start": False}
+                    "path": os.path.join(MainKernal.get_config_dir(), 'Images'), "auto_start": False}
         
         with open(path, "r", encoding="utf-8") as f:
             settings = json.loads(f.read())
@@ -55,7 +70,7 @@ class SettingsKernal():
             
         return {"enabled": settings.get("enabled", False), 
                 "interval": settings.get("interval", "01:00:00"), 
-                "path": settings.get("path", os.path.abspath("./Images")), 
+                "path": settings.get("path", os.path.join(MainKernal.get_config_dir(), 'Images')), 
                 "auto_start": settings.get("auto_start", False)} # 剔除多余的设置项
     
 class SettingsUI(QWidget, Ui_Form):
@@ -76,7 +91,7 @@ class SettingsUI(QWidget, Ui_Form):
             text="选择文件夹",
             icon=FluentIcon.DOWNLOAD,
             title="图片保存目录",
-            content=self.settings["download_path"] if os.path.isdir(self.settings["download_path"]) else os.path.abspath('./Images'),
+            content=self.settings["download_path"] if os.path.isdir(self.settings["download_path"]) else os.path.join(MainKernal.get_config_dir(), 'Images'),
         )
         self.path_card.clicked.connect(self.on_choose_path)
 
@@ -84,14 +99,13 @@ class SettingsUI(QWidget, Ui_Form):
         self.theme_card = ComboBoxSettingCard(
             configItem=theme_config,
             icon=FluentIcon.PALETTE,
-            title="强调色" if platform.system() == "Windows" else "强调色（仅在 Windows 下可设置）",
+            title="强调色",
             content="调整应用要突出显示的颜色" if self.settings["theme_config"] == "Auto" else "调整应用要突出显示的颜色。当前已选择颜色 " + self.settings["theme_config"],
             texts=["跟随系统", "自定义"]
         )
         logger.debug(f"theme_config: {self.theme_card.optionToText}")
         self.theme_card.setValue("Auto" if self.settings["theme_config"] == "Auto" else "Custom")
         theme_config.valueChanged.connect(lambda option: self.on_change_color(option))
-        self.theme_card.setEnabled(platform.system() == "Windows")
         
         themeMode = OptionsConfigItem(
         "QFluentWidgets", "ThemeMode", Theme.LIGHT, OptionsValidator(Theme), EnumSerializer(Theme), restart=True)
@@ -102,6 +116,7 @@ class SettingsUI(QWidget, Ui_Form):
             "调整你的应用外观",
             texts=["浅色", "深色", "跟随系统设置"]
         )
+        qconfig.load(os.path.join(MainKernal.get_config_dir(), 'config/config.json'), themeMode)
         self.dark_mode_card.setValue(getattr(Theme, self.settings["ThemeMode"].upper(), Theme.AUTO))
         themeMode.valueChanged.connect(lambda option: self.settings.update({'ThemeMode': option.value}))
         
@@ -109,7 +124,7 @@ class SettingsUI(QWidget, Ui_Form):
             text="选择背景图片",
             icon=FluentIcon.BACKGROUND_FILL,
             title="默认背景图片",
-            content=self.settings["background_image_path"] if os.path.isfile(self.settings["background_image_path"]) else os.path.abspath('./BACKIMG1.png'),
+            content=self.settings["background_image_path"] if os.path.isfile(self.settings["background_image_path"]) else os.path.join(MainKernal.get_config_dir(), 'BACKIMG1.png'),
         )
         self.backrgound_card.clicked.connect(self.on_choose_background)
         
@@ -168,18 +183,18 @@ class SettingsUI(QWidget, Ui_Form):
         
     def on_choose_path(self):
         new_path = QFileDialog.getExistingDirectory(
-        self, '生成的图片将会保存在：', self.settings["download_path"] if os.path.isdir(self.settings["download_path"]) else os.path.abspath('./Images'))
+        self, '生成的图片将会保存在：', self.settings["download_path"] if os.path.isdir(self.settings["download_path"]) else os.path.join(MainKernal.get_config_dir(), 'Images'))
         if new_path:
             self.settings.update({'download_path': new_path})
             self.path_card.setContent(new_path)
             
     def on_choose_background(self):
         new_path = QFileDialog.getOpenFileName(
-        self, '选择背景图片', self.settings["background_image_path"] if os.path.isfile(self.settings["background_image_path"]) else os.path.abspath('./BACKIMG1.png'),
+        self, '选择背景图片', self.settings["background_image_path"] if os.path.isfile(self.settings["background_image_path"]) else os.path.join(MainKernal.get_config_dir(), 'BACKIMG1.png'),
         "Image files (*.jpg *.png *.jpeg)")[0]
         if new_path:
             try:
-                if not os.path.samefile(new_path, os.path.join(os.getcwd(), "BACKIMG1.png")): shutil.copy(new_path, os.path.join(os.getcwd(), "BACKIMG1.png"))
+                if not os.path.samefile(new_path, os.path.join(MainKernal.get_config_dir(), "BACKIMG1.png")): shutil.copy(new_path, os.path.join(MainKernal.get_config_dir(), "BACKIMG1.png"))
                 self.settings.update({'background_image_path': new_path})
                 self.backrgound_card.setContent(new_path)
             except Exception as e:
@@ -194,7 +209,7 @@ class SettingsUI(QWidget, Ui_Form):
     def save_settings(self):
         self.SaveSettings.setEnabled(False)
         try:
-            with open(os.path.join(os.getcwd(), "config.json"), "w", encoding="utf-8") as f:
+            with open(os.path.join(MainKernal.get_config_dir(), "config.json"), "w", encoding="utf-8") as f:
                 f.write(json.dumps(self.settings, indent=4))
                 f.close()
                 

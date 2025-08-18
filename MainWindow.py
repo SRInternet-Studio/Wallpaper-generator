@@ -1,6 +1,6 @@
 from Kernel.Logger import logger
 import asyncio
-import subprocess
+import subprocess, portalocker
 import sys, random, base64, traceback, gc
 import platform, json, webbrowser
 from PySide6.QtCore import (QCoreApplication, QSize, Qt, Signal, QTimer)
@@ -29,12 +29,12 @@ from Kernel.OsKernal import os
 
 from Exception_Handler import setup_global_exception_handler
 handler = setup_global_exception_handler(
-    log_file="errors.log", 
+    log_file=os.path.join(MainKernal.get_config_dir(), "errors.log"), 
     console_output=True,
     exit_on_error=False, 
     custom_handler=lambda exc_type, exc_value, traceback: MainKernal.show_dialog(
         "发生异常", 
-        f"由于发生未定义的 {exc_type.__name__} 异常，已将详细错误信息记录到程序根目录的 errors.log 日志文件中，请联系并将此文件发送给开发者。", 
+        f"由于发生未定义的 {exc_type.__name__} 异常，已将详细错误信息记录到程序根目录的 {os.path.join(MainKernal.get_config_dir(), 'errors.log')} 日志文件中，请联系并将此文件发送给开发者。", 
         "好", 
         "取消", 
         "False", 
@@ -42,7 +42,8 @@ handler = setup_global_exception_handler(
     )
 )
 
-daliy_img_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "DaliyImages", f"{datetime.now().year}-{datetime.now().month:02d}-{datetime.now().day:02d}.jpg"))
+os.makedirs(os.path.join(MainKernal.get_config_dir(), "DaliyImages"), exist_ok=True)
+daliy_img_path = os.path.join(MainKernal.get_config_dir(), "DaliyImages", f"{datetime.now().strftime('%Y-%m-%d')}.jpg")
 # 继承 QApplication
 class Application(QApplication):
     def notify(self, receiver, event):
@@ -497,11 +498,12 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
         ]
         
         try:
-            if not os.path.exists(os.path.join(os.getcwd(), "EnterPoint", "acw_config")):
-                os.makedirs(os.path.join(os.getcwd(), "EnterPoint", "acw_config"))
+            if not os.path.exists(os.path.join(MainKernal.get_config_dir(), "EnterPoint", "acw_config")):
+                os.makedirs(os.path.join(MainKernal.get_config_dir(), "EnterPoint", "acw_config"))
                 
-            with open(os.path.join(os.getcwd(), "EnterPoint", "acw_config", "_AutoConfig.api.json"), "w", encoding="utf-8") as f:
+            with open(os.path.join(MainKernal.get_config_dir(), "EnterPoint", "acw_config", "_AutoConfig.api.json"), "w", encoding="utf-8") as f:
                 json.dump(auto_config, f, indent=2, ensure_ascii=False)
+                
         except Exception as e:
             logger.error(f"保存配置文件失败: {str(e)}")
             logger.debug(traceback.format_exc())
@@ -611,7 +613,7 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
                         
                 result = await MainKernal.download_images_binary(
                     response, 
-                    self.parent.settings["download_path"],  # os.path.abspath(".//Images")
+                    self.parent.settings["download_path"],
                 )
                     
             else: # URL
@@ -635,7 +637,7 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
                     
                 result = await MainKernal.download_images(
                     response,
-                    self.parent.settings["download_path"],  # os.path.abspath(".//Images")
+                    self.parent.settings["download_path"],
                     retries=1,
                     timeout=30
                 )
@@ -901,7 +903,7 @@ class MainWindow(QWidget, MainWindowTemplate_ui.Ui_Form):
 
         # 3. 加载API配置
         exclude_apis = self.preparSubInterface()
-        cfgs = SettingsKernal.SettingsKernal.Construct_control(SettingsKernal.SettingsKernal, path=os.path.join(os.getcwd(), "EnterPoint"))
+        cfgs = SettingsKernal.SettingsKernal.Construct_control(SettingsKernal.SettingsKernal, path=os.path.join(MainKernal.get_config_dir(), "EnterPoint"))
         for i in range(len(cfgs)):
             path = str(cfgs[i])
             try:
@@ -930,6 +932,7 @@ class MainWindow(QWidget, MainWindowTemplate_ui.Ui_Form):
         self.trayIcon = TrayIconKernal.Tray_Form(self)
         self.trayIcon.create_tray_icon()
         self.hide_firstly = True
+        self.close_to_restart = False
         self.splashScreen.finish()
         self.change_background()
 
@@ -961,15 +964,17 @@ class MainWindow(QWidget, MainWindowTemplate_ui.Ui_Form):
             
     def update_window_style(self):
         self.settings: dict = SettingsKernal.SettingsKernal.read_settings(self)
-        if platform.system() == "Windows":
-            if self.settings["theme_config"].lower() != "auto":
-                logger.debug(f"设置主题: {self.settings['theme_config']}")
-                setThemeColor(self.settings["theme_config"])
-            else:
+        if self.settings["theme_config"].lower() != "auto":
+            logger.debug(f"设置主题: {self.settings['theme_config']}")
+            setThemeColor(self.settings["theme_config"])
+        else:
+            if platform.system() == "Windows":
                 from winsdk.windows.ui.viewmanagement import UISettings, UIColorType
                 accent_color = UISettings().get_color_value(UIColorType.ACCENT)
                 if not themeColor() == QColor(accent_color.r, accent_color.g, accent_color.b):
                     setThemeColor(QColor(accent_color.r, accent_color.g, accent_color.b))
+            else:
+                setThemeColor(app.palette().highlight().color())
                 
         setTheme(getattr(Theme, self.settings["ThemeMode"].upper(), Theme.AUTO))    
         if self.settings["today_image_config"]:
@@ -978,12 +983,12 @@ class MainWindow(QWidget, MainWindowTemplate_ui.Ui_Form):
             self.change_background()
         
     def preparSubInterface(self):
-        if not os.path.exists(os.path.join(os.getcwd(), "EnterPoint")):
-            os.mkdir(os.path.join(os.getcwd(), "EnterPoint"))
+        if not os.path.exists(os.path.join(MainKernal.get_config_dir(), "EnterPoint")):
+            os.mkdir(os.path.join(MainKernal.get_config_dir(), "EnterPoint"))
             
         exclude_apis = []
-        if os.path.isfile(os.path.join(os.getcwd(), "EnterPoint", "exclude.txt")):
-            with open(os.path.join(os.getcwd(), "EnterPoint", "exclude.txt"), "r", encoding="utf-8") as f:
+        if os.path.isfile(os.path.join(MainKernal.get_config_dir(), "EnterPoint", "exclude.txt")):
+            with open(os.path.join(MainKernal.get_config_dir(), "EnterPoint", "exclude.txt"), "r", encoding="utf-8") as f:
                 exclude_apis = [line.strip() for line in f.readlines()]
         logger.debug(f"排除的API: {exclude_apis}")
         return exclude_apis
@@ -1057,14 +1062,17 @@ class MainWindow(QWidget, MainWindowTemplate_ui.Ui_Form):
             QApplication.quit()
             
     def closeEvent(self, event):
-        if self.settings["trayicon_config"]:
-            event.ignore()
-            self.window().hide()
-            if self.hide_firstly:
-                self.hide_firstly = False
-                self.trayIcon.show_notification("壁纸生成器", "已隐藏到托盘，右键托盘可显示")
+        if not self.close_to_restart:
+            if self.settings["trayicon_config"]:
+                event.ignore()
+                self.window().hide()
+                if self.hide_firstly:
+                    self.hide_firstly = False
+                    self.trayIcon.show_notification("壁纸生成器", "已隐藏到托盘，右键托盘可显示")
+            else:
+                self.on_close()
         else:
-            self.on_close()
+            super().closeEvent(event)
 
     def change_background(self, image_path=None):
         # 加载原始图片
@@ -1072,7 +1080,7 @@ class MainWindow(QWidget, MainWindowTemplate_ui.Ui_Form):
             self.original_pixmap = QPixmap(image_path)
             logger.debug(f"加载自定义背景图片: {image_path}")
         else:
-            self.original_pixmap = QPixmap('./BACKIMG1.png')
+            self.original_pixmap = QPixmap(os.path.join(MainKernal.get_config_dir(), 'BACKIMG1.png'))
             logger.debug("使用默认背景图片")
         
         logger.debug(f"isDarkTheme: {isDarkTheme()}")
@@ -1144,6 +1152,33 @@ def SetBackground(self, new_wall, target):
                 target=target,
                 parent=self,
                 isClosable=True)
+        
+def check_multiple_instances(lockfile='.app.lock'):
+    lockfile_path = os.path.join(os.environ.get('TEMP', '/tmp'), lockfile)
+    try:
+        lock = open(lockfile_path, 'w')
+        portalocker.lock(lock, portalocker.LOCK_EX | portalocker.LOCK_NB)
+    except (portalocker.AlreadyLocked, IOError):
+        MainKernal.show_dialog(
+            "无需启动", 
+            f"壁纸生成器 NEXT 已在运行中，请勿重复启动。", 
+            "好", 
+            "取消", 
+            "False", 
+            isDarkTheme()
+        )
+        sys.exit(0)
+    
+    import atexit
+    def cleanup():
+        portalocker.unlock(lock)
+        lock.close()
+        try:
+            os.unlink(lockfile_path)
+        except:
+            pass
+    
+    atexit.register(cleanup)
 
 if __name__ == '__main__':
     QApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
@@ -1158,8 +1193,9 @@ if __name__ == '__main__':
         accent_color = UISettings().get_color_value(UIColorType.ACCENT)
         setThemeColor(QColor(accent_color.r, accent_color.g, accent_color.b))
     else:
-        setThemeColor("#fa9bc2")
+        setThemeColor(app.palette().highlight().color())
     
+    check_multiple_instances()
     os.chdir(MainKernal.get_internal_dir())
     
     # 启动程序

@@ -111,6 +111,13 @@ async def check_network() -> Union[float, bool]:
         ping_target = 'cn.bing.com'
         timeout_sec = 5.0
         
+        # Windows平台隐藏cmd窗口
+        startupinfo = None
+        if platform.system() == 'Windows':
+            startupinfo = subprocess.STARTUPINFO()
+            startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+            startupinfo.wShowWindow = subprocess.SW_HIDE
+            
         proc = await asyncio.create_subprocess_exec(
             'ping',
             '-n' if platform.system() == 'Windows' else '-c',
@@ -120,7 +127,8 @@ async def check_network() -> Union[float, bool]:
             ping_target,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
-            env=env
+            env=env,
+            startupinfo=startupinfo
         )
         
         try:
@@ -451,6 +459,24 @@ def get_internal_dir() -> str:
         return os.path.join(base, '_internal') if os.path.exists(os.path.join(base, '_internal')) else base
     else:
         return os.path.dirname(os.path.realpath(sys.argv[0]))
+    
+def get_config_dir() -> str:
+    from pathlib import Path
+    config_dir = os.path.dirname(os.path.realpath(sys.argv[0]))
+    if getattr(sys, 'frozen', False):
+        if sys.platform.startswith('win'):
+            config_dir = str(Path.home() / f'AppData{os.sep}Roaming{os.sep}wallpaper-generator-next')
+        elif sys.platform.startswith('linux'):
+            config_dir = str(Path.home() / f'.config{os.sep}wallpaper-generator-next')
+        elif sys.platform.startswith('darwin'):
+            config_dir = str(Path.home() / f'Library{os.sep}Application Support{os.sep}wallpaper-generator-next')
+        else:
+            config_dir = str(Path.home() / f'.config{os.sep}wallpaper-generator-next')
+    
+    if not os.path.exists(config_dir):
+        os.makedirs(config_dir)
+        
+    return config_dir
 
 """链接解析"""
 def adaptive_link_splitter(text) -> List[str]:
@@ -542,6 +568,7 @@ def is_base64_like(s: str) -> bool:
         
 def restart_program(self):
     try:
+        self.parent.close_to_restart = True
         self.window().close()
         QApplication.instance().quit()
         
@@ -555,7 +582,9 @@ def restart_program(self):
         if sys.platform == 'win32':
             if ' ' in executable and not executable.startswith('"'):
                 executable = f'"{executable}"'
-            os.popen(f"start {executable} {' '.join(args)}")
+            startupinfo = subprocess.STARTUPINFO()
+            startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+            subprocess.Popen([executable] + args, startupinfo=startupinfo)
         else:
             os.execv(executable, [executable] + args)
             

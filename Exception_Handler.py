@@ -17,7 +17,8 @@ class GlobalExceptionHandler:
         :param exit_on_error: 发生未处理异常后是否退出程序
         :param custom_handler: 自定义异常处理函数，格式: func(exc_type, exc_value, exc_traceback)
         """
-        self.log_file = log_file
+
+        self.log_file = os.path.abspath(log_file)
         self.console_output = console_output
         self.exit_on_error = exit_on_error
         self.custom_handler = custom_handler
@@ -27,14 +28,15 @@ class GlobalExceptionHandler:
         self.logger.setLevel(logging.ERROR)
         
         if not any(isinstance(h, logging.FileHandler) for h in self.logger.handlers):
-            file_handler = logging.FileHandler(log_file, encoding='utf-8')
+            print(f"Logging to file: {self.log_file}")
+            file_handler = logging.FileHandler(self.log_file, encoding='utf-8')
             file_handler.setFormatter(logging.Formatter(
                 '%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
             self.logger.addHandler(file_handler)
             
-        if os.path.exists(log_file):
+        if os.path.exists(self.log_file):
             try: 
-                os.remove(log_file)
+                os.remove(self.log_file)
             except: 
                 pass
         
@@ -58,11 +60,10 @@ class GlobalExceptionHandler:
             error_msg = traceback.format_exception_only(exc_type, exc_value)[0]
             error_msg = error_msg.encode('utf-8', 'replace').decode('utf-8')
             error_msg += "\n[完整的回溯信息包含非UTF8字符]"
-        self.logger.error(f'''Unhandled exception:\n{error_msg}
-                          
+        self.logger.error(f'''Unhandled exception:\n{error_msg}    
 Error capture originated from: SR-Underlying ExceptionHandler for Python v1
 Can contact us here: http://github.com/SRInternet-Studio/
-**This capture program may circulate in multiple program distributions, so please indicate the PROGRAM NAME and VERSION when providing feedback**''')
+**This capture program may circulate in multiple program distributions, so please indicate the PROGRAM NAME and VERSION when providing feedback**\n\n''')
         
         # -> 控制台
         if self.console_output:
@@ -134,7 +135,3 @@ def setup_global_exception_handler(
         exit_on_error=exit_on_error,
         custom_handler=custom_handler
     )
-
-
-default_handler = GlobalExceptionHandler()
-handle_global_exceptions = default_handler # 上下文管理

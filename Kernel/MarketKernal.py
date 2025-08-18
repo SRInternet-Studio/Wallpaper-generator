@@ -153,7 +153,7 @@ class MarketUI(QWidget, Ui_Form):
         
         elif "location" in source:
             items = []
-            for path in SettingsKernal.Construct_control(SettingsKernal, path=os.path.join(os.getcwd(), "EnterPoint")):
+            for path in SettingsKernal.Construct_control(SettingsKernal, path=os.path.join(MainKernal.get_config_dir(), "EnterPoint")):
                 try:
                     with open(path, 'r', encoding='utf-8') as f:
                         content = f.read()
@@ -196,8 +196,8 @@ class MarketUI(QWidget, Ui_Form):
 
     def on_NavigationBar_changed(self, item_id):
         items = self._get_item_list(item_id)
-        if os.path.isfile(os.path.join(os.getcwd(), "EnterPoint", "exclude.txt")):
-            with open(os.path.join(os.getcwd(), "EnterPoint", "exclude.txt"), "r", encoding="utf-8") as f:
+        if os.path.isfile(os.path.join(MainKernal.get_config_dir(), "EnterPoint", "exclude.txt")):
+            with open(os.path.join(MainKernal.get_config_dir(), "EnterPoint", "exclude.txt"), "r", encoding="utf-8") as f:
                 self.exclude_apis = [line.strip() for line in f.readlines()]
         logger.debug(f"排除的API: {self.exclude_apis}")
         self.process_and_display_items(items, item_id, exclude_apis=self.exclude_apis)
@@ -225,7 +225,7 @@ class MarketUI(QWidget, Ui_Form):
             self.RestartButton.show()
             
         try:
-            with open(os.path.join(os.getcwd(), "EnterPoint", "exclude.txt"), "w", encoding="utf-8") as f:
+            with open(os.path.join(MainKernal.get_config_dir(), "EnterPoint", "exclude.txt"), "w", encoding="utf-8") as f:
                 f.write("\n".join(self.exclude_apis))
         except Exception as e:
             logger.error(f"写入排除列表失败: {str(e)}")
@@ -234,7 +234,7 @@ class MarketUI(QWidget, Ui_Form):
             
     def on_add_clicked(self, name, content, item_id):
         name = f"{name}.api.json" if not name.endswith(".api.json") else name
-        if os.path.isfile(os.path.join(os.getcwd(), "EnterPoint", name)):
+        if os.path.isfile(os.path.join(MainKernal.get_config_dir(), "EnterPoint", name)):
             msg = MessageBox("提示", f"""图片源 "{content.get('friendly_name', name)}" 已经添加过啦 ♪(´▽｀)\n你可以进行以下操作""", self.window())
             msg.yesButton.setText("更新/修复")
             msg.cancelButton.setText("删除图片源")
@@ -245,7 +245,7 @@ class MarketUI(QWidget, Ui_Form):
         msg = MessageBox("添加图片源", f"""确定要添加图片源 "{content.get('friendly_name', name)}"吗？""", self.window())
         msg.setClosableOnMaskClicked(True)
         if msg.exec():
-            new_source = os.path.join(os.getcwd(), "EnterPoint", name)
+            new_source = os.path.join(MainKernal.get_config_dir(), "EnterPoint", name)
             with open(new_source, 'w', encoding='utf-8') as f:
                 f.write(json.dumps(content, ensure_ascii=False, indent=2, default=str))
                 f.close()
@@ -260,14 +260,14 @@ class MarketUI(QWidget, Ui_Form):
         
     def on_remove_clicked(self, name, content, item_id):
         name = f"{name}.api.json" if not name.endswith(".api.json") else name
-        if not os.path.isfile(os.path.join(os.getcwd(), "EnterPoint", name)):
-            MessageBox("错误", f"""图片源 "{os.path.join(os.getcwd(), "EnterPoint", name)}" 不存在。""", self.window())
+        if not os.path.isfile(os.path.join(MainKernal.get_config_dir(), "EnterPoint", name)):
+            MessageBox("错误", f"""图片源 "{os.path.join(MainKernal.get_config_dir(), "EnterPoint", name)}" 不存在。""", self.window())
             return
         
         msg = MessageBox("提示", f"""确定要删除图片源 "{content.get('friendly_name', name)}" 吗？""", self.window())
         msg.setClosableOnMaskClicked(True)
         if msg.exec():
-            os.remove(os.path.join(os.getcwd(), "EnterPoint", name))
+            os.remove(os.path.join(MainKernal.get_config_dir(), "EnterPoint", name))
             InfoBar.info(title='已删除', content=f""""{content.get('friendly_name', name)}" 已从 壁纸生成器 中移除。\n请重启 壁纸生成器 后生效。""", orient=Qt.Horizontal,
                     isClosable=True,
                     position=InfoBarPosition.BOTTOM_RIGHT,

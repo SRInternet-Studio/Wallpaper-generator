@@ -14,6 +14,7 @@
 /wpg_next/
 /wpg_next_linux/
 /_BACKIMG1.png
+/Kernel/StartupManager_.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
