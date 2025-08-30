@@ -8,8 +8,8 @@ from PySide6.QtCore import Qt, QTime, QTimer
 from PySide6.QtWidgets import QWidget, QDialog, QFileDialog
 from PySide6.QtGui import QColor, QIcon
 from qfluentwidgets import (InfoBarPosition, InfoBar, FluentIcon, ColorDialog, themeColor, Theme, EnumSerializer, 
-                            PushSettingCard, ComboBoxSettingCard, OptionsSettingCard, SwitchSettingCard, 
-                            OptionsConfigItem, OptionsValidator, BoolValidator, qconfig, isDarkThemeMode)
+                            PushSettingCard, ComboBoxSettingCard, OptionsSettingCard, SwitchSettingCard, RangeSettingCard, 
+                            OptionsConfigItem, OptionsValidator, BoolValidator, RangeConfigItem, RangeValidator, qconfig)
 
 class AppSettings():
     def __init__(self):
@@ -44,7 +44,7 @@ class SettingsKernal():
         if not os.path.isfile(path):
             return {"download_path": os.path.join(MainKernal.get_config_dir(), 'Images'), "theme_config": "Auto", 
                     "ThemeMode": "AUTO", "background_image_path": os.path.join(MainKernal.get_config_dir(), 'BACKIMG1.png'), 
-                    "today_image_config": True, "trayicon_config": True}
+                    "today_image_config": True, "trayicon_config": True, "timeout_config": 30}
         
         with open(path, "r", encoding="utf-8") as f:
             settings = json.loads(f.read())
@@ -55,7 +55,8 @@ class SettingsKernal():
                 "ThemeMode": settings.get("ThemeMode", "AUTO"), 
                 "background_image_path": settings.get("background_image_path", os.path.join(MainKernal.get_config_dir(), 'BACKIMG1.png')), 
                 "today_image_config": settings.get("today_image_config", True), 
-                "trayicon_config": settings.get("trayicon_config", True)}
+                "trayicon_config": settings.get("trayicon_config", True), 
+                "timeout_config": settings.get("timeout_config", 30)}
     
     def read_autochange_settings(self):
         os.makedirs(os.path.join(MainKernal.get_config_dir(), "acw_next"), exist_ok=True)
@@ -104,6 +105,7 @@ class SettingsUI(QWidget, Ui_Form):
             texts=["跟随系统", "自定义"]
         )
         logger.debug(f"theme_config: {self.theme_card.optionToText}")
+        qconfig.load(os.path.join(MainKernal.get_config_dir(), 'config/config.json'), theme_config)
         self.theme_card.setValue("Auto" if self.settings["theme_config"] == "Auto" else "Custom")
         theme_config.valueChanged.connect(lambda option: self.on_change_color(option))
         
@@ -128,6 +130,16 @@ class SettingsUI(QWidget, Ui_Form):
         )
         self.backrgound_card.clicked.connect(self.on_choose_background)
         
+        timeout_config = RangeConfigItem("SettingsUI", "timeout_config", 30, RangeValidator(15, 180))
+        self.timeout_card = RangeSettingCard(
+            configItem=timeout_config,
+            icon=FluentIcon.ROTATE,
+            title="超时时间",
+            content="生成图片所需要的最长时间，超过这个时间即为失败。单位为秒"
+        )
+        self.timeout_card.setValue(self.settings["timeout_config"])
+        timeout_config.valueChanged.connect(lambda time: self.settings.update({'timeout_config': time}))
+        
         today_image_config = OptionsConfigItem("SettingsUI", "today_image_config", True, BoolValidator())
         self.today_image_card = SwitchSettingCard(
             icon=FluentIcon.TRANSPARENT,
@@ -148,7 +160,7 @@ class SettingsUI(QWidget, Ui_Form):
         self.trayicon_card.setValue(self.settings["trayicon_config"])
         trayicon_config.valueChanged.connect(lambda option: self.settings.update({'trayicon_config': option}))
         
-        settings_cards = [self.path_card, self.theme_card, self.dark_mode_card, self.backrgound_card, self.today_image_card, self.trayicon_card]
+        settings_cards = [self.path_card, self.theme_card, self.dark_mode_card, self.backrgound_card, self.timeout_card, self.today_image_card, self.trayicon_card]
         for card in settings_cards:
             self.verticalLayout_5.addWidget(card)
             

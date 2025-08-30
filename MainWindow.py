@@ -80,12 +80,18 @@ class WelcomePage(QWidget, WelcomePageNext_ui.Ui_Form):
         self.PrimaryPushButton.clicked.connect(self.on_autowallpaper_clicked)
         self.PushButton_2.clicked.connect(self.on_gradient_clicked)
         self.PushButton.clicked.connect(lambda: webbrowser.open_new_tab("https://github.com/SRInternet-Studio/Wallpaper-generator/issues"))
+        self.SubtitleLabel_7.clicked.connect(lambda: webbrowser.open_new_tab("https://github.com/SRInternet-Studio/Wallpaper-generator/releases"))
         self.loaded = False
         
     def showEvent(self, event): # 等界面完全加载完成后调用后端
         super().showEvent(event)
         if not self.loaded:
-            QTimer.singleShot(0, lambda: asyncio.create_task(self.start_kernal(), name="start_kernal"))
+            self.loaded = True
+            QTimer.singleShot(0, lambda: (
+                asyncio.create_task(self.start_kernal(), name="start_kernal")
+                if not check_task_exist("start_kernal")
+                else None
+            ))
             
     def on_image_clicked(self, file_name):
         target = self.ToadyCard
@@ -94,6 +100,14 @@ class WelcomePage(QWidget, WelcomePageNext_ui.Ui_Form):
 
         action = Action(FluentIcon.SYNC, "刷新今日图片", self)
         action.triggered.connect(lambda: asyncio.create_task(self.update_today_image(True), name="update_today_image"))
+        self.CommandBar.addAction(action=action)
+        
+        action = Action(FluentIcon.COPY, "复制", self)
+        action.triggered.connect(lambda: MainKernal.copyToClipboard(self.window(), QImage(os.path.realpath(file_name)))
+                                 if os.path.isfile(os.path.realpath(file_name)) else 
+                                 InfoBar.error(title='复制失败', content='图片已被移动或删除', orient=Qt.Horizontal, isClosable=True, 
+                                                 position=InfoBarPosition.BOTTOM_RIGHT, duration=4000, parent=self
+                                                ))
         self.CommandBar.addAction(action=action)
         
         action = Action(FluentIcon.IMAGE_EXPORT, "设为壁纸", self)
@@ -106,6 +120,10 @@ class WelcomePage(QWidget, WelcomePageNext_ui.Ui_Form):
             else ['xdg-open', os.path.dirname(os.path.realpath(file_name))] if platform.system() == "Linux"
             else ['open', '-R', os.path.realpath(file_name)]
         ))
+        self.CommandBar.addAction(action=action)
+        
+        action = Action(FluentIcon.EXPRESSIVE_INPUT_ENTRY, "喜欢我们", self)
+        action.triggered.connect(lambda: webbrowser.open_new_tab("https://afdian.com/a/srinternet/"))
         self.CommandBar.addAction(action=action)
 
         self.CommandBar.resizeToSuitableWidth()
@@ -173,7 +191,6 @@ class WelcomePage(QWidget, WelcomePageNext_ui.Ui_Form):
             await self.update_today_image()
             
         await self.update_fortune_text()
-        self.loaded = True
         logger.info("界面加载完成")
         
     async def update_fortune_text(self):
@@ -206,12 +223,14 @@ class WelcomePage(QWidget, WelcomePageNext_ui.Ui_Form):
             
         if os.path.exists(file_name) and not force_update:
             processed_path = os.path.normpath(file_name).replace('\\', '/')
-            self.PixmapLabel.setStyleSheet(f"image: url('{processed_path}');")
+            # self.PixmapLabel.setStyleSheet(f"image: url('{processed_path}');")
             if hasattr(self, 'main_window') and self.main_window:
                 self.main_window.background_changed.emit(file_name)
                 
-            self.ToadyCard.setCursor(Qt.CursorShape.PointingHandCursor)
-            self.ToadyCard.clicked.connect(lambda: self.on_image_clicked(file_name))
+            if self.ToadyCard.receivers("clicked()") < 1:
+                self.ToadyCard.setCursor(Qt.CursorShape.PointingHandCursor)
+                self.ToadyCard.clicked.disconnect()
+                self.ToadyCard.clicked.connect(lambda: self.on_image_clicked(file_name))
             logger.debug(f"今日图片已成功获取")
             return
         
@@ -222,7 +241,7 @@ class WelcomePage(QWidget, WelcomePageNext_ui.Ui_Form):
                     isClosable=True,
                     position=InfoBarPosition.BOTTOM_RIGHT,
                     duration=6000, 
-                    parent=self
+                    parent=self.window()
                 )
                 
             url = await MainKernal._requests_api("https://t.alcy.cc/pc?json", "")
@@ -238,14 +257,15 @@ class WelcomePage(QWidget, WelcomePageNext_ui.Ui_Form):
                 if hasattr(self, 'main_window') and self.main_window:
                     self.main_window.background_changed.emit(file_name)
                     
-                if not force_update:
+                if not force_update and self.ToadyCard.receivers("clicked()") < 1:
                     self.ToadyCard.setCursor(Qt.CursorShape.PointingHandCursor)
+                    self.ToadyCard.clicked.disconnect()
                     self.ToadyCard.clicked.connect(lambda: self.on_image_clicked(file_name))
                 InfoBar.success(title='今日图片', content=f"已成功刷新", orient=Qt.Horizontal,
                     isClosable=True,
                     position=InfoBarPosition.BOTTOM_RIGHT,
                     duration=3000, 
-                    parent=self
+                    parent=self.window()
                 )
         except:
             logger.error("获取今日图片失败")
@@ -254,7 +274,7 @@ class WelcomePage(QWidget, WelcomePageNext_ui.Ui_Form):
                     isClosable=True,
                     position=InfoBarPosition.BOTTOM_RIGHT,
                     duration=3000, 
-                    parent=self
+                    parent=self.window()
                 )
 
 class PageTemplate(QWidget, PageTemplate_ui.Ui_Form): 
@@ -585,7 +605,7 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
                 "",
                 cfg.func(), 
                 payload=payload,
-                timeout=random.randint(15, 30),
+                timeout=int(self.parent.settings["timeout_config"]),
                 split_str=split_str, 
                 raw=binary_phrase
             )
@@ -639,7 +659,7 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
                     response,
                     self.parent.settings["download_path"],
                     retries=1,
-                    timeout=30
+                    timeout=int(self.parent.settings["timeout_config"])
                 )
 
             # 其他响应
@@ -800,6 +820,14 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
         action.triggered.connect(lambda: os.startfile(
             self._generated[self.Images_Area.currentIndex()]))
         self.CommandBar.addAction(action=action)
+        
+        action = Action(FluentIcon.COPY, "复制", self)
+        action.triggered.connect(lambda: MainKernal.copyToClipboard(self.window(), QImage(os.path.realpath(self._generated[self.Images_Area.currentIndex()])))
+                                 if os.path.isfile(os.path.realpath(self._generated[self.Images_Area.currentIndex()])) else 
+                                 InfoBar.error(title='复制失败', content='图片已被移动或删除', orient=Qt.Horizontal, isClosable=True, 
+                                                 position=InfoBarPosition.BOTTOM_RIGHT, duration=4000, parent=self
+                                                ))
+        self.CommandBar.addAction(action=action)
 
         # 格式化响应数据
         if self._other_responses:
@@ -896,7 +924,10 @@ class MainWindow(QWidget, MainWindowTemplate_ui.Ui_Form):
         self.splashScreen.setIconSize(QSize(128, 128))
 
         # 2. 在创建其他子页面前先显示主界面
-        self.show()
+        logger.debug(f"启动参数: {sys.argv}")
+        if not (SettingsKernal.SettingsKernal.read_autochange_settings(self)["auto_start"] and "--AutoStartup" in sys.argv):
+            self.show()
+            
         self.widgets = {}
         self.first_page = WelcomePage(self)
         self.addSubInterface(self.first_page, "welcome", "欢迎")
@@ -934,7 +965,10 @@ class MainWindow(QWidget, MainWindowTemplate_ui.Ui_Form):
         self.hide_firstly = True
         self.close_to_restart = False
         self.splashScreen.finish()
+        
+        self.init_autowallpaper()
         self.change_background()
+        QTimer.singleShot(0, self.handle_autowallpaper)
 
     def resizeEvent(self, event):
         super().resizeEvent(event)
@@ -942,7 +976,8 @@ class MainWindow(QWidget, MainWindowTemplate_ui.Ui_Form):
         
     def showEvent(self, event):
         super().showEvent(event)
-        self.init_autowallpaper()
+        self.settings: dict = SettingsKernal.SettingsKernal.read_settings(self)
+        setTheme(getattr(Theme, self.settings["ThemeMode"].upper(), Theme.AUTO))
         
     def init_autowallpaper(self):
         if (not hasattr(self, 'auto_wallpaper_window') or self.auto_wallpaper_window is None) and platform.system() == "Windows":
@@ -961,11 +996,18 @@ class MainWindow(QWidget, MainWindowTemplate_ui.Ui_Form):
             
             self.auto_wallpaper_window.setAttribute(Qt.WA_DeleteOnClose, False)
             self.auto_wallpaper_ui.init_timer()
+    
+    def handle_autowallpaper(self):
+        if SettingsKernal.SettingsKernal.read_autochange_settings(self)["auto_start"] and "--AutoStartup" in sys.argv:
+            if hasattr(self, 'auto_wallpaper_window') and self.auto_wallpaper_window is not None and platform.system() == "Windows":
+                logger.info("启动开机自动更换")
+                self.auto_wallpaper_ui.force_wallpaper_update.emit()
+                self.hide()
             
     def update_window_style(self):
         self.settings: dict = SettingsKernal.SettingsKernal.read_settings(self)
+        logger.debug(f"设置主题: {self.settings['ThemeMode'].upper()}, 颜色 {self.settings['theme_config']}")
         if self.settings["theme_config"].lower() != "auto":
-            logger.debug(f"设置主题: {self.settings['theme_config']}")
             setThemeColor(self.settings["theme_config"])
         else:
             if platform.system() == "Windows":
@@ -976,11 +1018,12 @@ class MainWindow(QWidget, MainWindowTemplate_ui.Ui_Form):
             else:
                 setThemeColor(app.palette().highlight().color())
                 
+        
         setTheme(getattr(Theme, self.settings["ThemeMode"].upper(), Theme.AUTO))    
-        if self.settings["today_image_config"]:
-            if hasattr(self, 'first_page'): asyncio.create_task(self.first_page.update_today_image())
-        else:
-            self.change_background()
+        if hasattr(self, 'first_page'): 
+            if self.settings["today_image_config"]: asyncio.create_task(self.first_page.update_today_image())
+            else:
+                self.change_background()
         
     def preparSubInterface(self):
         if not os.path.exists(os.path.join(MainKernal.get_config_dir(), "EnterPoint")):
@@ -1077,10 +1120,14 @@ class MainWindow(QWidget, MainWindowTemplate_ui.Ui_Form):
     def change_background(self, image_path=None):
         # 加载原始图片
         if image_path and os.path.exists(image_path):
+            image_path = os.path.normpath(image_path).replace('\\', '/')
+            self.first_page.PixmapLabel.setStyleSheet(f"image: url('{image_path}');")
             self.original_pixmap = QPixmap(image_path)
             logger.debug(f"加载自定义背景图片: {image_path}")
         else:
-            self.original_pixmap = QPixmap(os.path.join(MainKernal.get_config_dir(), 'BACKIMG1.png'))
+            normal_path = os.path.normpath(os.path.join(MainKernal.get_config_dir(), 'BACKIMG1.png')).replace('\\', '/')
+            self.first_page.PixmapLabel.setStyleSheet(f"image: url('{normal_path}');")
+            self.original_pixmap = QPixmap(normal_path)
             logger.debug("使用默认背景图片")
         
         logger.debug(f"isDarkTheme: {isDarkTheme()}")
@@ -1133,7 +1180,8 @@ class MainWindow(QWidget, MainWindowTemplate_ui.Ui_Form):
         palette.setBrush(QPalette.Window, QBrush(scaled_pixmap))
         self.MainUI.setPalette(palette)
         
-def SetBackground(self, new_wall, target):
+'''===全局方法==='''
+def SetBackground(self, new_wall, target) -> None:
     try:
         MainKernal.SetBackground(self, new_wall, 
             isDarkTheme(), themeColor().name(), target)
@@ -1142,7 +1190,7 @@ def SetBackground(self, new_wall, target):
         MessageBox("错误", "壁纸设置工具不存在，未能找到 Set_Wallpaper.exe\n壁纸生成器 可能已经损坏，重新安装本程序可能解决此问题。", self.window())
     except NotImplementedError as e:
         logger.exception(str(e))
-        MessageBox("环境问题", "设置壁纸 功能目前仅适用于 GNOME 桌面和 Windows 系统，请更换系统后重试。", self.window())
+        MessageBox("环境问题", "设置壁纸 功能目前仅适用于 GNOME、KDE、MATE、DDE、XFCE、Cinnamon 桌面和 Windows 系统，请更换系统后重试。", self.window())
     except Exception as e:
         logger.exception(str(e))
         Flyout.create(
@@ -1153,7 +1201,13 @@ def SetBackground(self, new_wall, target):
                 parent=self,
                 isClosable=True)
         
-def check_multiple_instances(lockfile='.app.lock'):
+def check_task_exist(task_name: str) -> bool:
+    for task in asyncio.all_tasks():
+        if task.get_name() == task_name:
+            return not task.done()
+        return False
+        
+def check_multiple_instances(lockfile='.app.lock') -> None:
     lockfile_path = os.path.join(os.environ.get('TEMP', '/tmp'), lockfile)
     try:
         lock = open(lockfile_path, 'w')
@@ -1206,7 +1260,7 @@ if __name__ == '__main__':
     app.installTranslator(t)
 
     w = MainWindow()
-    w.show()
+    # w.show() # show() 转移到 MainWindow.__init__ 中处理
     
     with event_loop:
         event_loop.run_forever()

@@ -14,6 +14,7 @@ import psutil
 from UI import Dialog, Reloading_Dialog
 from PySide6.QtWidgets import QDialog, QApplication
 from PySide6.QtCore import QTimer
+from PySide6.QtGui import QImage
 from qfluentwidgets import Flyout, InfoBarIcon, isDarkThemeMode
 
 """装饰器：限制函数只能被本模块内的其他函数调用"""
@@ -347,7 +348,7 @@ async def download_images(urls: Union[str, List[str]], save_path: str, max_worke
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
     }
-    logger.info(f"下载图片: {urls} -> {save_path}")
+    logger.info(f"下载图片: {urls} -> {save_path} , 超时: {timeout}秒, 重试: {retries}次")
     
     async def _download_single(session: aiohttp.ClientSession, url: str, path: str) -> bool:
         for attempt in range(retries):
@@ -433,13 +434,18 @@ async def download_images(urls: Union[str, List[str]], save_path: str, max_worke
     
     return results
 
-def copyToClipboard(self, text):
+def copyToClipboard(self, text: Tuple[str, QImage]):
     from PySide6.QtCore import Qt
     from PySide6.QtWidgets import QApplication
     from qfluentwidgets import InfoBar, InfoBarPosition
-    logger.debug(f"复制到粘贴板: {text}")
-    QApplication.clipboard().setText(str(text))
-    InfoBar.success(title='复制成功', content=f"分隔符 {text} 已复制到粘贴板", orient=Qt.Horizontal,
+    logger.debug(f"复制到粘贴板: {text if isinstance(text, str) else 'QImage'}")
+    
+    if isinstance(text, QImage):
+        QApplication.clipboard().setImage(text)
+    else:
+        QApplication.clipboard().setText(str(text))
+        
+    InfoBar.success(title='复制成功', content=f"{f'分隔符 {text} ' if isinstance(text, str) else '图片'}已复制到粘贴板", orient=Qt.Horizontal,
                 isClosable=True,   # enable close button
                 position=InfoBarPosition.BOTTOM_RIGHT,
                 duration=3000, 
@@ -580,11 +586,13 @@ def restart_program(self):
             args = sys.argv
             
         if sys.platform == 'win32':
-            if ' ' in executable and not executable.startswith('"'):
-                executable = f'"{executable}"'
-            startupinfo = subprocess.STARTUPINFO()
-            startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-            subprocess.Popen([executable] + args, startupinfo=startupinfo)
+            self.parent.on_close()
+                
+            # if ' ' in executable and not executable.startswith('"'):
+            #     executable = f'"{executable}"'
+            # startupinfo = subprocess.STARTUPINFO()
+            # startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+            # subprocess.Popen([executable] + args, startupinfo=startupinfo)
         else:
             os.execv(executable, [executable] + args)
             
@@ -622,21 +630,87 @@ def SetBackground(self, new_wall: str, is_dark_theme: bool, theme_color, target=
             new_wall = new_wall.rstrip("/").strip("\\").strip("\"")
             desktop_env = os.getenv("XDG_CURRENT_DESKTOP", "").lower()
             logger.debug(f"桌面环境: {desktop_env}, 壁纸路径: {new_wall}")
+            
+            from urllib.parse import quote
+            enew_wall = quote(new_wall, safe='')
             if "gnome" in desktop_env or "ubuntu" in desktop_env:
                 subprocess.run(["gsettings", "set", "org.gnome.desktop.background", "picture-uri", f"file://{new_wall}"])
             elif "mate" in desktop_env:
                 subprocess.run(["gsettings", "set", "org.mate.background", "picture-filename", f"{new_wall}"])
             elif "kde" in desktop_env:
-                subprocess.run(["dcop", "kdesktop", "org.kde.image", "/Picture", "setWallpaper", f"{new_wall}"])
+                # subprocess.run(["dcop", "kdesktop", "org.kde.image", "/Picture", "setWallpaper", f"{new_wall}"])
+                import dbus
+                bus = dbus.SessionBus()
+                plasma = bus.get_object('org.kde.plasmashell', '/PlasmaShell')
+                plasma = dbus.Interface(plasma, dbus_interface='org.kde.PlasmaShell')
+                script = f"""
+                var Desktops = desktops();
+                for (i=0; i<Desktops.length; i++) {{
+                    d = Desktops[i];
+                    d.wallpaperPlugin = "org.kde.image";
+                    d.currentConfigGroup = Array("Wallpaper", "org.kde.image", "General");
+                    d.writeConfig("Image", "file://{enew_wall}")
+                }}
+                """
+                plasma.evaluateScript(script)
+            elif "xfce" in desktop_env:
+                subprocess.run(["xfconf-query", "-c", "xfce4-desktop", "-p", "/backdrop/screen0/monitor0/image-path", "-s", f"{new_wall}"])
+            elif "cinnamon" in desktop_env:
+                subprocess.run(["gsettings", "set", "org.cinnamon.desktop.background", "picture-uri", f"file://{new_wall}"])
+            elif "deepin" in desktop_env or "dde" in desktop_env:
+                import dbus
+                bus = dbus.SessionBus()
+                appearance_service = bus.get_object('com.deepin.daemon.Appearance',
+                                                '/com/deepin/daemon/Appearance')
+                try:
+                    display_service = bus.get_object('com.deepin.daemon.Display',
+                                                '/com/deepin/daemon/Display')
+                    monitors = display_service.ListMonitors(dbus_interface='com.deepin.daemon.Display')
+                    for monitor in monitors:
+                        appearance_service.SetMonitorBackground(monitor, new_wall,
+                                                            dbus_interface='com.deepin.daemon.Appearance')
+                    logger.debug("SetMonitorBackground 设置壁纸成功")
+                except dbus.exceptions.DBusException:
+                    appearance_service.SetBackground(new_wall,
+                                                dbus_interface='com.deepin.daemon.Appearance')
+                    logger.debug("SetBackground 设置壁纸成功")
             else:
-                raise NotImplementedError("壁纸设置功能目前仅适用于 GNOME 桌面和Windows 系统。")
+                raise NotImplementedError("无法确定桌面环境，将尝试兼容性 gsettings 方法")
         except Exception as e:
             logger.error(f"壁纸设置失败: {str(e)}")
             logger.debug(traceback.format_exc())
-            raise NotImplementedError("壁纸设置功能目前仅适用于 GNOME 桌面和Windows 系统。")
+            if isinstance(e, (dbus.exceptions.DBusException, NotImplementedError)):
+                try:
+                    subprocess.run(["gsettings", "set", "org.gnome.desktop.background", 
+                                "picture-uri", f"file://{new_wall}"], check=True)
+                    logger.debug("使用兼容性 gsettings 方法设置壁纸成功")
+                except (subprocess.CalledProcessError, FileNotFoundError) as gsettings_error:
+                    logger.error(f"以兼容性方法设置壁纸失败: {str(gsettings_error)}")
+                    logger.debug(traceback.format_exc())
+                    raise NotImplementedError("壁纸设置功能目前仅适用于 GNOME、KDE、MATE、DDE、XFCE、Cinnamon 桌面和 Windows 系统。")
+            else:
+                raise
+    elif platform.system() == "Darwin":
+        new_wall = new_wall.rstrip("/").strip("\\").strip("\"")
+        try:
+            try:
+                script = f'''
+                tell application "System Events"
+                    tell every desktop
+                        set picture to "{new_wall}"
+                    end tell
+                end tell
+                '''
+                subprocess.run(["osascript", "-e", script], check=True)
+            except subprocess.CalledProcessError:
+                subprocess.run(["osascript", "-e", f'set desktop picture to "{new_wall}"'])
+        except Exception as e:
+            logger.error(f"壁纸设置失败: {str(e)}")
+            logger.debug(traceback.format_exc())
+            raise NotImplementedError("壁纸设置功能目前仅适用于 GNOME、KDE、MATE、DDE、XFCE、Cinnamon 桌面和 Windows 系统。")
     else:
         logger.error(f"不适用于 {platform.system()}")
-        raise NotImplementedError("壁纸设置功能目前仅适用于 GNOME 桌面和Windows 系统。")
+        raise NotImplementedError("壁纸设置功能目前仅适用于 GNOME、KDE、MATE、DDE、XFCE、Cinnamon 桌面和 Windows 系统。")
 
 """TEST CODE"""
 async def test_api() -> None:

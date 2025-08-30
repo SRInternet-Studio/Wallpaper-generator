@@ -268,8 +268,10 @@ class AutoChageWallpaper(QWidget, Ui_Form):
         seconds_left = self._count_seconds_left(now_secs)
         
         if seconds_left <= 0 or force:
-            asyncio.set_event_loop(qasync.QEventLoop(self))
+            loop = qasync.QEventLoop(self)
+            asyncio.set_event_loop(loop)
             asyncio.create_task(self.change_wallpaper())
+                
             self.last_time = QTime.currentTime()
             self.next_time = self.add_time_to_current(self.settings["interval"])
             
@@ -301,7 +303,7 @@ class AutoChageWallpaper(QWidget, Ui_Form):
                     cfg.link(),
                     "",
                     cfg.func(),
-                    timeout=random.randint(15, 30),
+                    timeout=int(self.parentWidget.settings["timeout_config"]),
                     raw=binary_phrase
                 )
             else:
@@ -310,7 +312,7 @@ class AutoChageWallpaper(QWidget, Ui_Form):
                     "",
                     cfg.func(), 
                     payload=payload,
-                    timeout=random.randint(15, 30),
+                    timeout=int(self.parentWidget.settings["timeout_config"]),
                     raw=binary_phrase
                 )
             
@@ -364,7 +366,7 @@ class AutoChageWallpaper(QWidget, Ui_Form):
                     response,
                     self.parentWidget.settings["download_path"], 
                     retries=1,
-                    timeout=30
+                    timeout=int(self.parentWidget.settings["timeout_config"])
                 )
                 
             new_wall: str = None

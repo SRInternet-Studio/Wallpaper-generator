@@ -1,0 +1,48 @@
+{
+  "friendly_name": "东方 Project",
+  "intro": "来自 Paulzzh 的东方 Project 随机图片 API",
+  "icon": "https://www.paulzzh.com/images/head_122.png",
+  "link": "https://img.paulzzh.com/touhou/random",
+  "func": "GET",
+  "APICORE_version": "1.0",
+  "parameters": [
+    {
+      "name": "size",
+      "type": "enum",
+      "required": true,
+      "value": [
+        "pc",
+        "wap",
+        "all"
+      ],
+      "friendly_value": [
+        "电脑壁纸",
+        "手机壁纸",
+        "全部尺寸"
+      ],
+      "friendly_name": "壁纸尺寸",
+      "min_value": null,
+      "max_value": null,
+      "split_str": null
+    },
+    {
+      "name": "tag",
+      "type": "string",
+      "required": false,
+      "value": "",
+      "friendly_name": "标签 Tag（只填一个）",
+      "min_value": null,
+      "max_value": null,
+      "split_str": null
+    }
+  ],
+  "response": {
+    "image": {
+      "content_type": "BINARY",
+      "path": "",
+      "is_list": false,
+      "is_base64": false
+    },
+    "others": []
+  }
+}

@@ -1,8 +1,8 @@
 {
-    "friendly_name": "文字转二维码", 
-    "intro": "将输入的文字转换为二维码图片", 
-    "icon": "https://uapis.cn/static/img/UApi_ico.png",
-    "link": "https://uapis.cn/api/textqrcode?",
+    "friendly_name": "文字转二维码 Pro", 
+    "intro": "将输入的文字转换为二维码图片，并支持自定义尺寸", 
+    "icon": "https://uapis.cn/UApi.png",
+    "link": "https://uapis.cn/api/v1/image/qrcode?",
     "func": "GET",
     "APICORE_version": "1.0",
     "parameters": [
@@ -10,8 +10,29 @@
         "name": "text", 
         "type": "string",
         "value": "文本",
-        "required": false,
+        "required": true,
         "friendly_name": "要转换的文本",
+        "min_value": null,
+        "max_value": null,
+        "split_str": null
+      },
+      {
+        "name": "size", 
+        "type": "integer",
+        "value": 256,
+        "required": true,
+        "friendly_name": "边长 (像素)",
+        "min_value": 256,
+        "max_value": 1024,
+        "split_str": null
+      },
+      {
+        "enable": false, 
+        "name": "format", 
+        "type": "string",
+        "value": "json_url",
+        "required": true,
+        "friendly_name": "",
         "min_value": null,
         "max_value": null,
         "split_str": null
@@ -20,7 +41,7 @@
     "response": {
       "image": {
         "content_type": "URL",
-        "path": "qrcode",
+        "path": "qrcode_url",
         "is_list": false,
         "is_base64": false
       },

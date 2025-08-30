@@ -87,7 +87,7 @@ class MarketUI(QWidget, Ui_Form):
                 self.timer = QTimer(self)
                 self.timer.setSingleShot(True)
                 self.timer.timeout.connect(
-                    lambda content=content: self.addPlugin(content.get("friendly_name", "API"), content.get("intro", "没有介绍。"), content.get("icon", ""), None, "添加到 壁纸生成器", 
+                    lambda content=content: self.addPlugin(content.get("friendly_name", "API"), content.get("intro", "没有介绍。"), content.get("icon", ""), None, f"{'更新/修复/删除' if os.path.isfile(os.path.join(MainKernal.get_config_dir(), 'EnterPoint', api.get('name', '') + '.api.json')) else '添加到 壁纸生成器'}", 
                     lambda _, path=api.get("name", ""), content=content: self.on_add_clicked(path, content, "overview")) 
                     if api["category"] == self.NavigationBar.getCurrentItem()['text'] or "overview" in self.NavigationBar.getCurrentItem()['routeKey'] else None)
                 self.timer.start(0)
@@ -189,7 +189,7 @@ class MarketUI(QWidget, Ui_Form):
                 content.get("intro", "没有介绍。"), 
                 content.get("icon", ""), 
                 (api_basename not in self.exclude_apis) if "location" in item_id else None, 
-                "删除" if "location" in item_id else "添加到 壁纸生成器", 
+                "删除" if "location" in item_id else f"{'更新/修复/删除' if os.path.isfile(os.path.join(MainKernal.get_config_dir(), 'EnterPoint', api.get('name', '') + '.api.json')) else '添加到 壁纸生成器'}", 
                 lambda _, path=api.get("name", ""), content=content: self.on_remove_clicked(path, content, item_id) if "location" in item_id 
                 else self.on_add_clicked(path, content, item_id), 
                 lambda state, api_basename=api_basename, : self.on_checked_changed(state, api_basename))
@@ -212,6 +212,7 @@ class MarketUI(QWidget, Ui_Form):
                     duration=4000, 
                     parent=self.window()
                 )
+            if sys.platform == "win32": self.RestartButton.setText("手动重启 (退出)")
             self.RestartButton.show()
             
         else:
@@ -222,6 +223,7 @@ class MarketUI(QWidget, Ui_Form):
                     duration=4000, 
                     parent=self.window()
                 )
+            if sys.platform == "win32": self.RestartButton.setText("手动重启 (退出)")
             self.RestartButton.show()
             
         try:
@@ -256,6 +258,7 @@ class MarketUI(QWidget, Ui_Form):
                         duration=4000, 
                         parent=self.window()
                     )
+            if sys.platform == "win32": self.RestartButton.setText("手动重启 (退出)")
             self.RestartButton.show()
         
     def on_remove_clicked(self, name, content, item_id):
@@ -274,6 +277,7 @@ class MarketUI(QWidget, Ui_Form):
                     duration=4000, 
                     parent=self.window()
                 )
+            if sys.platform == "win32": self.RestartButton.setText("手动重启 (退出)")
             self.RestartButton.show()
             
             if "location" in item_id:
