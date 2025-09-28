@@ -13,7 +13,11 @@
 </br><img alt="GitHub Release" src="https://img.shields.io/github/v/release/SRInternet-Studio/Wallpaper-generator?label=%E6%AD%A3%E5%BC%8F%E7%89%88">
   <img alt="GitHub Release" src="https://img.shields.io/github/v/release/SRInternet-Studio/Wallpaper-generator?include_prereleases&label=%E9%A2%84%E8%A7%88%E7%89%88">
 </p>
- <div align="center">壁纸生成器 是一款个性化聚合图片生成平台，能定时自动更换壁纸，支持 Windows 和 Linux。
+ <div align="center"> 
+
+**『 心之所向，个性聚合 』**<br/>
+   
+壁纸生成器 是一款个性化聚合图片生成平台，能定时自动更换壁纸，支持 Windows 和 Linux。
    
 #### [💬 SR思锐 用户QQ群](https://qm.qq.com/q/f3QGDkdp6M)｜[🛍️ 图片源市场](https://github.com/IntelliMarkets/Wallpaper_API_Index/)
 
