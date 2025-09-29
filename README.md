@@ -17,13 +17,15 @@
 
 **『 心之所向，个性聚合 』**<br/>
    
-壁纸生成器 是一款个性化聚合图片生成平台，能定时自动更换壁纸，支持 Windows 和 Linux。
+一款个性化聚合图片生成平台，能定时自动更换壁纸，支持 Windows 和 Linux。
    
 #### [💬 SR思锐 用户QQ群](https://qm.qq.com/q/f3QGDkdp6M)｜[🛍️ 图片源市场](https://github.com/IntelliMarkets/Wallpaper_API_Index/)
 
 #### [🌐 产品中心 ](https://app.sr-studio.cn)｜[🛠️ 插件编写 ](https://github.com/SRON-org/APICORE/wiki/Create-a-New-APICORE-Configuration-File)｜[💖 支持我们 ](https://afdian.com/a/srinternet)｜[📝 反馈问题](https://github.com/SRInternet-Studio/Wallpaper-generator/issues)
 
 ###### [观看快闪，快速了解颠覆性创新 →](https://b23.tv/BV1xp81zFE3H) </div>
+
+###### [Switch to English Version](README_EN.md) </div>
 
 > [!NOTE]  
  > 若您希望在 Android 系列操作系统上使用，请前往：[壁纸生成器 NEXT - 手机版](https://github.comesRInternet-Studio/Wallpaper-generator-Mobile)。
