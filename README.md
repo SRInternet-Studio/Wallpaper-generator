@@ -23,7 +23,7 @@
 
 #### [🌐 产品中心 ](https://app.sr-studio.cn)｜[🛠️ 插件编写 ](https://github.com/SRON-org/APICORE/wiki/Create-a-New-APICORE-Configuration-File)｜[💖 支持我们 ](https://afdian.com/a/srinternet)｜[📝 反馈问题](https://github.com/SRInternet-Studio/Wallpaper-generator/issues)
 
-###### [观看快闪，快速了解颠覆性创新 →](https://b23.tv/BV1xp81zFE3H) </div>
+###### [观看快闪，快速了解颠覆性创新 →](https://b23.tv/BV1xp81zFE3H)
 
 ###### [Switch to English Version](README_EN.md) </div>
 
