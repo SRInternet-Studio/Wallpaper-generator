@@ -30,11 +30,6 @@
 > [!NOTE]  
  > 若您希望在 Android 系列操作系统上使用，请前往：[壁纸生成器 NEXT - 手机版](https://github.comesRInternet-Studio/Wallpaper-generator-Mobile)。
 
-> [!IMPORTANT]  
-> 你正在浏览预览版分支。预览版软件可能包含多种不确定性因素，造成运行不稳定、不流畅等多种情况。
-> 
-> 如果您确定您遇到的问题是一个 Bug，或者您要提出一项新的功能，请[查阅或提交 Issue](https://github.com/SRInternet-Studio/Wallpaper-generator/issues)。
-
 ## 详细信息
 
 ### 功能/特点
