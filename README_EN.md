@@ -32,11 +32,6 @@ Wallpaper Generator is a personalized aggregated image generation platform that 
 >
 > **Wallpaper Generator NEXT is currently not compatible with English.**
 
-> [!IMPORTANT]  
-> You are browsing the preview branch. Preview software may contain various uncertainties that may cause unstable operation, lagging and other issues.
-> 
-> If you confirm that the problem you encountered is a bug, or you want to propose a new feature, please [check or submit an Issue](https://github.com/SRInternet-Studio/Wallpaper-generator/issues).
-
 ## Details
 
 ### Features
