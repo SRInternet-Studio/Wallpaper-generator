@@ -7,7 +7,7 @@
   },
   {
    "optionDest": "filenames",
-   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/MainWindow.py"
+   "value": "E:/Wallpaper-generator-next/MainWindow.py"
   },
   {
    "optionDest": "onefile",
@@ -19,7 +19,7 @@
   },
   {
    "optionDest": "icon_file",
-   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/NewIcon.ico"
+   "value": "E:/Wallpaper-generator-next/NewIcon.ico"
   },
   {
    "optionDest": "name",
@@ -59,95 +59,95 @@
   },
   {
    "optionDest": "datas",
-   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/NewIcon.ico;."
+   "value": "E:/Wallpaper-generator-next/NewIcon.ico;."
   },
   {
    "optionDest": "datas",
-   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/None.ico;."
+   "value": "E:/Wallpaper-generator-next/None.ico;."
   },
   {
    "optionDest": "datas",
-   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/BACKIMG1.png;."
+   "value": "E:/Wallpaper-generator-next/BACKIMG1.png;."
   },
   {
    "optionDest": "datas",
-   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/AutoChangingPage_ui.py;."
+   "value": "E:/Wallpaper-generator-next/AutoChangingPage_ui.py;."
   },
   {
    "optionDest": "datas",
-   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/boolean_ui.py;."
+   "value": "E:/Wallpaper-generator-next/boolean_ui.py;."
   },
   {
    "optionDest": "datas",
-   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/emum_ui.py;."
+   "value": "E:/Wallpaper-generator-next/emum_ui.py;."
   },
   {
    "optionDest": "datas",
-   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/Exception_Handler.py;."
+   "value": "E:/Wallpaper-generator-next/Exception_Handler.py;."
   },
   {
    "optionDest": "datas",
-   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/integer_ui.py;."
+   "value": "E:/Wallpaper-generator-next/integer_ui.py;."
   },
   {
    "optionDest": "datas",
-   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/MainWindowTemplate_ui.py;."
+   "value": "E:/Wallpaper-generator-next/MainWindowTemplate_ui.py;."
   },
   {
    "optionDest": "datas",
-   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/MarketTemplate_ui.py;."
+   "value": "E:/Wallpaper-generator-next/MarketTemplate_ui.py;."
   },
   {
    "optionDest": "datas",
-   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/PageTemplate_ui.py;."
+   "value": "E:/Wallpaper-generator-next/PageTemplate_ui.py;."
   },
   {
    "optionDest": "datas",
-   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/SettingsPage_ui.py;."
+   "value": "E:/Wallpaper-generator-next/SettingsPage_ui.py;."
   },
   {
    "optionDest": "datas",
-   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/string_ui.py;."
+   "value": "E:/Wallpaper-generator-next/string_ui.py;."
   },
   {
    "optionDest": "datas",
-   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/V4Resources_rc.py;."
+   "value": "E:/Wallpaper-generator-next/V4Resources_rc.py;."
   },
   {
    "optionDest": "datas",
-   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/WelcomePage_ui.py;."
+   "value": "E:/Wallpaper-generator-next/WelcomePage_ui.py;."
   },
   {
    "optionDest": "datas",
-   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/WelcomePageNext_ui.py;."
+   "value": "E:/Wallpaper-generator-next/WelcomePageNext_ui.py;."
   },
   {
    "optionDest": "datas",
-   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/V4Resources.qrc;."
+   "value": "E:/Wallpaper-generator-next/V4Resources.qrc;."
   },
   {
    "optionDest": "datas",
-   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/acw_next;acw_next/"
+   "value": "E:/Wallpaper-generator-next/acw_next;acw_next/"
   },
   {
    "optionDest": "datas",
-   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/Kernel;Kernel/"
+   "value": "E:/Wallpaper-generator-next/Kernel;Kernel/"
   },
   {
    "optionDest": "datas",
-   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/set_wallpaper;set_wallpaper/"
+   "value": "E:/Wallpaper-generator-next/set_wallpaper;set_wallpaper/"
   },
   {
    "optionDest": "datas",
-   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/UI;UI/"
+   "value": "E:/Wallpaper-generator-next/UI;UI/"
   },
   {
    "optionDest": "datas",
-   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/fonts;fonts/"
+   "value": "E:/Wallpaper-generator-next/fonts;fonts/"
   },
   {
    "optionDest": "datas",
-   "value": "J:/Users/Administrator/Documents/Test/Wallpaper-generator-next/gradient;gradient/"
+   "value": "E:/Wallpaper-generator-next/gradient;gradient/"
   }
  ],
  "nonPyinstallerOptions": {

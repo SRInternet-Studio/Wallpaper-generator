@@ -68,7 +68,8 @@ async def request_api(
     payload: Optional[Dict[str, Any]] = None,
     split_str: Dict[str, str] = {},
     timeout: int = 15, 
-    raw = False
+    raw: bool = False,
+    ssl_verify: bool = True  
 ) -> Any:
     """
     异步执行API请求并解析响应数据
@@ -81,13 +82,20 @@ async def request_api(
     :param split_str: 对于是列表类型的请求负载，如果是 GET 方法，则将列表中的每个值用此字符连接（缺省为 '|'）
     :param timeout: 超时时间(秒)
     :param raw: True = 返回原始数据，False = 返回按照 paths 解析后的数据
+    :param ssl_verify: 是否验证SSL证书，设置为False可禁用SSL验证
     :return: 解析后的数据
     """
     headers = headers or {}
     payload = payload or {}
     
     try:
-        async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=timeout)) as session:
+        # 如果禁用SSL验证，创建一个不验证SSL的ClientSession
+        connector = aiohttp.TCPConnector(ssl=ssl_verify) if not ssl_verify else None
+        logger.warning(f"SSL 验证已被禁用，这可能会造成不安全的HTTPS连接！") if not ssl_verify else None
+        async with aiohttp.ClientSession(
+            timeout=aiohttp.ClientTimeout(total=timeout),
+            connector=connector
+        ) as session:
             if method.upper() in ["GET", "HEAD"]:
                 url = construct_api(api, payload, split_str)
                 async with session.request(method, url, headers=headers) as response:

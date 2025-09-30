@@ -304,7 +304,8 @@ class AutoChageWallpaper(QWidget, Ui_Form):
                     "",
                     cfg.func(),
                     timeout=int(self.parentWidget.settings["timeout_config"]),
-                    raw=binary_phrase
+                    raw=binary_phrase, 
+                    ssl_verify=self.parentWidget.settings["ssl_verify_config"],
                 )
             else:
                 r, t, c = await APIKernal.request_api(
@@ -313,7 +314,8 @@ class AutoChageWallpaper(QWidget, Ui_Form):
                     cfg.func(), 
                     payload=payload,
                     timeout=int(self.parentWidget.settings["timeout_config"]),
-                    raw=binary_phrase
+                    raw=binary_phrase, 
+                    ssl_verify=self.parentWidget.settings["ssl_verify_config"],
                 )
             
             # 解析响应
@@ -384,6 +386,7 @@ class AutoChageWallpaper(QWidget, Ui_Form):
             try:
                 try:
                     ctypes.windll.user32.SystemParametersInfoW(20, 0, new_wall, 3)
+                    logger.info(f"ctypes 设置壁纸成功: {new_wall}")
                 except Exception as e:
                     logger.error(f"ctypes 设置壁纸失败: {e}")
                     logger.debug(traceback.format_exc())

@@ -575,6 +575,7 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
             self.ProgressLine.setVisible(False)
             MessageBox("参数错误", f"参数验证失败: {str(e)}", self.window())
             self.StartButton.setEnabled(True)
+            self.StartButton.setText(QCoreApplication.translate("MainWindow", u"生成", None))
             
         except Exception as e:
             logger.error(f"生成过程中发生错误: {str(e)}")
@@ -582,6 +583,7 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
             self.ProgressLine.setVisible(False)
             MessageBox("错误", f"生成过程中发生错误: {str(e)}", self.window())
             self.StartButton.setEnabled(True)
+            self.StartButton.setText(QCoreApplication.translate("MainWindow", u"生成", None))
     
     async def on_api_start(self, cfg: APICORE, payload: dict):
         try:
@@ -607,7 +609,8 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
                 payload=payload,
                 timeout=int(self.parent.settings["timeout_config"]),
                 split_str=split_str, 
-                raw=binary_phrase
+                raw=binary_phrase, 
+                ssl_verify=self.parent.settings["ssl_verify_config"],
             )
             
             # 逻辑最复杂的部分，解析响应
@@ -631,6 +634,7 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
                         response = APIKernal.parse_response(r, path)
                         response[:] = [base64.b64decode(str(item)).decode('utf-8') for item in response]
                         
+                self.StartButton.setText(QCoreApplication.translate("MainWindow", f"生成 (预计生成 {len(response)} 张)", None))
                 result = await MainKernal.download_images_binary(
                     response, 
                     self.parent.settings["download_path"],
@@ -654,7 +658,8 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
                     
                 if cfg.response().image().get('is_base64', False): # 用base64编码的URL
                     response[:] = [base64.b64decode(str(item)).decode('utf-8') for item in response]
-                    
+                        
+                self.StartButton.setText(QCoreApplication.translate("MainWindow", f"生成 (预计生成 {len(response)} 张)", None))
                 result = await MainKernal.download_images(
                     response,
                     self.parent.settings["download_path"],
@@ -777,6 +782,7 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
             
         self.ProgressLine.setVisible(False)
         self.StartButton.setEnabled(True)
+        self.StartButton.setText(QCoreApplication.translate("MainWindow", u"生成", None))
 
     def on_page_switch(self, value):
         if self._syncing:
@@ -1207,7 +1213,7 @@ def check_task_exist(task_name: str) -> bool:
             return not task.done()
         return False
         
-def check_multiple_instances(lockfile='.app.lock') -> None:
+def check_multiple_instances(lockfile='wallpaper_generator_next.app.lock') -> None:
     lockfile_path = os.path.join(os.environ.get('TEMP', '/tmp'), lockfile)
     try:
         lock = open(lockfile_path, 'w')

@@ -51,7 +51,7 @@ async def _requests_api(
     :param timeout: 超时时间（秒）
     :return: 解析后的数据
     """
-    a, b, c = await request_api(
+    a, _, _ = await request_api(
         api=api,
         paths=path,
         method=method,
@@ -303,7 +303,7 @@ async def download_images_binary(binary_data_list: List[bytes], save_path: str, 
             filename = f"image_{datetime.now().strftime('%Y%m%d_%H%M%S')}.jpg"
             save_path = os.path.join(save_path, filename)
         completeness = await _save_single(binary_data_list[0], save_path)
-        return {save_path: await _save_single(binary_data_list[0], save_path)}
+        return {save_path: completeness}
     
     if not os.path.exists(save_path):
         os.makedirs(save_path)

@@ -428,6 +428,8 @@ class Plugin_UI_Manager(object):
         font2.setKerning(True)
         font2.setStyleStrategy(QFont.PreferAntialias)
         Plugin_Title.setFont(font2)
+        Plugin_Title.setToolTipDuration(-1)
+        Plugin_Title.setToolTip(title)
 
         Plugins_Internal_Container.addWidget(Plugin_Title)
 
@@ -540,6 +542,8 @@ class Plugin_UI_Manager(object):
         Plugin_Intro.setFont(font3)
         Plugin_Intro.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignTop)
         Plugin_Intro.setWordWrap(True)
+        Plugin_Intro.setToolTipDuration(-1)
+        Plugin_Intro.setToolTip(intro)
 
         verticalLayout_13.addWidget(Plugin_Intro)
 
