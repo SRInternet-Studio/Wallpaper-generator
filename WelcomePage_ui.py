@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'WelcomePage.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.2
+## Created by: Qt User Interface Compiler version 6.9.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -47,12 +47,12 @@ class Ui_Form(object):
         font.setBold(True)
         self.TitleLabel.setFont(font)
         self.TitleLabel.setAlignment(Qt.AlignBottom|Qt.AlignHCenter)
-        self.TitleLabel.setProperty("lightColor", QColor(245, 245, 245))
-        self.TitleLabel.setProperty("darkColor", QColor(0, 0, 0))
+        self.TitleLabel.setProperty(u"lightColor", QColor(245, 245, 245))
+        self.TitleLabel.setProperty(u"darkColor", QColor(0, 0, 0))
 
         self.gridLayout.addWidget(self.TitleLabel, 1, 0, 1, 1)
 
-        self.verticalSpacer_3 = QSpacerItem(20, 100, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.verticalSpacer_3 = QSpacerItem(20, 100, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.gridLayout.addItem(self.verticalSpacer_3, 0, 0, 1, 1)
 
@@ -65,21 +65,21 @@ class Ui_Form(object):
         font1.setBold(False)
         self.DisplayLabel.setFont(font1)
         self.DisplayLabel.setAlignment(Qt.AlignBottom|Qt.AlignHCenter)
-        self.DisplayLabel.setProperty("lightColor", QColor(245, 245, 245))
-        self.DisplayLabel.setProperty("darkColor", QColor(0, 0, 0))
+        self.DisplayLabel.setProperty(u"lightColor", QColor(245, 245, 245))
+        self.DisplayLabel.setProperty(u"darkColor", QColor(0, 0, 0))
 
         self.gridLayout.addWidget(self.DisplayLabel, 2, 0, 1, 1)
 
 
         self.verticalLayout_2.addLayout(self.gridLayout)
 
-        self.verticalSpacer_10 = QSpacerItem(20, 100, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.verticalSpacer_10 = QSpacerItem(20, 100, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.verticalLayout_2.addItem(self.verticalSpacer_10)
 
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_3.addItem(self.horizontalSpacer_2)
 
@@ -90,7 +90,7 @@ class Ui_Form(object):
 
         self.horizontalLayout_3.addWidget(self.ToACG)
 
-        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_3.addItem(self.horizontalSpacer_3)
 
@@ -98,18 +98,18 @@ class Ui_Form(object):
         self.ToAI.setObjectName(u"ToAI")
         self.ToAI.setMinimumSize(QSize(200, 0))
         self.ToAI.setMaximumSize(QSize(200, 16777215))
-        self.ToAI.setProperty("hasIcon", False)
+        self.ToAI.setProperty(u"hasIcon", False)
 
         self.horizontalLayout_3.addWidget(self.ToAI)
 
-        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_3.addItem(self.horizontalSpacer_4)
 
 
         self.verticalLayout_2.addLayout(self.horizontalLayout_3)
 
-        self.verticalSpacer_2 = QSpacerItem(20, 151, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.verticalSpacer_2 = QSpacerItem(20, 151, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.verticalLayout_2.addItem(self.verticalSpacer_2)
 

@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'MarketTemplate.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.2
+## Created by: Qt User Interface Compiler version 6.9.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -84,17 +84,17 @@ class Ui_Form(object):
 
         self.verticalLayout_2.addWidget(self.WidgetIntro)
 
-        self.verticalSpacer_8 = QSpacerItem(20, 12, QSizePolicy.Minimum, QSizePolicy.Fixed)
+        self.verticalSpacer_8 = QSpacerItem(20, 12, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
         self.verticalLayout_2.addItem(self.verticalSpacer_8)
 
-        self.verticalSpacer_7 = QSpacerItem(20, 0, QSizePolicy.Minimum, QSizePolicy.Fixed)
+        self.verticalSpacer_7 = QSpacerItem(20, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
         self.verticalLayout_2.addItem(self.verticalSpacer_7)
 
         self.SearchContainer = QHBoxLayout()
         self.SearchContainer.setObjectName(u"SearchContainer")
-        self.horizontalSpacer_4 = QSpacerItem(10, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+        self.horizontalSpacer_4 = QSpacerItem(10, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
         self.SearchContainer.addItem(self.horizontalSpacer_4)
 
@@ -103,7 +103,7 @@ class Ui_Form(object):
 
         self.SearchContainer.addWidget(self.WikiButton)
 
-        self.horizontalSpacer_3 = QSpacerItem(5, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+        self.horizontalSpacer_3 = QSpacerItem(5, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
         self.SearchContainer.addItem(self.horizontalSpacer_3)
 
@@ -112,7 +112,7 @@ class Ui_Form(object):
 
         self.SearchContainer.addWidget(self.MarketButton)
 
-        self.horizontalSpacer_7 = QSpacerItem(178, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_7 = QSpacerItem(178, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.SearchContainer.addItem(self.horizontalSpacer_7)
 
@@ -126,14 +126,14 @@ class Ui_Form(object):
 
         self.SearchContainer.addWidget(self.SearchButton)
 
-        self.horizontalSpacer_8 = QSpacerItem(5, 20, QSizePolicy.Preferred, QSizePolicy.Minimum)
+        self.horizontalSpacer_8 = QSpacerItem(5, 20, QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Minimum)
 
         self.SearchContainer.addItem(self.horizontalSpacer_8)
 
 
         self.verticalLayout_2.addLayout(self.SearchContainer)
 
-        self.verticalSpacer_21 = QSpacerItem(10, 10, QSizePolicy.Minimum, QSizePolicy.Fixed)
+        self.verticalSpacer_21 = QSpacerItem(10, 10, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
         self.verticalLayout_2.addItem(self.verticalSpacer_21)
 
@@ -141,7 +141,7 @@ class Ui_Form(object):
         self.Plugins_Container_.setObjectName(u"Plugins_Container_")
         self.Label_Plugin_Card_ = CardWidget(self.scrollAreaWidgetContents)
         self.Label_Plugin_Card_.setObjectName(u"Label_Plugin_Card_")
-        sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.Label_Plugin_Card_.sizePolicy().hasHeightForWidth())
@@ -152,13 +152,13 @@ class Ui_Form(object):
         self.verticalLayout_11.setObjectName(u"verticalLayout_11")
         self.Plugins_Internal_Container = QVBoxLayout()
         self.Plugins_Internal_Container.setObjectName(u"Plugins_Internal_Container")
-        self.verticalSpacer_12 = QSpacerItem(20, 3, QSizePolicy.Minimum, QSizePolicy.Fixed)
+        self.verticalSpacer_12 = QSpacerItem(20, 3, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
         self.Plugins_Internal_Container.addItem(self.verticalSpacer_12)
 
         self.Plugin_Title = SubtitleLabel(self.Label_Plugin_Card_)
         self.Plugin_Title.setObjectName(u"Plugin_Title")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Maximum)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Maximum)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.Plugin_Title.sizePolicy().hasHeightForWidth())
@@ -173,13 +173,13 @@ class Ui_Form(object):
 
         self.Plugins_Internal_Container.addWidget(self.Plugin_Title)
 
-        self.verticalSpacer_13 = QSpacerItem(20, 1, QSizePolicy.Minimum, QSizePolicy.Fixed)
+        self.verticalSpacer_13 = QSpacerItem(20, 1, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
         self.Plugins_Internal_Container.addItem(self.verticalSpacer_13)
 
         self.Plugins_Internal_Container1 = QHBoxLayout()
         self.Plugins_Internal_Container1.setObjectName(u"Plugins_Internal_Container1")
-        self.horizontalSpacer_20 = QSpacerItem(7, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+        self.horizontalSpacer_20 = QSpacerItem(7, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
         self.Plugins_Internal_Container1.addItem(self.horizontalSpacer_20)
 
@@ -187,7 +187,7 @@ class Ui_Form(object):
         self.verticalLayout_15.setObjectName(u"verticalLayout_15")
         self.Plugin_Icon = QLabel(self.Label_Plugin_Card_)
         self.Plugin_Icon.setObjectName(u"Plugin_Icon")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
         sizePolicy2.setHeightForWidth(self.Plugin_Icon.sizePolicy().hasHeightForWidth())
@@ -199,14 +199,14 @@ class Ui_Form(object):
 
         self.verticalLayout_15.addWidget(self.Plugin_Icon)
 
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Ignored)
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Ignored)
 
         self.verticalLayout_15.addItem(self.verticalSpacer)
 
 
         self.Plugins_Internal_Container1.addLayout(self.verticalLayout_15)
 
-        self.horizontalSpacer_21 = QSpacerItem(5, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+        self.horizontalSpacer_21 = QSpacerItem(5, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
         self.Plugins_Internal_Container1.addItem(self.horizontalSpacer_21)
 
@@ -214,7 +214,7 @@ class Ui_Form(object):
         self.verticalLayout_13.setObjectName(u"verticalLayout_13")
         self.Plugin_Intro = SubtitleLabel(self.Label_Plugin_Card_)
         self.Plugin_Intro.setObjectName(u"Plugin_Intro")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
         sizePolicy3.setHorizontalStretch(0)
         sizePolicy3.setVerticalStretch(0)
         sizePolicy3.setHeightForWidth(self.Plugin_Intro.sizePolicy().hasHeightForWidth())
@@ -240,7 +240,7 @@ class Ui_Form(object):
 
         self.horizontalLayout_6.addWidget(self.AbilityButton)
 
-        self.horizontalSpacer_5 = QSpacerItem(178, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_5 = QSpacerItem(178, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_6.addItem(self.horizontalSpacer_5)
 
@@ -249,7 +249,7 @@ class Ui_Form(object):
 
         self.horizontalLayout_6.addWidget(self.ActionButton)
 
-        self.horizontalSpacer_6 = QSpacerItem(5, 20, QSizePolicy.Preferred, QSizePolicy.Minimum)
+        self.horizontalSpacer_6 = QSpacerItem(5, 20, QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_6.addItem(self.horizontalSpacer_6)
 
@@ -278,7 +278,7 @@ class Ui_Form(object):
         self.verticalLayout_12.setObjectName(u"verticalLayout_12")
         self.Plugins_Internal_Container_2 = QVBoxLayout()
         self.Plugins_Internal_Container_2.setObjectName(u"Plugins_Internal_Container_2")
-        self.verticalSpacer_16 = QSpacerItem(20, 3, QSizePolicy.Minimum, QSizePolicy.Fixed)
+        self.verticalSpacer_16 = QSpacerItem(20, 3, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
         self.Plugins_Internal_Container_2.addItem(self.verticalSpacer_16)
 
@@ -290,13 +290,13 @@ class Ui_Form(object):
 
         self.Plugins_Internal_Container_2.addWidget(self.Plugin_Title_2)
 
-        self.verticalSpacer_17 = QSpacerItem(20, 1, QSizePolicy.Minimum, QSizePolicy.Fixed)
+        self.verticalSpacer_17 = QSpacerItem(20, 1, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
         self.Plugins_Internal_Container_2.addItem(self.verticalSpacer_17)
 
         self.Plugins_Internal_Container1_2 = QHBoxLayout()
         self.Plugins_Internal_Container1_2.setObjectName(u"Plugins_Internal_Container1_2")
-        self.horizontalSpacer_23 = QSpacerItem(7, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+        self.horizontalSpacer_23 = QSpacerItem(7, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
         self.Plugins_Internal_Container1_2.addItem(self.horizontalSpacer_23)
 
@@ -313,14 +313,14 @@ class Ui_Form(object):
 
         self.verticalLayout_20.addWidget(self.Plugin_Icon_2)
 
-        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Ignored)
+        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Ignored)
 
         self.verticalLayout_20.addItem(self.verticalSpacer_3)
 
 
         self.Plugins_Internal_Container1_2.addLayout(self.verticalLayout_20)
 
-        self.horizontalSpacer_24 = QSpacerItem(5, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+        self.horizontalSpacer_24 = QSpacerItem(5, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
         self.Plugins_Internal_Container1_2.addItem(self.horizontalSpacer_24)
 
@@ -345,7 +345,7 @@ class Ui_Form(object):
 
         self.horizontalLayout_7.addWidget(self.AbilityButton_2)
 
-        self.horizontalSpacer_10 = QSpacerItem(178, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_10 = QSpacerItem(178, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_7.addItem(self.horizontalSpacer_10)
 
@@ -354,7 +354,7 @@ class Ui_Form(object):
 
         self.horizontalLayout_7.addWidget(self.ActionButton_2)
 
-        self.horizontalSpacer_11 = QSpacerItem(5, 20, QSizePolicy.Preferred, QSizePolicy.Minimum)
+        self.horizontalSpacer_11 = QSpacerItem(5, 20, QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_7.addItem(self.horizontalSpacer_11)
 
@@ -376,7 +376,7 @@ class Ui_Form(object):
 
         self.verticalLayout_2.addLayout(self.Plugins_Container_)
 
-        self.verticalSpacer_9 = QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.verticalSpacer_9 = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.verticalLayout_2.addItem(self.verticalSpacer_9)
 

@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'PageTemplate - 副本.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.2
+## Created by: Qt User Interface Compiler version 6.9.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -62,11 +62,11 @@ class Ui_Form(object):
 
         self.gridLayout_2.addWidget(self.StartButton, 6, 0, 1, 3)
 
-        self.verticalSpacer_21 = QSpacerItem(10, 10, QSizePolicy.Minimum, QSizePolicy.Fixed)
+        self.verticalSpacer_21 = QSpacerItem(10, 10, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
         self.gridLayout_2.addItem(self.verticalSpacer_21, 7, 0, 1, 1)
 
-        self.verticalSpacer_7 = QSpacerItem(20, 0, QSizePolicy.Minimum, QSizePolicy.Fixed)
+        self.verticalSpacer_7 = QSpacerItem(20, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
         self.gridLayout_2.addItem(self.verticalSpacer_7, 4, 0, 1, 1)
 
@@ -75,15 +75,15 @@ class Ui_Form(object):
 
         self.gridLayout_2.addWidget(self.ProgressLine, 8, 0, 1, 3)
 
-        self.verticalSpacer_9 = QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.verticalSpacer_9 = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.gridLayout_2.addItem(self.verticalSpacer_9, 9, 0, 1, 1)
 
-        self.verticalSpacer_4 = QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Fixed)
+        self.verticalSpacer_4 = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
         self.gridLayout_2.addItem(self.verticalSpacer_4, 1, 1, 1, 1)
 
-        self.verticalSpacer_8 = QSpacerItem(20, 30, QSizePolicy.Minimum, QSizePolicy.Preferred)
+        self.verticalSpacer_8 = QSpacerItem(20, 30, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Preferred)
 
         self.gridLayout_2.addItem(self.verticalSpacer_8, 5, 1, 1, 1)
 
@@ -112,7 +112,7 @@ class Ui_Form(object):
 
         self.widget = QWidget(self.API_Page)
         self.widget.setObjectName(u"widget")
-        sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.widget.sizePolicy().hasHeightForWidth())
@@ -146,11 +146,11 @@ class Ui_Form(object):
         self.widget_7.setMaximumSize(QSize(16777215, 51))
         self.horizontalLayout = QHBoxLayout(self.widget_7)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalSpacer_5 = QSpacerItem(210, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_5 = QSpacerItem(210, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout.addItem(self.horizontalSpacer_5)
 
-        self.horizontalSpacer_9 = QSpacerItem(40, 20, QSizePolicy.Preferred, QSizePolicy.Minimum)
+        self.horizontalSpacer_9 = QSpacerItem(40, 20, QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout.addItem(self.horizontalSpacer_9)
 
@@ -415,7 +415,7 @@ class Ui_Form(object):
 
         self.horizontalLayout.addWidget(self.Images_Indicator)
 
-        self.horizontalSpacer_7 = QSpacerItem(210, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_7 = QSpacerItem(210, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout.addItem(self.horizontalSpacer_7)
 

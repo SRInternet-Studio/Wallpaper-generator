@@ -338,8 +338,9 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
                 match name:
                     case "integer": # 关联 integer 参数控件组的 Slider 和 Selector 的数值
                         ui = getattr(self, f"{param_identifier}_{name}_ui")
-                        ui.NumberSlider.valueChanged.connect(lambda: ui.NumberSelector.setValue(ui.NumberSlider.value()))
-                        ui.NumberSelector.valueChanged.connect(lambda: ui.NumberSlider.setValue(ui.NumberSelector.value()))
+                        # 使用默认参数捕获当前的ui实例，避免闭包导致的变量引用问题
+                        ui.NumberSlider.valueChanged.connect(lambda value, current_ui=ui: current_ui.NumberSelector.setValue(value))
+                        ui.NumberSelector.valueChanged.connect(lambda value, current_ui=ui: current_ui.NumberSlider.setValue(value))
                         ui.Title.setText(f"{param.get('friendly_name')}")
                         ui.NumberSlider.setMinimum(param.get('min_value'))
                         ui.NumberSlider.setMaximum(param.get('max_value'))
@@ -696,7 +697,7 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
 
                     self._other_responses.append(field)
 
-            logger.debug(f"其他响应: {self._other_responses}")
+            logger.info(f"其他响应: {self._other_responses}")
             
             # 在主线程中完成操作
             QTimer.singleShot(0, lambda: self.on_api_complete(
@@ -725,7 +726,7 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
             ))
     
     def on_api_complete(self, success, message, response: dict, links: list, cfg: APICORE):
-        logger.debug(f"API请求完成，成功: {success}, 信息: {message}, 结果: {response}")
+        logger.info(f"API请求完成，成功: {success}, 信息: {message}, 结果: {response}")
         for k, v in response.items():
             if v is not False:
                 if v == True:
@@ -1134,7 +1135,7 @@ class MainWindow(QWidget, MainWindowTemplate_ui.Ui_Form):
             normal_path = os.path.normpath(os.path.join(MainKernal.get_config_dir(), 'BACKIMG1.png')).replace('\\', '/')
             self.first_page.PixmapLabel.setStyleSheet(f"image: url('{normal_path}');")
             self.original_pixmap = QPixmap(normal_path)
-            logger.debug("使用默认背景图片")
+            logger.info("使用默认背景图片")
         
         logger.debug(f"isDarkTheme: {isDarkTheme()}")
         if not isDarkTheme():

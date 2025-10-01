@@ -18,7 +18,7 @@ def load_fonts():
                     with open(os.path.join(path, file), "rb") as f:
                         font_data = QByteArray(f.read())
                     QFontDatabase.addApplicationFontFromData(font_data)
-                    logger.info(f"Font loaded: {file}")
+                    logger.debug(f"Font loaded: {file}")
                 except Exception as e:
                     logger.error(f"Failed to load font: {file}, {e}")
                 
