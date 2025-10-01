@@ -99,7 +99,7 @@ def show_dialog(title, content, TrueText, FalseText, Editable, dark=False):
 
 async def check_network() -> Union[float, bool]:
     try:
-        logger.debug("测试网络连接...")
+        logger.info("测试网络连接...")
         
         # 强制使用ASCII环境并设置ping目标
         env = os.environ.copy()
@@ -469,7 +469,7 @@ def get_internal_dir() -> str:
 def get_config_dir() -> str:
     from pathlib import Path
     config_dir = os.path.dirname(os.path.realpath(sys.argv[0]))
-    if getattr(sys, 'frozen', False):
+    if getattr(sys, 'frozen', False) or True:
         if sys.platform.startswith('win'):
             config_dir = str(Path.home() / f'AppData{os.sep}Roaming{os.sep}wallpaper-generator-next')
         elif sys.platform.startswith('linux'):

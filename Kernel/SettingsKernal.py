@@ -22,6 +22,7 @@ class SettingsKernal():
             os.mkdir(path)
             logger.info(f"Created {path}")
             
+        logger.info(f"Checking {path} for API JSON files")
         for file in os.listdir(path):
             full_path = os.path.join(path, file)
             logger.debug(f"Checking {full_path}")

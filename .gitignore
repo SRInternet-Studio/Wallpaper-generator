@@ -222,3 +222,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+boolean_ui.py
+boolean_ui.py
+emum_ui.py
+integer_ui.py

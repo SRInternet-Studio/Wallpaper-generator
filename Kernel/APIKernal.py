@@ -120,6 +120,8 @@ async def handle_response(response: aiohttp.ClientResponse, paths: Optional[Unio
     except UnicodeDecodeError:
         content = await response.text('latin1')
     
+    logger.debug(f"API返回状态码: {response.status} {response.reason}")
+    logger.debug(f"API返回内容: {content[:200]}...")
     if not response.ok:
         error_msg = f"API返回错误: {response.status} {response.reason}"
         if content:
