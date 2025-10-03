@@ -61,7 +61,7 @@
 
 ### 安装
 1. 阅读[《免责声明》](https://github.com/SRInternet-Studio/Wallpaper-generator/blob/NEXT-PREVIEW/DISCLAIMER.md)
-2. 下载 [Releases](https://github.com/SRInternet-studio/Wallpaper-generator/releases) 中的最新的 **Pre-release** 安装程序（.exe）；
+2. 下载 [Releases](https://github.com/SRInternet-studio/Wallpaper-generator/releases) 中的最新的 **Release** 安装程序（.exe）；
 3. 双击安装，跟着提示一步步来；
 4. 启动软件。
 
