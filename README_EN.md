@@ -63,7 +63,7 @@ Wallpaper Generator is a personalized aggregated image generation platform that 
 
 ### Installation
 1. Read the [Disclaimer](https://github.com/SRInternet-Studio/Wallpaper-generator/blob/NEXT-PREVIEW/DISCLAIMER.md)
-2. Download the latest **Pre-release** installer (.exe) from [Releases](https://github.com/SRInternet-studio/Wallpaper-generator/releases);
+2. Download the latest **Release** installer (.exe) from [Releases](https://github.com/SRInternet-studio/Wallpaper-generator/releases);
 3. Double-click to install, follow the prompts step by step;
 4. Launch the software.
 
