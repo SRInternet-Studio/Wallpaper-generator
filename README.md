@@ -5,7 +5,7 @@
 <p></p>
 
 <p align="center">
-  <img src="https://img.shields.io/static/v1?label=LICENSE&message=MIT&color=coral" alt="Badge">
+  <img src="https://img.shields.io/static/v1?label=LICENSE&message=MIT%20with%20Non-Commercial%20Restriction&color=coral" alt="Badge">
   <img src="https://img.shields.io/github/languages/top/SRInternet-Studio/Wallpaper-generator" alt="Language">
   <img src="https://img.shields.io/badge/FREE-100%25-brightgreen" alt="FREE">
   <img src="https://img.shields.io/github/stars/SRInternet-Studio/Wallpaper-generator" alt="Stars">
