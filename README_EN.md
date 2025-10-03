@@ -117,4 +117,4 @@ This project is licensed under the **MIT with Non-Commercial Restriction** Licen
 
 [View Full License Agreement](LICENCE)
 
-[^1]: The code mainly uses Python for the main interface and most core components, while Visual Basic.NET is used for the "Gradient Wallpaper Generator", so the "Gradient Wallpaper Generator" currently only supports Windows systems.
+[^1]: The code mainly uses Python for the main interface and most core components, while Visual Basic.NET is used for the "Wallpaper Gradient", so the "Wallpaper Gradient" currently only supports Windows systems.
