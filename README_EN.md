@@ -5,7 +5,7 @@
 <p></p>
 
 <p align="center">
-  <img src="https://img.shields.io/static/v1?label=LICENSE&message=MIT&color=coral" alt="Badge">
+  <img src="https://img.shields.io/static/v1?label=LICENSE&message=MIT%20with%20Non-Commercial%20Restriction&color=coral" alt="Badge">
   <img src="https://img.shields.io/github/languages/top/SRInternet-Studio/Wallpaper-generator" alt="Language">
   <img src="https://img.shields.io/badge/FREE-100%25-brightgreen" alt="FREE">
   <img src="https://img.shields.io/github/stars/SRInternet-Studio/Wallpaper-generator" alt="Stars">
@@ -104,5 +104,17 @@ You can submit an Issue [here](https://github.com/SRInternet-studio/Wallpaper-ge
    ```bash
    python ./MainWindow.py
    ```
+
+## License
+
+This project is licensed under the **MIT with Non-Commercial Restriction** License.
+
+### Key Restrictions:
+⚠️ **Commercial use is strictly prohibited** ⚠️  
+- Not for use in any profit-generating activities  
+- Not for use in any commercial products or services  
+- Use by companies or organizations requires explicit authorization  
+
+[View Full License Agreement](LICENCE)
 
 [^1]: The code mainly uses Python for the main interface and most core components, while Visual Basic.NET is used for the "Gradient Wallpaper Generator", so the "Gradient Wallpaper Generator" currently only supports Windows systems.
