@@ -12,6 +12,7 @@
   <img alt="GitHub Downloads (all assets, all releases)" src="https://img.shields.io/github/downloads/SRInternet-Studio/Wallpaper-generator/total?style=social&logo=github&label=Downloads">
 </br><img alt="GitHub Release" src="https://img.shields.io/github/v/release/SRInternet-Studio/Wallpaper-generator?label=Stable">
   <img alt="GitHub Release" src="https://img.shields.io/github/v/release/SRInternet-Studio/Wallpaper-generator?include_prereleases&label=Preview">
+  <a href="https://app.fossa.com/projects/git%2Bgithub.com%2FSRInternet-Studio%2FWallpaper-generator?ref=badge_shield&issueType=security" alt="FOSSA Status"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FSRInternet-Studio%2FWallpaper-generator.svg?type=shield&issueType=security"/></a>
 </p>
  <div align="center">
  
