@@ -27,7 +27,6 @@ class MarketUI(QWidget, Ui_Form):
         super().__init__(parent)
         self.setupUi(self)
         self.parent = parent
-        self.markets = Markets()
         self.plugin_containers = []
         self.loop = qasync.QEventLoop(self)
         self.icon_cache = {}  # 图标缓存字典 {url: pixmap_data}
@@ -71,6 +70,7 @@ class MarketUI(QWidget, Ui_Form):
         # self.addPlugin("插件1", "这是插件1的介绍", u"image: url(:/ICO/NewIcon.ico);", True, "启用", lambda: print("插件1被点击"))
 
     async def init_markets(self):
+        self.markets = Markets(self.parent.settings)
         await self.markets.init()
         await self.markets.get_classification()
         self.init_Navigation(self.markets.classification)

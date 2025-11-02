@@ -469,7 +469,7 @@ def get_internal_dir() -> str:
 def get_config_dir() -> str:
     from pathlib import Path
     config_dir = os.path.dirname(os.path.realpath(sys.argv[0]))
-    if getattr(sys, 'frozen', False) or True:
+    if getattr(sys, 'frozen', False):
         if sys.platform.startswith('win'):
             config_dir = str(Path.home() / f'AppData{os.sep}Roaming{os.sep}wallpaper-generator-next')
         elif sys.platform.startswith('linux'):

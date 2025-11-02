@@ -3,7 +3,7 @@ import traceback, shutil
 from UI.SettingsPage_ui import Ui_Form
 from UI.AboutPage_ui import Ui_Dialog
 from Kernel.Logger import logger
-from Kernel import MainKernal
+from Kernel import MainKernal, GithubAuth
 from PySide6.QtCore import Qt, QTime, QTimer
 from PySide6.QtWidgets import QWidget, QDialog, QFileDialog
 from PySide6.QtGui import QColor, QIcon
@@ -45,7 +45,7 @@ class SettingsKernal():
         if not os.path.isfile(path):
             return {"download_path": os.path.join(MainKernal.get_config_dir(), 'Images'), "theme_config": "Auto", 
                     "ThemeMode": "AUTO", "background_image_path": os.path.join(MainKernal.get_config_dir(), 'BACKIMG1.png'), 
-                    "today_image_config": True, "ssl_verify_config": True, "trayicon_config": True, "timeout_config": 30}
+                    "today_image_config": True, "ssl_verify_config": True, "trayicon_config": True, "timeout_config": 30, "installation_id": None}
         
         with open(path, "r", encoding="utf-8") as f:
             settings = json.loads(f.read())
@@ -58,7 +58,8 @@ class SettingsKernal():
                 "today_image_config": settings.get("today_image_config", True), 
                 "ssl_verify_config": settings.get("ssl_verify_config", True), 
                 "trayicon_config": settings.get("trayicon_config", True), 
-                "timeout_config": settings.get("timeout_config", 30)}
+                "timeout_config": settings.get("timeout_config", 30), 
+                "installation_id": settings.get("installation_id", None)}
     
     def read_autochange_settings(self):
         os.makedirs(os.path.join(MainKernal.get_config_dir(), "acw_next"), exist_ok=True)
@@ -89,6 +90,14 @@ class SettingsUI(QWidget, Ui_Form):
         """初始化所有设置卡"""
         self.AboutButton.clicked.connect(self.on_show_about)
         self.SaveSettings.clicked.connect(self.save_settings)
+        
+        self.auth_card = PushSettingCard(
+            text="登录" if self.settings["installation_id"] is None else "切换账户",
+            icon=FluentIcon.GITHUB,
+            title="连接到 GitHub",
+            content="加速你的图片源市场访问，并更加稳定" if self.settings["installation_id"] is None else f"已登录 GitHub 账户，Installation ID: {self.settings['installation_id']}",
+        )
+        self.auth_card.clicked.connect(self.on_auth_github)
         
         self.path_card = PushSettingCard(
             text="选择文件夹",
@@ -172,13 +181,30 @@ class SettingsUI(QWidget, Ui_Form):
         self.trayicon_card.setValue(self.settings["trayicon_config"])
         trayicon_config.valueChanged.connect(lambda option: self.settings.update({'trayicon_config': option}))
         
-        settings_cards = [self.path_card, self.theme_card, self.dark_mode_card, self.backrgound_card, self.timeout_card, self.ssl_verify_card, self.today_image_card, self.trayicon_card]
+        settings_cards = [self.auth_card, self.path_card, self.theme_card, self.dark_mode_card, self.backrgound_card, self.timeout_card, self.ssl_verify_card, self.today_image_card, self.trayicon_card]
         for card in settings_cards:
             self.verticalLayout_5.addWidget(card)
             
         self.verticalLayout_5.addItem(self.cardSpacer)
         self.verticalLayout_5.addItem(self.verticalSpacer_23)
         # QApplication.processEvents()
+        
+    def on_auth_github(self):
+        self.github_auth = GithubAuth.GithubInstallDialog("https://github.com/apps/wallpaper-generator/installations/new")
+        self.github_auth.installation_id_obtained.connect(self.on_installation_id_obtained)
+        self.github_auth.exec()
+        
+    def on_installation_id_obtained(self, installation_id: int):
+        self.settings.update({'installation_id': installation_id})
+        logger.info(f"已获取 Installation ID: {installation_id}")
+        self.auth_card.setContent(f"已登录 GitHub 账户，Installation ID: {installation_id}")
+        InfoBar.success(title='登录成功', content=f"请转到图片源市场页面并刷新", orient=Qt.Horizontal,
+                    isClosable=True,
+                    position=InfoBarPosition.BOTTOM_RIGHT,
+                    duration=8000, 
+                    parent=self.window())
+        
+        self.save_settings()
         
     def on_choose_color(self):
         def __onColorChanged(color: QColor):

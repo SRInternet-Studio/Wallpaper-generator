@@ -1,19 +1,46 @@
-from github import Github
+from github import Auth, Github, GithubIntegration
+from Kernel.Logger import logger
 import os, sys
 import requests
 import difflib
 import asyncio
 
-with open(os.path.join(os.path.dirname(os.path.realpath(sys.argv[0])), "github_pat.txt"), "r") as f:
-    GITHUB_TOKEN = f.read().strip()
+GITHUB_TOKEN = ""
+KEY = ""
+if os.path.exists(os.path.join(os.path.dirname(os.path.realpath(sys.argv[0])), "github_pat.txt")):
+    with open(os.path.join(os.path.dirname(os.path.realpath(sys.argv[0])), "github_pat.txt"), "r") as f:
+        GITHUB_TOKEN = f.read().strip()
+        
+if os.path.exists(os.path.join(os.path.dirname(os.path.realpath(sys.argv[0])), "key.pem")):
+    with open(os.path.join(os.path.dirname(os.path.realpath(sys.argv[0])), "key.pem"), "r") as f:
+        KEY = f.read().strip()
     
 REPO_NAME = "IntelliMarkets/Wallpaper_API_Index"
+GITHUB_APP_ID = "2220480"
 
-def get_github_instance(token, verify: bool = True):
+async def get_github_instance(token: str = None, private_key: str = None, installation_id: int = None, verify: bool = True):
     """
-    根据token获取github实例
+    根据token获取github实例（异步版本）
     """
-    return Github(token, verify=verify)
+    logger.info(f"尝试使你登录……")
+    
+    # 使用 asyncio.to_thread 将同步操作包装为异步
+    def _create_github_instance():
+        if private_key and installation_id:
+            logger.debug(f"Mode: auth, private_key: True, installation_id: True")
+            auth = Auth.AppAuth(GITHUB_APP_ID, private_key)
+            g = Github(auth=Auth.AppInstallationAuth(auth, installation_id), verify=verify)
+            # g.get_user().login
+            return g
+        elif token:
+            logger.debug(f"Mode: token, token: True")
+            return Github(token, verify=verify)
+        else:
+            logger.debug(f"Mode: default, token: False, private_key: False, installation_id: False")
+            return Github(verify=verify)
+    
+    # 在单独的线程中执行创建操作，避免界面卡死
+    return await asyncio.to_thread(_create_github_instance)
 
 def get_repo(github_instance, repo_name):
     """
