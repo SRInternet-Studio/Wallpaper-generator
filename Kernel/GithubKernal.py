@@ -5,15 +5,20 @@ from Kernel.GithubTools import *
 from Kernel.Logger import logger
 
 class Markets(object):
-    def __init__(self):
+    def __init__(self, settings: dict):
         self.github_instance = None
         self.repo = None
         self.classification = None
         self.apis = {}
-        
+        self.installation_id = settings.get("installation_id", None)
+
     async def init(self):
-        self.github_instance = get_github_instance(GITHUB_TOKEN, False)
+        self.github_instance = await get_github_instance(GITHUB_TOKEN, KEY, self.installation_id, verify=False)
         self.repo = get_repo(self.github_instance, REPO_NAME)
+        if self.repo is None:
+            self.github_instance = await get_github_instance(verify=False)
+            logger.error("Failed to get repo")
+            return
         
     async def get_classification(self):
         self.classification = await get_folder_list(self.repo)
@@ -74,8 +79,8 @@ class Markets(object):
                 
         return content
             
-if __name__ == "__main__":
-    markets = Markets()
-    asyncio.run(markets.init())
-    asyncio.run(markets.get_classification())
-    print(asyncio.run(markets.get_all_apis()))
+# if __name__ == "__main__":
+#     markets = Markets()
+#     asyncio.run(markets.init())
+#     asyncio.run(markets.get_classification())
+#     print(asyncio.run(markets.get_all_apis()))

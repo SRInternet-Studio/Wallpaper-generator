@@ -93,6 +93,14 @@ class WelcomePage(QWidget, WelcomePageNext_ui.Ui_Form):
                 else None
             ))
             
+            if hasattr(self.main_window, "settings") and self.main_window.settings["installation_id"] is None:
+                InfoBar.info(title='登录 Github 以访问市场', content=f"请转到设置页并连接到 Github 账户", orient=Qt.Horizontal,
+                        isClosable=True,
+                        position=InfoBarPosition.BOTTOM_RIGHT,
+                        duration=30000, 
+                        parent=self.window(),
+                    )
+            
     def on_image_clicked(self, file_name):
         target = self.ToadyCard
         self.CommandBar = CommandBarView(self)

@@ -92,7 +92,7 @@ Wallpaper Generator is a personalized aggregated image generation platform that 
 You can submit an Issue [here](https://github.com/SRInternet-studio/Wallpaper-generator/issues/new). You can also provide feedback via our email srinternet@qq.com.
 
 ## How to Deploy Source Code
-> Wallpaper Generator 5.0.0 mostly uses Python [^1], which requires your computer to have Python>=3.10 standard environment and required dependencies [(requirements.txt)](requirements.txt)
+> Wallpaper Generator 5.1.0 mostly uses Python [^1], which requires your computer to have Python>=3.10 standard environment and required dependencies [(requirements.txt)](requirements.txt)
 
 ### Configure Required Python Environment
 1. Go to the [official website](https://www.python.org) to download Python 3.10 or higher, Python 3.12 is recommended;
