@@ -27,7 +27,6 @@ class MarketUI(QWidget, Ui_Form):
         super().__init__(parent)
         self.setupUi(self)
         self.parent = parent
-        self.markets = Markets()
         self.plugin_containers = []
         self.loop = qasync.QEventLoop(self)
         self.icon_cache = {}  # 图标缓存字典 {url: pixmap_data}
@@ -71,6 +70,7 @@ class MarketUI(QWidget, Ui_Form):
         # self.addPlugin("插件1", "这是插件1的介绍", u"image: url(:/ICO/NewIcon.ico);", True, "启用", lambda: print("插件1被点击"))
 
     async def init_markets(self):
+        self.markets = Markets(self.parent.settings)
         await self.markets.init()
         await self.markets.get_classification()
         self.init_Navigation(self.markets.classification)
@@ -212,7 +212,7 @@ class MarketUI(QWidget, Ui_Form):
                     duration=4000, 
                     parent=self.window()
                 )
-            if sys.platform == "win32": self.RestartButton.setText("手动重启 (退出)")
+            # if sys.platform == "win32": self.RestartButton.setText("手动重启 (退出)")
             self.RestartButton.show()
             
         else:
@@ -223,7 +223,7 @@ class MarketUI(QWidget, Ui_Form):
                     duration=4000, 
                     parent=self.window()
                 )
-            if sys.platform == "win32": self.RestartButton.setText("手动重启 (退出)")
+            # if sys.platform == "win32": self.RestartButton.setText("手动重启 (退出)")
             self.RestartButton.show()
             
         try:
@@ -258,7 +258,7 @@ class MarketUI(QWidget, Ui_Form):
                         duration=4000, 
                         parent=self.window()
                     )
-            if sys.platform == "win32": self.RestartButton.setText("手动重启 (退出)")
+            # if sys.platform == "win32": self.RestartButton.setText("手动重启 (退出)")
             self.RestartButton.show()
         
     def on_remove_clicked(self, name, content, item_id):
@@ -277,7 +277,7 @@ class MarketUI(QWidget, Ui_Form):
                     duration=4000, 
                     parent=self.window()
                 )
-            if sys.platform == "win32": self.RestartButton.setText("手动重启 (退出)")
+            # if sys.platform == "win32": self.RestartButton.setText("手动重启 (退出)")
             self.RestartButton.show()
             
             if "location" in item_id:

@@ -86,7 +86,7 @@
 您可以在[这里](https://github.com/SRInternet-studio/Wallpaper-generator/issues/new)提交Issuse。您也可以通过我们的邮箱 srinternet@qq.com 进行反馈。
 
 ## 如何部署源代码
-> 壁纸生成器 5.0.0 绝大部分采用了 Python [^1]，这要求你的电脑中需要包含 Python>=3.10 的标准环境和所需环境 [(requirements.txt)](requirements.txt)
+> 壁纸生成器 5.1.0 绝大部分采用了 Python [^1]，这要求你的电脑中需要包含 Python>=3.10 的标准环境和所需环境 [(requirements.txt)](requirements.txt)
 
 ### 配置所需 Python 环境
 1. 前往[官网](https://www.python.org)下载 Python 3.10 及以上版本，推荐 Python 3.12；

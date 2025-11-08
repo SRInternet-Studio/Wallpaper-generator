@@ -1,0 +1,18 @@
+{
+  "friendly_name": "waifu 图片",
+  "intro": "获取waifu.im的图片",
+  "icon": "https://www.waifu.im/favicon.ico",
+  "link": "https://api.waifu.im/search",
+  "func": "GET",
+  "APICORE_version": "1.0",
+  "parameters": [],
+  "response": {
+    "image": {
+      "content_type": "URL",
+      "path": "images[0].url",
+      "is_list": false,
+      "is_base64": false
+    },
+    "others": []
+  }
+}

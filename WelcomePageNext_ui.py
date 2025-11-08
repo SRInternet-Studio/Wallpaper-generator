@@ -437,7 +437,7 @@ class Ui_Form(object):
         self.SubtitleLabel_8.setText(QCoreApplication.translate("Form", u" \u66f4\u591a\u529f\u80fd\uff1a", None))
         self.PrimaryPushButton.setText(QCoreApplication.translate("Form", u"\u6e10\u53d8\u8272\u58c1\u7eb8\u751f\u6210", None))
         self.PushButton_2.setText(QCoreApplication.translate("Form", u"\u81ea\u52a8\u66f4\u6362\u58c1\u7eb8\u7684\u6258\u76d8\u7a0b\u5e8f", None))
-        self.SubtitleLabel_7.setText(QCoreApplication.translate("Form", u" \u7248\u672c 5.0.0 - DEBUG - \u5df2\u6700\u65b0", None))
+        self.SubtitleLabel_7.setText(QCoreApplication.translate("Form", u" \u7248\u672c 5.1.0 - DEBUG - \u5df2\u6700\u65b0", None))
         self.PushButton.setText(QCoreApplication.translate("Form", u"\u53cd\u9988 Bug", None))
     # retranslateUi
 

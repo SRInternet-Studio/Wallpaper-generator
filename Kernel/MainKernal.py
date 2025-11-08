@@ -469,7 +469,7 @@ def get_internal_dir() -> str:
 def get_config_dir() -> str:
     from pathlib import Path
     config_dir = os.path.dirname(os.path.realpath(sys.argv[0]))
-    if getattr(sys, 'frozen', False) or True:
+    if getattr(sys, 'frozen', False):
         if sys.platform.startswith('win'):
             config_dir = str(Path.home() / f'AppData{os.sep}Roaming{os.sep}wallpaper-generator-next')
         elif sys.platform.startswith('linux'):
@@ -489,6 +489,7 @@ def adaptive_link_splitter(text) -> List[str]:
     common_separators = ["\n", "\n\n", " ", "  ", "    ", ",  ", ", ", ",", ";", "|"]
     
     for sep in common_separators:
+        logger.debug(f"尝试切割URL {text}")
         if sep in text:
             links = text.split(sep)
             valid_links = [link.strip() for link in links if link.strip()]
@@ -586,14 +587,13 @@ def restart_program(self):
             args = sys.argv
             
         if sys.platform == 'win32':
+            # 在Windows平台上使用subprocess启动新进程
+            import subprocess
             self.parent.on_close()
-                
-            # if ' ' in executable and not executable.startswith('"'):
-            #     executable = f'"{executable}"'
-            # startupinfo = subprocess.STARTUPINFO()
-            # startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-            # subprocess.Popen([executable] + args, startupinfo=startupinfo)
+            # 延迟启动以确保当前进程完全退出
+            subprocess.Popen([executable] + args)
         else:
+            # 在Linux/Unix平台上使用os.execv替换当前进程
             os.execv(executable, [executable] + args)
             
     except Exception as e:

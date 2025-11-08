@@ -91,7 +91,8 @@ async def request_api(
     try:
         # 如果禁用SSL验证，创建一个不验证SSL的ClientSession
         connector = aiohttp.TCPConnector(ssl=ssl_verify) if not ssl_verify else None
-        logger.warning(f"SSL 验证已被禁用，这可能会造成不安全的HTTPS连接！") if not ssl_verify else None
+        if not ssl_verify:
+            logger.warning(f"SSL 验证已被禁用，这可能会造成不安全的HTTPS连接！")
         async with aiohttp.ClientSession(
             timeout=aiohttp.ClientTimeout(total=timeout),
             connector=connector
@@ -151,6 +152,7 @@ def parse_response(data: Any, paths: Union[str, List[str]]) -> Any:
     :param paths: 单个路径字符串或路径字符串列表
     :return: 解析结果，结果类型根据路径和数据类型决定
     """
+    logger.debug(f"正在解析 paths: {paths}")
     # 核心：通过正则表达式，识别索引和切片语法
     index_pattern = re.compile(r'\[(.*?)\]')
 
@@ -171,53 +173,67 @@ def parse_response(data: Any, paths: Union[str, List[str]]) -> Any:
             field = current[:match.start()].strip()
             
             # 如果字段名不为空，先访问该字段
+            target_obj = obj
             if field:
                 if isinstance(obj, dict) and field in obj:
-                    obj = obj[field]
+                    target_obj = obj[field]
                 elif isinstance(obj, (list, tuple)) and field.isdigit():
-                    obj = obj[int(field)]
-            
-                # 处理通配符 (*) 或索引/切片
-                if index_expr == '*':
-                    # 通配符处理，展开所有元素
-                    if not isinstance(obj, (list, tuple)):
+                    try:
+                        target_obj = obj[int(field)]
+                    except (ValueError, IndexError):
                         return None
+            
+            # 处理通配符 (*) 或索引/切片
+            if index_expr == '*':
+                # 通配符处理，展开所有元素
+                if not isinstance(target_obj, (list, tuple)):
+                    return None
+                
+                # 处理空数组，根据文档规范返回空列表
+                if len(target_obj) == 0:
+                    return []
                     
-                    results = []
-                    for item in obj:
-                        result = resolve_path(item, remaining)
-                        # 根据是否使用通配符决定结构
-                        if '*' in current:  # 使用通配符时保持每个item的结构
+                results = []
+                for item in target_obj:
+                    result = resolve_path(item, remaining)
+                    # 根据是否使用通配符决定结构
+                    if '*' in current:  # 使用通配符时保持每个item的结构
+                        results.append(result)
+                    else:  # 非通配符情况扁平化
+                        if isinstance(result, list):
+                            results.extend(result)
+                        else:
                             results.append(result)
-                        else:  # 非通配符情况扁平化
-                            if isinstance(result, list):
-                                results.extend(result)
-                            else:
-                                results.append(result)
-                    return results
+                return results
             elif ':' in index_expr:
                 # 切片处理
+                if not isinstance(target_obj, (list, tuple)):
+                    return None
+                
                 indices = index_expr.split(':')
                 try:
+                    # 支持负索引
                     start = int(indices[0]) if indices[0] else 0
-                    end = int(indices[1]) if len(indices) > 1 and indices[1] else len(obj)
+                    end = int(indices[1]) if len(indices) > 1 and indices[1] else len(target_obj)
                     step = int(indices[2]) if len(indices) > 2 and indices[2] else 1
                     
                     results = []
-                    for item in obj[start:end:step]:
+                    for item in target_obj[start:end:step]:
                         result = resolve_path(item, remaining)
                         if isinstance(result, list):
                             results.extend(result)
                         else:
                             results.append(result)
                     return results
-                except (ValueError, TypeError):
+                except (ValueError, TypeError, IndexError):
                     return None
             else:
                 # 单个索引处理
                 try:
+                    if not isinstance(target_obj, (list, tuple)):
+                        return None
                     idx = int(index_expr)
-                    return resolve_path(obj[idx], remaining)
+                    return resolve_path(target_obj[idx], remaining)
                 except (ValueError, TypeError, IndexError):
                     return None
                 
@@ -244,8 +260,12 @@ def parse_response(data: Any, paths: Union[str, List[str]]) -> Any:
     if isinstance(paths, str):
         # 对于单个路径，返回最自然的类型
         path_parts = [part.strip() for part in paths.split('.') if part.strip()]
-        return resolve_path(data, path_parts)
+        result = resolve_path(data, path_parts)
+        logger.debug(f"解析单个路径结果: {type(result).__name__}")
+        return result
     else:
         # 对于多个路径，返回结果列表
-        return [resolve_path(data, [part.strip() for part in p.split('.') if part.strip()]) 
+        result = [resolve_path(data, [part.strip() for part in p.split('.') if part.strip()]) 
                 for p in paths]
+        logger.debug(f"解析多路径结果，长度: {len(result) if isinstance(result, list) else 'N/A'}")
+        return result

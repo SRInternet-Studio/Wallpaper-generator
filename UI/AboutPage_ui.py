@@ -129,7 +129,7 @@ class Ui_Dialog(object):
         Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"\u5173\u4e8e \u58c1\u7eb8\u751f\u6210\u5668 5 NEXT", None))
         self.SubtitleLabel.setText(QCoreApplication.translate("Dialog", u"\u58c1\u7eb8\u751f\u6210\u5668 NEXT", None))
         self.StrongBodyLabel.setText(QCoreApplication.translate("Dialog", u"Wallpaper Generator NEXT", None))
-        self.BodyLabel.setText(QCoreApplication.translate("Dialog", u"<html><head/><body><p>\u7248\u672c\u53f7\uff1a5.0.0.0 (Build 251001)</p><p>APICORE \u7248\u672c\uff1a1.0</p><p>Powered by IntelliMarkets, APICORE \u53ca\u5176\u751f\u6001\u4e2d\u7684\u5f00\u6e90\u9879\u76ee</p><p>Powered by Qt for Python, QFluentWidgets</p><p>SR\u601d\u9510 \u56e2\u961f \u00a9 2025 \u4fdd\u7559\u90e8\u5206\u6743\u5229</p></body></html>", None))
+        self.BodyLabel.setText(QCoreApplication.translate("Dialog", u"<html><head/><body><p>\u7248\u672c\u53f7\uff1a5.1.0.0 (Build 251108)</p><p>APICORE \u7248\u672c\uff1a1.0</p><p>Powered by IntelliMarkets, APICORE \u53ca\u5176\u751f\u6001\u4e2d\u7684\u5f00\u6e90\u9879\u76ee</p><p>Powered by Qt for Python, QFluentWidgets</p><p>SR\u601d\u9510 \u56e2\u961f \u00a9 2025 \u4fdd\u7559\u90e8\u5206\u6743\u5229</p></body></html>", None))
         self.HyperlinkButton.setText(QCoreApplication.translate("Dialog", u"Github \u4ed3\u5e93", None))
         self.commandLinkButton.setText(QCoreApplication.translate("Dialog", u"\u652f\u6301\u6211\u4eec", None))
         self.commandLinkButton_2.setText(QCoreApplication.translate("Dialog", u"\u514d\u8d23\u58f0\u660e", None))
