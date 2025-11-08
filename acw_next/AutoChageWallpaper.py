@@ -50,7 +50,7 @@ class AutoChageWallpaper(QWidget, Ui_Form):
         else:
             startup_args = f"'{os.path.abspath(__file__)}' --AutoStartup"
             
-        self.startup_manager = StartupManager(f"'{sys.executable}'", startup_args, None if startup_args.startswith("--") else "WallpaperGenerator")
+        self.startup_manager = StartupManager(f"'{sys.executable}'", startup_args, "WallpaperGenerator")
         self.init_ui()
 
     def init_ui(self):
