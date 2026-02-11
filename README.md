@@ -29,7 +29,7 @@
 ###### [Switch to English Version](README_EN.md) </div>
 
 > [!NOTE]  
- > 若您希望在 Android 系列操作系统上使用，请前往：[壁纸生成器 NEXT - 手机版](https://github.comesRInternet-Studio/Wallpaper-generator-Mobile)。
+ > 若您希望在 Android 系列操作系统上使用，请前往：[壁纸生成器 NEXT - 手机版](https://github.com/SRInternet-Studio/Wallpaper-generator-Mobile)。
 
 ## 详细信息
 
