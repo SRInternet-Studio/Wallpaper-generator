@@ -93,8 +93,13 @@ async def request_api(
         connector = aiohttp.TCPConnector(ssl=ssl_verify) if not ssl_verify else None
         if not ssl_verify:
             logger.warning(f"SSL 验证已被禁用，这可能会造成不安全的HTTPS连接！")
+        # 使用 connect + sock_read 替代 total，避免大文件/图片下载到一半被总超时切断
+        client_timeout = aiohttp.ClientTimeout(
+            connect=min(10, timeout),
+            sock_read=timeout
+        )
         async with aiohttp.ClientSession(
-            timeout=aiohttp.ClientTimeout(total=timeout),
+            timeout=client_timeout,
             connector=connector
         ) as session:
             if method.upper() in ["GET", "HEAD"]:
@@ -116,11 +121,30 @@ async def request_api(
 async def handle_response(response: aiohttp.ClientResponse, paths: Optional[Union[str, List[str]]] = None, raw = False) -> Tuple[Any, Any, Any]:
     """处理响应并返回解析后的数据（由 request_api 调用）"""
 
+    # raw 模式直接读取二进制，避免 response.text() 消费响应体后 response.read() 为空
+    if raw:
+        binary_data = await response.read()
+        content = ""
+        try:
+            content = binary_data.decode('utf-8')
+        except UnicodeDecodeError:
+            content = binary_data.decode('latin1')
+
+        logger.debug(f"API返回状态码: {response.status} {response.reason}")
+        logger.debug(f"API返回二进制大小: {len(binary_data)} bytes")
+        if not response.ok:
+            error_msg = f"API返回错误: {response.status} {response.reason}"
+            if content:
+                error_msg += f"\n错误详情: {content[:200]}..."
+            raise RuntimeError(error_msg)
+
+        return response, content, binary_data
+
     try:
         content = await response.text()
     except UnicodeDecodeError:
         content = await response.text('latin1')
-    
+
     logger.debug(f"API返回状态码: {response.status} {response.reason}")
     logger.debug(f"API返回内容: {content[:200]}...")
     if not response.ok:
@@ -128,9 +152,6 @@ async def handle_response(response: aiohttp.ClientResponse, paths: Optional[Unio
         if content:
             error_msg += f"\n错误详情: {content[:200]}..."
         raise RuntimeError(error_msg)
-    
-    if raw:
-        return response, content, await response.read()
     
     # 解析JSON
     try:

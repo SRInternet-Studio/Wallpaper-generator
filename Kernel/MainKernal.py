@@ -288,14 +288,27 @@ async def download_images_binary(binary_data_list: List[bytes], save_path: str, 
     logger.info(f"保存二进制图片数据: {len(binary_data_list)}张 -> {save_path}")
     
     async def _save_single(data: bytes, path: str) -> bool:
-        try:      
+        try:
             async with aiofiles.open(path, 'wb') as f:
                 await f.write(data)
+
+            # 校验保存后的图片是否完整可解码
+            try:
+                with Image.open(path) as img:
+                    img.load()
+            except Exception as img_err:
+                raise RuntimeError(f"图片数据不完整或损坏: {str(img_err)}")
+
             logger.info(f"图片保存成功: {path}")
             return True
         except Exception as e:
             logger.error(f"图片保存失败: {path} - {str(e)}")
             logger.debug(traceback.format_exc())
+            if os.path.exists(path):
+                try:
+                    os.remove(path)
+                except Exception:
+                    pass
             return False
     
     if len(binary_data_list) == 1:
@@ -327,9 +340,14 @@ async def download_images_binary(binary_data_list: List[bytes], save_path: str, 
         if isinstance(result, Exception):
             logger.error(f"图片保存异常: {path} - {str(result)}")
             logger.debug(traceback.format_exc())
+            if os.path.exists(path):
+                try:
+                    os.remove(path)
+                except Exception:
+                    pass
             results[path] = False
         else:
-            results[path] = result
+            results[path] = bool(result)
     
     return results
 
@@ -349,16 +367,21 @@ async def download_images(urls: Union[str, List[str]], save_path: str, max_worke
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
     }
     logger.info(f"下载图片: {urls} -> {save_path} , 超时: {timeout}秒, 重试: {retries}次")
-    
+
     async def _download_single(session: aiohttp.ClientSession, url: str, path: str) -> bool:
         for attempt in range(retries):
             try:
                 logger.info(f"开始下载图片: {url} -> {path} (尝试 {attempt + 1}/{retries})")
-                async with session.get(url, headers=headers, timeout=aiohttp.ClientTimeout(total=timeout)) as response:
+                # 使用 connect + sock_read 替代 total，避免大文件下载到一半被总超时切断
+                client_timeout = aiohttp.ClientTimeout(
+                    connect=min(10, timeout),
+                    sock_read=timeout
+                )
+                async with session.get(url, headers=headers, timeout=client_timeout) as response:
                     response.raise_for_status()
                     total_size = int(response.headers.get('content-length', 0))
                     downloaded = 0
-                    
+
                     async with aiofiles.open(path, 'wb') as f:
                         async for chunk in response.content.iter_chunked(8192):
                             await f.write(chunk)
@@ -370,11 +393,30 @@ async def download_images(urls: Union[str, List[str]], save_path: str, max_worke
                                 # logger.debug(f"{os.path.basename(path)} 已下载: {downloaded} bytes - {url}")
                                 pass
 
+                    # 校验文件完整性
+                    if total_size > 0 and downloaded != total_size:
+                        raise RuntimeError(f"文件大小不匹配: 期望 {total_size} bytes, 实际 {downloaded} bytes")
+
+                    # 用 Pillow 校验图片是否完整可解码
+                    try:
+                        with Image.open(path) as img:
+                            img.load()
+                    except Exception as img_err:
+                        raise RuntimeError(f"图片校验失败: {str(img_err)}")
+
                     logger.info(f"图片下载完成: {path}")
                     return True
-                
+
             except Exception as e:
                 logger.warning(f"图片下载失败 (尝试 {attempt + 1}/{retries}): {url} - {str(e)}")
+                # 删除不完整的临时文件
+                if os.path.exists(path):
+                    try:
+                        os.remove(path)
+                        logger.debug(f"已删除不完整文件: {path}")
+                    except Exception as del_err:
+                        logger.warning(f"删除不完整文件失败: {path} - {str(del_err)}")
+
                 if attempt == retries - 1:
                     logger.error(f"图片下载最终失败: {url}")
                     logger.debug(traceback.format_exc())
@@ -427,10 +469,16 @@ async def download_images(urls: Union[str, List[str]], save_path: str, max_worke
                 logger.error(f"图片下载异常: {path} - {str(result)}")
                 logger.debug(traceback.format_exc())
                 if os.path.exists(path):
-                    os.remove(path)
+                    try:
+                        os.remove(path)
+                    except Exception:
+                        pass
                 results[url] = False
-            else:
+            elif result is True:
                 results[url] = path
+            else:
+                # 下载失败（已被内部清理）
+                results[url] = False
     
     return results
 
