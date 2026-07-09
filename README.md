@@ -1,4 +1,6 @@
 # <div align="center">✨壁纸生成器 NEXT</div>
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSRInternet-Studio%2FWallpaper-generator.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FSRInternet-Studio%2FWallpaper-generator?ref=badge_shield)
+
 
 <img width="2560" height="1440" alt="Production" src="https://github.com/user-attachments/assets/be589274-a587-44ec-a965-6e898f5c4850" />
 
@@ -20,6 +22,9 @@
    
 一款个性化聚合图片生成平台，能定时自动更换壁纸，支持 Windows 和 Linux。
    
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSRInternet-Studio%2FWallpaper-generator.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FSRInternet-Studio%2FWallpaper-generator?ref=badge_large)
+
 #### [💬 SR思锐 用户QQ群](https://qm.qq.com/q/f3QGDkdp6M)｜[🛍️ 图片源市场](https://github.com/IntelliMarkets/Wallpaper_API_Index/)
 
 #### [🌐 产品中心 ](https://app.sr-studio.cn)｜[🛠️ 插件编写 ](https://github.com/SRON-org/APICORE/wiki/Create-a-New-APICORE-Configuration-File)｜[💖 支持我们 ](https://afdian.com/a/srinternet)｜[📝 反馈问题](https://github.com/SRInternet-Studio/Wallpaper-generator/issues)
