@@ -30,11 +30,11 @@ class Markets(object):
             current_files = await get_file_list(self.repo, "main", folder)
             self.apis[folder] = []
             for file in current_files:
-                if file.endswith(".api.json"):
+                if file.endswith((".api.json", ".api.yaml", ".api.toml")):
                     logger.info(f"Getting {file} content...")
                     summary += 1
                     paths = file.split("/")
-                    api_name = paths[-1].split(".")[0]
+                    api_name = paths[-1]
                     api_content = await get_file_content(self.repo, file, "main")
                     self.apis[folder].append({"name": api_name, "content": api_content, "category": folder})
                     yield {"name": api_name, "content": api_content, "category": folder}

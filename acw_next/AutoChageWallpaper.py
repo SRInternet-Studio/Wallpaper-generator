@@ -12,7 +12,9 @@ from Kernel.SettingsKernal import SettingsKernal
 from Kernel.Logger import logger
 from Kernel.StartupManager import StartupManager
 from Kernel import APIKernal, MainKernal
-from APICORE import APICORE
+from Kernel.ApicoreDoc import ApicoreDoc, load_doc, describe_apicore_error
+from Kernel.ApicoreRuntime import request_options, resolve_timeout
+from Kernel.HandlerKernal import request_with_handlers, run_polling, authorize_and_run
 
 class TimeFormatter(PickerColumnFormatter):
     """ Seconds formatter """
@@ -98,16 +100,16 @@ class AutoChageWallpaper(QWidget, Ui_Form):
         path = os.path.join(MainKernal.get_config_dir(), "EnterPoint", "acw_config", "_AutoConfig.api.json")
         try:
             if os.path.isfile(path):
-                cfg = APICORE(path).init()
-                assert cfg.intro() == "Auto Change Wallpaper Config", "不是自动更换壁纸的配置文件占用了正确的文件名"
+                cfg = load_doc(path)
+                assert cfg.intro == "Auto Change Wallpaper Config", "不是自动更换壁纸的配置文件占用了正确的文件名"
                 
                 self.description_text = ""
-                self.SubtitleLabel_7.setText(f"当前配置：{cfg.friendly_name()}")
-                for para in cfg.parameters():
-                    if para.get("friendly_name", None):
-                        self.description_text += f" {para['friendly_name']}：{para['value']}\n"
-                    elif para.get("name", "") == "payload":
-                        self.payload = para["value"]
+                self.SubtitleLabel_7.setText(f"当前配置：{cfg.friendly_name}")
+                for para in cfg.parameters:
+                    if para.name == "payload":
+                        self.payload = para.value
+                    elif para.friendly_name:
+                        self.description_text += f" {cfg.tr(para.friendly_name)}：{para.value}\n"
                         
                 self.cfg = cfg
             else:
@@ -115,7 +117,7 @@ class AutoChageWallpaper(QWidget, Ui_Form):
         except Exception as e:
             if show_error:
                 self.description_text = "没有自动更换壁纸的图片源配置。"
-                InfoBar.error(title='自动更换壁纸的配置加载失败', content=f"{str(e)}", orient=Qt.Horizontal,
+                InfoBar.error(title='自动更换壁纸的配置加载失败', content=describe_apicore_error(e), orient=Qt.Horizontal,
                     isClosable=True,
                     position=InfoBarPosition.TOP_RIGHT,
                     duration=6000, 
@@ -291,40 +293,52 @@ class AutoChageWallpaper(QWidget, Ui_Form):
         
     async def change_wallpaper(self):
         try:
-            cfg: APICORE = self.cfg
+            cfg: ApicoreDoc = self.cfg
             payload: dict = self.payload
             if not cfg:
                 logger.error("没有配置的图片源")
                 raise ValueError("没有配置自动更换壁纸的图片源。")
             
-            binary_phrase = (str(cfg.response().image().get('content_type', "URL")).upper() == "BINARY")
-            if cfg.func().upper() in ["GET", "HEAD"]:
-                r, t, c = await APIKernal.request_api(
-                    cfg.link(),
-                    "",
-                    cfg.func(),
-                    timeout=int(self.parentWidget.settings["timeout_config"]),
-                    raw=binary_phrase, 
-                    ssl_verify=self.parentWidget.settings["ssl_verify_config"],
-                )
-            else:
-                r, t, c = await APIKernal.request_api(
-                    cfg.link(),
-                    "",
-                    cfg.func(), 
-                    payload=payload,
-                    timeout=int(self.parentWidget.settings["timeout_config"]),
-                    raw=binary_phrase, 
-                    ssl_verify=self.parentWidget.settings["ssl_verify_config"],
-                )
+            media = cfg.media
+            if media is None or media.type != "image":
+                raise ValueError(f"不支持的响应媒体类型: {getattr(media, 'type', None)}")
+            binary_phrase = str(media.content_type).upper() == "BINARY"
+            req = request_options(cfg, payload)
+            timeout = resolve_timeout(cfg, self.parentWidget.settings["timeout_config"], payload)
+            retry = getattr(cfg.configs, "retry", None) if cfg.configs is not None else None
+            request_payload = {} if cfg.func.upper() in ["GET", "HEAD"] else payload
+            r, t, c, status, decision = await request_with_handlers(
+                APIKernal.request_api, cfg.handlers, req["url"], "", cfg.func,
+                translator=cfg.tr,
+                request_kwargs={"payload": request_payload, "headers": req["headers"],
+                                "body_type": req["body_type"], "body": req["body"],
+                                "timeout": timeout, "raw": binary_phrase,
+                                "ssl_verify": self.parentWidget.settings["ssl_verify_config"],
+                                "network_retry": retry})
+            if decision.action == "response" and cfg.polling is not None:
+                response_context = decision.extracted if decision.extracted is not None else (t or c or r)
+                r, t, c, status, decision = await run_polling(
+                    APIKernal.request_api, cfg.polling, response_context, cfg.handlers, payload,
+                    headers=req["headers"], ssl_verify=self.parentWidget.settings["ssl_verify_config"],
+                    translator=cfg.tr, network_retry=retry)
+            if decision.action != "response":
+                if decision.action == "browser" and decision.link:
+                    import webbrowser
+                    webbrowser.open_new_tab(decision.link)
+                message = decision.message or str(decision.extracted or f"HTTP {status}")
+                if decision.action == "run":
+                    message = await authorize_and_run(decision.rule,
+                        getattr(cfg.raw, "id", None) or cfg.link, self)
+                self.parentWidget.trayIcon.show_notification(f"自动更换壁纸：{decision.action}", message)
+                return
             
             # 解析响应
             result, response = None, []
             if binary_phrase: # 二进制
-                if not cfg.response().image().get('is_base64', False): # 不是base64编码的单/多图片
+                if not media.is_base64:
                     response = await MainKernal.phrase_binary_images(r, t, c)
                 else: # base64编码的单/多图片
-                    path = str(cfg.response().image().get('path', ''))
+                    path = str(media.path or '')
                     if not path:
                         raise ValueError("API 配置文件中返回结果中缺少图片路径。")
                         
@@ -332,7 +346,7 @@ class AutoChageWallpaper(QWidget, Ui_Form):
                         response = MainKernal.adaptive_base64_extractor(str(r))
                     elif isinstance(r, list):
                         response = MainKernal.adaptive_base64_extractor("\n".join(r))
-                    elif not cfg.response().image().get('is_list', True): # 不在列表里的 base64 图片
+                    elif not media.is_list:
                         response = MainKernal.adaptive_base64_extractor(APIKernal.parse_response(r, path))
                     else:
                         response = APIKernal.parse_response(r, path)
@@ -346,7 +360,7 @@ class AutoChageWallpaper(QWidget, Ui_Form):
                     
             else: # URL
                 logger.info(f"结果返回: {str(r)} {type(r)}")
-                path = str(cfg.response().image().get('path', ''))
+                path = str(media.path or '')
                 if not path:
                     raise ValueError("API 配置文件中返回结果中缺少图片路径。")
                 
@@ -355,12 +369,12 @@ class AutoChageWallpaper(QWidget, Ui_Form):
                     logger.debug(f"文本链接提取格式化: {response}")
                 elif isinstance(r, list):
                     response = MainKernal.adaptive_link_splitter("\n".join(r))
-                elif not cfg.response().image().get('is_list', True): # 不在列表里的URL
+                elif not media.is_list:
                     response = MainKernal.adaptive_link_splitter(APIKernal.parse_response(r, path))
                 else:
                     response = APIKernal.parse_response(r, path)
                     
-                if cfg.response().image().get('is_base64', False): # 用base64编码的URL
+                if media.is_base64:
                     response[:] = [base64.b64decode(str(item)).decode('utf-8') for item in response]
                     
                 response = response[:1]

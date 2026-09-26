@@ -1,0 +1,8 @@
+{
+  "json.schemas": [
+    {
+      "fileMatch": ["**/*.api.v2.json", "**/_AutoConfig.api.json"],
+      "url": "./APICORE.v2.Schema.json"
+    }
+  ]
+}

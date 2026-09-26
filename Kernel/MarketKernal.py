@@ -18,11 +18,34 @@ from UI.MarketTemplate_ui import Ui_Form
 from UI.SearchTemplate_ui import Ui_SearchTemplate
 from Kernel.GithubKernal import Markets
 from Kernel.Logger import logger
+from Kernel.ApicoreDoc import loads_doc
 from Kernel.SettingsKernal import SettingsKernal
 from Kernel import MainKernal
 searching = False
 
 class MarketUI(QWidget, Ui_Form):
+    @staticmethod
+    def _market_metadata(content, name=""):
+        raw = content if isinstance(content, str) else None
+        if raw is not None:
+            fmt = "yaml" if name.endswith(".api.yaml") else "toml" if name.endswith(".api.toml") else "json"
+            try:
+                doc = loads_doc(raw, format=fmt)
+                return {"friendly_name": doc.friendly_name, "intro": doc.intro,
+                        "icon": doc.icon, "link": doc.link, "_raw_content": raw}
+            except Exception as exc:
+                logger.warning("市场配置 %s 解析失败: %s", name, exc)
+                try:
+                    content = json.loads(raw)
+                except Exception:
+                    return {"friendly_name": "API", "intro": "无法解析的配置", "icon": "", "_raw_content": raw}
+        content = content if isinstance(content, dict) else {}
+        return {**content, "_raw_content": raw}
+
+    @staticmethod
+    def _api_filename(name):
+        return name if name.endswith((".api.json", ".api.yaml", ".api.toml")) else f"{name}.api.json"
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
@@ -78,16 +101,12 @@ class MarketUI(QWidget, Ui_Form):
         # self.verticalLayout_2.addWidget(self.ProgressLine)
         try:
             async for api in self.markets.get_all_apis():
-                content = {}
-                try: 
-                    content = json.loads(api["content"])
-                except:
-                    pass
+                content = self._market_metadata(api.get("content", ""), api.get("name", ""))
                 
                 self.timer = QTimer(self)
                 self.timer.setSingleShot(True)
                 self.timer.timeout.connect(
-                    lambda content=content: self.addPlugin(content.get("friendly_name", "API"), content.get("intro", "没有介绍。"), content.get("icon", ""), None, f"{'更新/修复/删除' if os.path.isfile(os.path.join(MainKernal.get_config_dir(), 'EnterPoint', api.get('name', '') + '.api.json')) else '添加到 壁纸生成器'}", 
+                    lambda content=content, api_name=api.get("name", ""): self.addPlugin(content.get("friendly_name", "API"), content.get("intro", "没有介绍。"), content.get("icon", ""), None, f"{'更新/修复/删除' if os.path.isfile(os.path.join(MainKernal.get_config_dir(), 'EnterPoint', self._api_filename(api_name))) else '添加到 壁纸生成器'}",
                     lambda _, path=api.get("name", ""), content=content: self.on_add_clicked(path, content, "overview")) 
                     if api["category"] == self.NavigationBar.getCurrentItem()['text'] or "overview" in self.NavigationBar.getCurrentItem()['routeKey'] else None)
                 self.timer.start(0)
@@ -170,7 +189,7 @@ class MarketUI(QWidget, Ui_Form):
         self.delPlugin()
         for api in items:
             try:
-                content = json.loads(api.get("content", "{}"))
+                content = self._market_metadata(api.get("content", "{}"), api.get("name", ""))
             except (json.JSONDecodeError, TypeError):
                 content = {}
             
@@ -183,13 +202,13 @@ class MarketUI(QWidget, Ui_Form):
                 if not (name_match or friendly_match or intro_match or link_match):
                     continue 
             
-            api_basename = api.get("name", "") if api.get("name", "").endswith(".api.json") else f"{api.get('name', '')}.api.json"
+            api_basename = self._api_filename(api.get("name", ""))
             self.addPlugin(
                 content.get("friendly_name", "API"), 
                 content.get("intro", "没有介绍。"), 
                 content.get("icon", ""), 
                 (api_basename not in self.exclude_apis) if "location" in item_id else None, 
-                "删除" if "location" in item_id else f"{'更新/修复/删除' if os.path.isfile(os.path.join(MainKernal.get_config_dir(), 'EnterPoint', api.get('name', '') + '.api.json')) else '添加到 壁纸生成器'}", 
+                "删除" if "location" in item_id else f"{'更新/修复/删除' if os.path.isfile(os.path.join(MainKernal.get_config_dir(), 'EnterPoint', api_basename)) else '添加到 壁纸生成器'}",
                 lambda _, path=api.get("name", ""), content=content: self.on_remove_clicked(path, content, item_id) if "location" in item_id 
                 else self.on_add_clicked(path, content, item_id), 
                 lambda state, api_basename=api_basename, : self.on_checked_changed(state, api_basename))
@@ -235,7 +254,7 @@ class MarketUI(QWidget, Ui_Form):
             
             
     def on_add_clicked(self, name, content, item_id):
-        name = f"{name}.api.json" if not name.endswith(".api.json") else name
+        name = self._api_filename(name)
         if os.path.isfile(os.path.join(MainKernal.get_config_dir(), "EnterPoint", name)):
             msg = MessageBox("提示", f"""图片源 "{content.get('friendly_name', name)}" 已经添加过啦 ♪(´▽｀)\n你可以进行以下操作""", self.window())
             msg.yesButton.setText("更新/修复")
@@ -249,7 +268,7 @@ class MarketUI(QWidget, Ui_Form):
         if msg.exec():
             new_source = os.path.join(MainKernal.get_config_dir(), "EnterPoint", name)
             with open(new_source, 'w', encoding='utf-8') as f:
-                f.write(json.dumps(content, ensure_ascii=False, indent=2, default=str))
+                f.write(content.get("_raw_content") if content.get("_raw_content") is not None else json.dumps(content, ensure_ascii=False, indent=2, default=str))
                 f.close()
                 
             InfoBar.info(title='已添加', content=f""""{content.get('friendly_name', name)}" 已添加到 壁纸生成器。\n请重启 壁纸生成器 后生效。""", orient=Qt.Horizontal,
@@ -262,7 +281,7 @@ class MarketUI(QWidget, Ui_Form):
             self.RestartButton.show()
         
     def on_remove_clicked(self, name, content, item_id):
-        name = f"{name}.api.json" if not name.endswith(".api.json") else name
+        name = self._api_filename(name)
         if not os.path.isfile(os.path.join(MainKernal.get_config_dir(), "EnterPoint", name)):
             MessageBox("错误", f"""图片源 "{os.path.join(MainKernal.get_config_dir(), "EnterPoint", name)}" 不存在。""", self.window())
             return

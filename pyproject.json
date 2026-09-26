@@ -1,157 +1,189 @@
 {
- "version": "auto-py-to-exe-configuration_v1",
- "pyinstallerOptions": [
-  {
-   "optionDest": "noconfirm",
-   "value": true
-  },
-  {
-   "optionDest": "filenames",
-   "value": "E:/Wallpaper-generator-next/MainWindow.py"
-  },
-  {
-   "optionDest": "onefile",
-   "value": false
-  },
-  {
-   "optionDest": "console",
-   "value": false
-  },
-  {
-   "optionDest": "icon_file",
-   "value": "E:/Wallpaper-generator-next/NewIcon.ico"
-  },
-  {
-   "optionDest": "name",
-   "value": "\u58c1\u7eb8\u751f\u6210\u5668 5 NEXT"
-  },
-  {
-   "optionDest": "clean_build",
-   "value": false
-  },
-  {
-   "optionDest": "strip",
-   "value": false
-  },
-  {
-   "optionDest": "noupx",
-   "value": false
-  },
-  {
-   "optionDest": "disable_windowed_traceback",
-   "value": false
-  },
-  {
-   "optionDest": "uac_admin",
-   "value": false
-  },
-  {
-   "optionDest": "uac_uiaccess",
-   "value": false
-  },
-  {
-   "optionDest": "argv_emulation",
-   "value": false
-  },
-  {
-   "optionDest": "bootloader_ignore_signals",
-   "value": false
-  },
-  {
-   "optionDest": "datas",
-   "value": "E:/Wallpaper-generator-next/NewIcon.ico;."
-  },
-  {
-   "optionDest": "datas",
-   "value": "E:/Wallpaper-generator-next/None.ico;."
-  },
-  {
-   "optionDest": "datas",
-   "value": "E:/Wallpaper-generator-next/BACKIMG1.png;."
-  },
-  {
-   "optionDest": "datas",
-   "value": "E:/Wallpaper-generator-next/AutoChangingPage_ui.py;."
-  },
-  {
-   "optionDest": "datas",
-   "value": "E:/Wallpaper-generator-next/boolean_ui.py;."
-  },
-  {
-   "optionDest": "datas",
-   "value": "E:/Wallpaper-generator-next/emum_ui.py;."
-  },
-  {
-   "optionDest": "datas",
-   "value": "E:/Wallpaper-generator-next/Exception_Handler.py;."
-  },
-  {
-   "optionDest": "datas",
-   "value": "E:/Wallpaper-generator-next/integer_ui.py;."
-  },
-  {
-   "optionDest": "datas",
-   "value": "E:/Wallpaper-generator-next/MainWindowTemplate_ui.py;."
-  },
-  {
-   "optionDest": "datas",
-   "value": "E:/Wallpaper-generator-next/MarketTemplate_ui.py;."
-  },
-  {
-   "optionDest": "datas",
-   "value": "E:/Wallpaper-generator-next/PageTemplate_ui.py;."
-  },
-  {
-   "optionDest": "datas",
-   "value": "E:/Wallpaper-generator-next/SettingsPage_ui.py;."
-  },
-  {
-   "optionDest": "datas",
-   "value": "E:/Wallpaper-generator-next/string_ui.py;."
-  },
-  {
-   "optionDest": "datas",
-   "value": "E:/Wallpaper-generator-next/V4Resources_rc.py;."
-  },
-  {
-   "optionDest": "datas",
-   "value": "E:/Wallpaper-generator-next/WelcomePage_ui.py;."
-  },
-  {
-   "optionDest": "datas",
-   "value": "E:/Wallpaper-generator-next/WelcomePageNext_ui.py;."
-  },
-  {
-   "optionDest": "datas",
-   "value": "E:/Wallpaper-generator-next/V4Resources.qrc;."
-  },
-  {
-   "optionDest": "datas",
-   "value": "E:/Wallpaper-generator-next/acw_next;acw_next/"
-  },
-  {
-   "optionDest": "datas",
-   "value": "E:/Wallpaper-generator-next/Kernel;Kernel/"
-  },
-  {
-   "optionDest": "datas",
-   "value": "E:/Wallpaper-generator-next/set_wallpaper;set_wallpaper/"
-  },
-  {
-   "optionDest": "datas",
-   "value": "E:/Wallpaper-generator-next/UI;UI/"
-  },
-  {
-   "optionDest": "datas",
-   "value": "E:/Wallpaper-generator-next/fonts;fonts/"
-  },
-  {
-   "optionDest": "datas",
-   "value": "E:/Wallpaper-generator-next/gradient;gradient/"
+  "version": "auto-py-to-exe-configuration_v1",
+  "pyinstallerOptions": [
+    {
+      "optionDest": "noconfirm",
+      "value": true
+    },
+    {
+      "optionDest": "filenames",
+      "value": "./MainWindow.py"
+    },
+    {
+      "optionDest": "onefile",
+      "value": false
+    },
+    {
+      "optionDest": "console",
+      "value": false
+    },
+    {
+      "optionDest": "icon_file",
+      "value": "./NewIcon.ico"
+    },
+    {
+      "optionDest": "name",
+      "value": "壁纸生成器 6 NEXT"
+    },
+    {
+      "optionDest": "clean_build",
+      "value": false
+    },
+    {
+      "optionDest": "strip",
+      "value": false
+    },
+    {
+      "optionDest": "noupx",
+      "value": false
+    },
+    {
+      "optionDest": "disable_windowed_traceback",
+      "value": false
+    },
+    {
+      "optionDest": "uac_admin",
+      "value": false
+    },
+    {
+      "optionDest": "uac_uiaccess",
+      "value": false
+    },
+    {
+      "optionDest": "argv_emulation",
+      "value": false
+    },
+    {
+      "optionDest": "bootloader_ignore_signals",
+      "value": false
+    },
+    {
+      "optionDest": "datas",
+      "value": "./NewIcon.ico;."
+    },
+    {
+      "optionDest": "datas",
+      "value": "./None.ico;."
+    },
+    {
+      "optionDest": "datas",
+      "value": "./BACKIMG1.png;."
+    },
+    {
+      "optionDest": "datas",
+      "value": "./AutoChangingPage_ui.py;."
+    },
+    {
+      "optionDest": "datas",
+      "value": "./boolean_ui.py;."
+    },
+    {
+      "optionDest": "datas",
+      "value": "./emum_ui.py;."
+    },
+    {
+      "optionDest": "datas",
+      "value": "./Exception_Handler.py;."
+    },
+    {
+      "optionDest": "datas",
+      "value": "./integer_ui.py;."
+    },
+    {
+      "optionDest": "datas",
+      "value": "./MainWindowTemplate_ui.py;."
+    },
+    {
+      "optionDest": "datas",
+      "value": "./MarketTemplate_ui.py;."
+    },
+    {
+      "optionDest": "datas",
+      "value": "./PageTemplate_ui.py;."
+    },
+    {
+      "optionDest": "datas",
+      "value": "./SettingsPage_ui.py;."
+    },
+    {
+      "optionDest": "datas",
+      "value": "./string_ui.py;."
+    },
+    {
+      "optionDest": "datas",
+      "value": "./V4Resources_rc.py;."
+    },
+    {
+      "optionDest": "datas",
+      "value": "./WelcomePage_ui.py;."
+    },
+    {
+      "optionDest": "datas",
+      "value": "./WelcomePageNext_ui.py;."
+    },
+    {
+      "optionDest": "datas",
+      "value": "./V4Resources.qrc;."
+    },
+    {
+      "optionDest": "datas",
+      "value": "./acw_next;acw_next/"
+    },
+    {
+      "optionDest": "datas",
+      "value": "./Kernel;Kernel/"
+    },
+    {
+      "optionDest": "datas",
+      "value": "./set_wallpaper;set_wallpaper/"
+    },
+    {
+      "optionDest": "datas",
+      "value": "./UI;UI/"
+    },
+    {
+      "optionDest": "datas",
+      "value": "./fonts;fonts/"
+    },
+    {
+      "optionDest": "datas",
+      "value": "./gradient;gradient/"
+    },
+    {
+      "optionDest": "datas",
+      "value": "./APICORE.v2.Schema.json;."
+    },
+    {
+      "optionDest": "datas",
+      "value": "./third-party-notices.txt;."
+    },
+    {
+      "optionDest": "hiddenimports",
+      "value": "apicore"
+    },
+    {
+      "optionDest": "hiddenimports",
+      "value": "apicore.errors"
+    },
+    {
+      "optionDest": "hiddenimports",
+      "value": "apicore.models"
+    },
+    {
+      "optionDest": "hiddenimports",
+      "value": "orjson"
+    },
+    {
+      "optionDest": "hiddenimports",
+      "value": "ruamel.yaml"
+    },
+    {
+      "optionDest": "hiddenimports",
+      "value": "msgspec"
+    }
+  ],
+  "nonPyinstallerOptions": {
+    "increaseRecursionLimit": true,
+    "manualArguments": ""
   }
- ],
- "nonPyinstallerOptions": {
-  "increaseRecursionLimit": true,
-  "manualArguments": ""
- }
 }

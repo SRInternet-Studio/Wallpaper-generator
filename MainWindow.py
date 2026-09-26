@@ -7,20 +7,22 @@ from PySide6.QtCore import (QCoreApplication, QSize, Qt, Signal, QTimer)
 from PySide6.QtGui import (QBrush, QColor, QIcon, QPainter, 
     QPalette, QPixmap, QImage, QImageReader, QImageIOHandler)
 from PySide6.QtWidgets import (QApplication, 
-    QWidget, QMessageBox, QDialog, QVBoxLayout)
+    QWidget, QMessageBox, QDialog, QVBoxLayout, QLineEdit)
 from fonts.font_loader import load_fonts
 from qasync import QEventLoop
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 from qfluentwidgets import (SplashScreen, FluentIcon, Flyout, FlyoutViewBase, InfoBar, InfoBarPosition, 
                             InfoBarIcon, setTheme, setThemeColor, isDarkTheme, Theme, Action, ToolTipFilter, themeColor, 
-                            FluentTranslator, HorizontalFlipView, CommandBarView, FlyoutAnimationType, PrimaryPushSettingCard)
+                            FluentTranslator, HorizontalFlipView, CommandBarView, FlyoutAnimationType, PrimaryPushSettingCard, LineEdit)
 from qfluentwidgets import MessageBox as OriginalMessageBox
 
 app = QApplication(sys.argv)
 load_fonts()
 
-from APICORE import APICORE
+from Kernel.ApicoreDoc import ApicoreDoc, load_doc, parse_doc, describe_apicore_error
+from Kernel.ApicoreRuntime import request_options, resolve_timeout
+from Kernel.HandlerKernal import request_with_handlers, run_polling, authorize_and_run
 from UI import MainWindowTemplate_ui, PageTemplate_ui, WelcomePageNext_ui
 from UI.Controls import *
 from acw_next import AutoChageWallpaper
@@ -285,8 +287,8 @@ class WelcomePage(QWidget, WelcomePageNext_ui.Ui_Form):
                     parent=self.window()
                 )
 
-class PageTemplate(QWidget, PageTemplate_ui.Ui_Form): 
-    def __init__(self, parent=None, config: APICORE=None):
+class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
+    def __init__(self, parent=None, config: ApicoreDoc=None):
         super().__init__(parent=parent)
         if not config:
             raise ValueError("config cannot be None")
@@ -311,7 +313,8 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
         self._generated = []
         self._other_responses = []
 
-        self.SubtitleLabel.setText(config.friendly_name())
+        self.config = config
+        self.SubtitleLabel.setText(config.friendly_name)
         self.ProgressLine.setVisible(False)
         self.controls_row = 3
 
@@ -321,16 +324,19 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
         # 添加API参数选择控件
         control_classes = { # (Ui_Class, row_span, col_span)
             "integer": (integer, 1, 3),  
+            "number": (number, 1, 3),
             "boolean": (boolean, 1, 3),
             "enum": (emum, 1, 3),
             "string": (string, 1, 3),
         }
 
         
-        for param in config.parameters():
-            name = str(param.get('type')).lower()
+        self.param_widgets = {}
+        self.params_by_key = {}
+        for index, param in enumerate(config.parameters):
+            name = str(param.type).lower()
             if name in control_classes:
-                if not bool(param.get('enable', True)):
+                if not param.enable:
                     continue
                 
                 ui_class, row_span, col_span = control_classes[name]
@@ -339,9 +345,11 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
                 ui.setupUi(widget)
                 
                 # 保存控件实例到 self，使用唯一标识符确保控件名称唯一
-                param_identifier = param.get('name') or f"param_{config.parameters().index(param)}"
+                param_identifier = param.name or f"param_{index}"
                 setattr(self, f"{param_identifier}_{name}_widget", widget)
                 setattr(self, f"{param_identifier}_{name}_ui", ui)
+                self.param_widgets[param_identifier] = widget
+                self.params_by_key[param_identifier] = param
 
                 match name:
                     case "integer": # 关联 integer 参数控件组的 Slider 和 Selector 的数值
@@ -349,58 +357,129 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
                         # 使用默认参数捕获当前的ui实例，避免闭包导致的变量引用问题
                         ui.NumberSlider.valueChanged.connect(lambda value, current_ui=ui: current_ui.NumberSelector.setValue(value))
                         ui.NumberSelector.valueChanged.connect(lambda value, current_ui=ui: current_ui.NumberSlider.setValue(value))
-                        ui.Title.setText(f"{param.get('friendly_name')}")
-                        ui.NumberSlider.setMinimum(param.get('min_value'))
-                        ui.NumberSlider.setMaximum(param.get('max_value'))
-                        ui.NumberSlider.setValue(param.get('value'))
-                        ui.NumberSelector.setMinimum(param.get('min_value'))
-                        ui.NumberSelector.setMaximum(param.get('max_value'))
-                        ui.NumberSelector.setValue(param.get('value'))
+                        ui.Title.setText(config.tr(param.friendly_name))
+                        ui.NumberSlider.setMinimum(int(param.min_value or 0))
+                        ui.NumberSlider.setMaximum(int(param.max_value or 100))
+                        ui.NumberSlider.setValue(int(param.value or 0))
+                        ui.NumberSelector.setMinimum(int(param.min_value or 0))
+                        ui.NumberSelector.setMaximum(int(param.max_value or 100))
+                        ui.NumberSelector.setValue(int(param.value or 0))
+                    case "number":
+                        ui.Title.setText(config.tr(param.friendly_name))
+                        extra = param.extra or {}
+                        ui.NumberSelector.setDecimals(max(0, min(12, int(extra.get("precision", 6)))))
+                        ui.NumberSelector.setSingleStep(float(extra.get("step", 0.1)))
+                        ui.NumberSelector.setRange(float(param.min_value if param.min_value is not None else -1e12),
+                                                   float(param.max_value if param.max_value is not None else 1e12))
+                        ui.NumberSelector.setValue(float(param.value or 0))
                     case "boolean":
                         ui = getattr(self, f"{param_identifier}_{name}_ui")
-                        ui.CheckBox.setText(param.get('friendly_name'))
-                        ui.CheckBox.setChecked(bool(param.get('value')))
+                        ui.CheckBox.setText(config.tr(param.friendly_name))
+                        ui.CheckBox.setChecked(bool(param.value))
                     case "enum":
                         ui = getattr(self, f"{param_identifier}_{name}_ui")
-                        ui.Title.setText(f"{param.get('friendly_name')}")
-                        opts = param.get('friendly_value')
-                        if opts != None:
-                            if len(opts) == len(param.get('value')):
-                                ui.Option.addItems(opts)
-                                ui.Option.setCurrentIndex(0)
-                            else:
-                                logger.warning(f"参数 {param.get('name')} 的选项名称 (value) 与选项友好名称 (friendly_value) 数量不匹配 ({len(param.get('value'))} != {len(opts)}) ，请检查配置是否正确")
-                                ui.Option.addItems(param.get('value'))
-                                ui.Option.setCurrentIndex(0)
-                        else:
-                            ui.Option.addItems(param.get('value'))
-                            ui.Option.setCurrentIndex(0)
+                        ui.Title.setText(config.tr(param.friendly_name))
+                        options = param.options if param.options is not None else param.value
+                        labels = param.friendly_options if param.options is not None else param.friendly_value
+                        labels = labels or options
+                        ui.Option.addItems([config.tr(item) for item in labels])
+                        default = param.value if param.options is not None else (options[0] if options else None)
+                        selected = next((i for i, option in enumerate(options or ()) if type(option) is type(default) and option == default), 0)
+                        ui.Option.setCurrentIndex(selected)
                     case "string":
                         ui = getattr(self, f"{param_identifier}_{name}_ui")
-                        ui.Title.setText(f"{param.get('friendly_name')}")
-                        ui.TextEdit.setText(param.get('value'))
+                        ui.Title.setText(config.tr(param.friendly_name))
+                        ui.TextEdit.setPlaceholderText(config.tr(param.placeholder))
+                        ui.TextEdit.setText(str(param.value or ""))
+                        if param.text_secret:
+                            ui.verticalLayout.removeWidget(ui.TextEdit)
+                            ui.TextEdit.hide()
+                            ui.PasswordEdit = LineEdit(widget)
+                            ui.PasswordEdit.setEchoMode(QLineEdit.EchoMode.Password)
+                            ui.PasswordEdit.setPlaceholderText(config.tr(param.placeholder))
+                            ui.PasswordEdit.setText(str(param.value or ""))
+                            ui.verticalLayout.addWidget(ui.PasswordEdit)
 
                 self.verticalLayout_2.addWidget(widget)
                 self.controls_row += 1
+                if param.tooltip:
+                    widget.setToolTip(config.tr(param.tooltip))
             elif name == "list":
                 ui_class, row_span, col_span = control_classes["string"]
                 widget = QWidget()
                 ui = ui_class()
                 ui.setupUi(widget)
                 
-                ui.Title.setText(f"{param.get('friendly_name')} （用 {str(param.get('split_str', '|'))} 分隔）")
-                ui.Title.clicked.connect(lambda s=str(param.get('split_str', '|')): MainKernal.copyToClipboard(self.window(), s))
+                split = str(param.split_str)
+                ui.Title.setText(f"{config.tr(param.friendly_name)} （用 {split} 分隔）")
+                ui.Title.clicked.connect(lambda s=split: MainKernal.copyToClipboard(self.window(), s))
                 ui.Title.setCursor(Qt.CursorShape.PointingHandCursor)
-                ui.TextEdit.setText(str(param.get('split_str', '|')).join(param.get('value') if isinstance(param.get('value'), list) else list(param.get('value'))))
+                ui.TextEdit.setText(split.join(param.value if isinstance(param.value, (list, tuple)) else list(param.value)))
                 
-                param_identifier = param.get('name') or f"param_{config.parameters().index(param)}"
+                param_identifier = param.name or f"param_{index}"
                 setattr(self, f"{param_identifier}_list_widget", widget)
                 setattr(self, f"{param_identifier}_list_ui", ui)
+                self.param_widgets[param_identifier] = widget
+                self.params_by_key[param_identifier] = param
 
                 self.verticalLayout_2.addWidget(widget)
                 self.controls_row += 1
             else:
-                print(f"Warning: {name} is not a valid control type.")
+                logger.warning("参数 %s 类型 %s 没有控件，将提交默认值", param.name, name)
+                continue
+
+        def read_parameter_value(parameter, key):
+            widget = self.param_widgets.get(key)
+            if widget is None:
+                return parameter.value
+            ui = getattr(self, f"{key}_{parameter.type}_ui", None) or getattr(self, f"{key}_list_ui", None)
+            if parameter.type in ("integer", "number"):
+                return ui.NumberSelector.value()
+            if parameter.type == "boolean":
+                return ui.CheckBox.isChecked()
+            if parameter.type == "string" and hasattr(ui, "PasswordEdit"):
+                return ui.PasswordEdit.text()
+            if parameter.type in ("string", "list"):
+                return ui.TextEdit.toPlainText()
+            if parameter.type == "enum":
+                opts = parameter.options if parameter.options is not None else parameter.value
+                index = ui.Option.currentIndex()
+                return opts[index] if 0 <= index < len(opts) else parameter.value
+            return parameter.value
+
+        def refresh_visibility(*_):
+            for index, parameter in enumerate(config.parameters):
+                key = parameter.name or f"param_{index}"
+                widget = self.param_widgets.get(key)
+                if widget is None:
+                    continue
+                condition = parameter.show_if
+                visible = bool(parameter.enable)
+                if condition is not None:
+                    source = next((p for p in config.parameters if p.name == condition.parameter), None)
+                    source_key = condition.parameter
+                    actual = read_parameter_value(source, source_key) if source is not None else None
+                    if condition.in_values is not None:
+                        visible = visible and actual in condition.in_values
+                    else:
+                        visible = visible and actual == condition.equals
+                widget.setVisible(visible)
+
+        for key, widget in self.param_widgets.items():
+            parameter = self.params_by_key[key]
+            ui = getattr(self, f"{key}_{parameter.type}_ui", None) or getattr(self, f"{key}_list_ui", None)
+            signal = None
+            if hasattr(ui, "NumberSelector"):
+                signal = ui.NumberSelector.valueChanged
+            elif hasattr(ui, "CheckBox"):
+                signal = ui.CheckBox.stateChanged
+            elif hasattr(ui, "Option"):
+                signal = ui.Option.currentIndexChanged
+            elif hasattr(ui, "TextEdit"):
+                signal = ui.TextEdit.textChanged
+            if signal is not None:
+                signal.connect(refresh_visibility)
+        refresh_visibility()
 
         fixed_controls = [
             (self.verticalSpacer_7, 1, 1),
@@ -433,100 +512,99 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
         super().showEvent(event)
         self.Images_Area.setItemSize(self.Images_Area.size())
 
-    def build_payload(self, config: APICORE, friendly_name: bool=False):
+    def build_payload(self, config: ApicoreDoc, friendly_name: bool=False):
         """构建API请求的payload参数
         
         Args:
-            config (APICORE): API配置
+            config (ApicoreDoc): API配置
             friendly_name (bool, optional): 是不是给用户看的请求参数 (默认 False)"""
             
         payload = {}
-        for param in config.parameters():
-            param_type = str(param.get('type')).lower()
-            param_name = param.get('name', None)
-            if not param_name:
-                param_name = None
-            if friendly_name:
-                _param_name = param.get('friendly_name', str(param_name))
-            
-            if not bool(param.get('enable', True)) and not friendly_name:
-                payload[param_name] = param.get('value')
-                
-            elif hasattr(self, f"{param_name or f'param_{config.parameters().index(param)}'}_{param_type}_ui"):
-                ui = getattr(self, f"{param_name or f'param_{config.parameters().index(param)}'}_{param_type}_ui")
-                
-                match param_type:
-                    case "integer":
-                        value = ui.NumberSelector.value()
-                    case "boolean":
-                        checkbox_value = ui.CheckBox.isChecked()
+        for index, param in enumerate(config.parameters):
+            key = param.name or f"param_{index}"
+            target = config.tr(param.friendly_name) or str(param.name or key)
+            widget = self.param_widgets.get(key)
+            value = param.value
+            if widget is not None and not widget.isHidden():
+                ui = getattr(self, f"{key}_{param.type}_ui", None) or getattr(self, f"{key}_list_ui", None)
+                if param.type in ("integer", "number"): value = ui.NumberSelector.value()
+                elif param.type == "boolean":
+                    checked = ui.CheckBox.isChecked()
+                    value = ("是" if checked else "否") if friendly_name else checked
+                elif param.type == "string": value = ui.PasswordEdit.text() if hasattr(ui, "PasswordEdit") else ui.TextEdit.toPlainText()
+                elif param.type == "enum":
+                    options = param.options if param.options is not None else param.value
+                    idx = ui.Option.currentIndex()
+                    if 0 <= idx < len(options):
                         if friendly_name:
-                            value = "是" if checkbox_value else "否"
+                            labels = param.friendly_options if param.options is not None else param.friendly_value
+                            value = config.tr(labels[idx]) if labels and idx < len(labels) else config.tr(options[idx])
                         else:
-                            value = str(checkbox_value).lower()
-                    case "string":
-                        value = ui.TextEdit.toPlainText()
-                    case "enum":
-                        v: list = param.get('value') if not friendly_name else param.get('friendly_value')
-                        logger.debug(f"{v} 在第 {ui.Option.currentIndex()} 的索引")
-                        value = v[ui.Option.currentIndex()]
-                    case "list":
-                        split_str = param.get('split_str', '|')
-                        text = ui.TextEdit.toPlainText()
-                        value = text.split(split_str) if text else []
-                        if friendly_name: value = "，".join(value)
-                    case _:
-                        value = None
-                
-                if value is not None:
-                    if value or bool(param.get('required', False)):
-                        payload[param_name if not friendly_name else _param_name] = value
-                        
-            else:
-                logger.exception(f"构建参数时出错：未找到控件 {param_type} 无法读取值，可能会造成请求失败")
-        
+                            value = options[idx]
+                    else:
+                        value = param.value
+                elif param.type == "list":
+                    text = ui.TextEdit.toPlainText()
+                    value = text.split(param.split_str) if text else []
+                    if friendly_name:
+                        value = "，".join(value)
+            if value or param.required:
+                payload[target if friendly_name else param.name] = value
         return payload
     
-    def on_push_button_clicked(self, cfg: APICORE):
+    def on_push_button_clicked(self, cfg: ApicoreDoc):
         auto_config = {}
         split_str = {}
-        for param in cfg.parameters():
-            for key, value in param.items():
-                if key == "split_str" and value:
-                    split_str[key] = str(value)
-                    break
+        for param in cfg.parameters:
+            if param.type == "list" and param.name and param.split_str:
+                split_str[param.name] = str(param.split_str)
         
         logger.debug(f"请求参数为列表的分隔符映射: {split_str}")
         payload = self.build_payload(cfg)
         payload_friendly = self.build_payload(cfg, True)
         logger.debug(f"构建的请求参数: {payload}")
-        url = APIKernal.construct_api(cfg.link(), payload, split_str) if cfg.func().upper() in ["GET", "HEAD"] else cfg.link()
-        auto_config = {"friendly_name": cfg.friendly_name(), 
+        url = APIKernal.construct_api(cfg.link, payload, split_str) if cfg.func.upper() in ["GET", "HEAD"] else cfg.link
+        request = request_options(cfg, payload)
+        timeout_ms = int(resolve_timeout(cfg, self.parent.settings["timeout_config"], payload) * 1000)
+        auto_config = {"friendly_name": cfg.friendly_name,
             "intro": "Auto Change Wallpaper Config",  # 用于校验
-            "icon": cfg.icon(),
+            "icon": cfg.icon,
             "link": url,
-            "func": cfg.func(), 
-            "APICORE_version": "1.0",
+            "func": cfg.func,
+            "APICORE_version": "2.1",
+            "id": "auto-change-wallpaper",
+            "version": "1.0.0",
+            "updated_at": datetime.now().astimezone().isoformat(),
             "parameters": [{
                 "name": "payload", 
+                "type": "custom",
+                "enable": True,
+                "required": True,
                 "value": payload, 
+                "extra": {"control": "hidden"},
             }],
             "response": {
-                "image": cfg.response().image()
-            }
+                "media": {"type": "image", "content_type": cfg.media.content_type,
+                          "path": cfg.media.path, "is_list": cfg.media.is_list,
+                          "is_base64": cfg.media.is_base64}
+            },
+            "configs": {"request": {"headers": request["headers"], "body_type": request["body_type"],
+                                      "body_template": payload if cfg.func.upper() in ["GET", "HEAD"] else request["body"],
+                                      "timeout_ms": timeout_ms}}
         }
         
         friendly_params = [
-            {"friendly_name": k, "value": v}
-            for k, v in payload_friendly.items()
+            {"name": f"display_{index}", "type": "string", "enable": False, "required": False,
+             "friendly_name": k, "value": str(v)}
+            for index, (k, v) in enumerate(payload_friendly.items())
         ]
         logger.debug(f"友好请求参数: {friendly_params}")
         auto_config["parameters"] = [
             auto_config["parameters"][0],
             *friendly_params 
         ]
-        
         try:
+            parse_doc(auto_config)  # Fail closed: never overwrite the ACW config with invalid APICORE.
             if not os.path.exists(os.path.join(MainKernal.get_config_dir(), "EnterPoint", "acw_config")):
                 os.makedirs(os.path.join(MainKernal.get_config_dir(), "EnterPoint", "acw_config"))
                 
@@ -549,20 +627,20 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
         self.parent.auto_wallpaper_updated.emit()
         Flyout.create(
                 icon=InfoBarIcon.SUCCESS,
-                title=cfg.friendly_name(),
+                title=cfg.friendly_name,
                 content=f"已成功设为自动更换壁纸的配置文件 (～￣▽￣)～",
                 target=self.StartButton,
                 parent=self,
                 isClosable=True,
             )
 
-    def on_start_button_clicked(self, cfg: APICORE):
+    def on_start_button_clicked(self, cfg: ApicoreDoc):
         try:
             self.StartButton.setEnabled(False)
             self.ProgressLine.setVisible(True)
             Flyout.create(
                 icon=InfoBarIcon.INFORMATION,
-                title=cfg.friendly_name(),
+                title=cfg.friendly_name,
                 content=f"开始生成啦，请耐心等待( •̀ ω •́ )✧",
                 target=self.StartButton,
                 parent=self,
@@ -573,7 +651,7 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
             QApplication.processEvents()
             payload = self.build_payload(cfg)
             logger.debug(f"构建的请求参数: {payload}")
-            logger.info(f"开始: {cfg.friendly_name()} 模式生成...")
+            logger.info(f"开始: {cfg.friendly_name} 模式生成...")
             
             # 创建异步任务
             asyncio.create_task(self.on_api_start(cfg, payload))
@@ -594,7 +672,7 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
             self.StartButton.setEnabled(True)
             self.StartButton.setText(QCoreApplication.translate("MainWindow", u"生成", None))
     
-    async def on_api_start(self, cfg: APICORE, payload: dict):
+    async def on_api_start(self, cfg: ApicoreDoc, payload: dict):
         try:
             self._generated = []
             self._other_responses = []
@@ -602,34 +680,54 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
             if not os.path.isdir(self.parent.settings["download_path"]):
                 raise FileNotFoundError("设置的图片保存位置无法被使用，请前往设置进行更换")
             
-            for param in cfg.parameters():
-                for key, value in param.items():
-                    if key == "split_str" and value:
-                        split_str[key] = str(value)
-                        break
+            for param in cfg.parameters:
+                if param.type == "list" and param.name and param.split_str:
+                    split_str[param.name] = str(param.split_str)
             
             gc.collect()
             logger.debug(f"请求参数为列表的分隔符映射: {split_str}")
-            binary_phrase = (str(cfg.response().image().get('content_type', "URL")).upper() == "BINARY")
-            r, t, c = await APIKernal.request_api(
-                cfg.link(),
-                "",
-                cfg.func(), 
-                payload=payload,
-                timeout=int(self.parent.settings["timeout_config"]),
-                split_str=split_str, 
-                raw=binary_phrase, 
-                ssl_verify=self.parent.settings["ssl_verify_config"],
-            )
+            req = request_options(cfg, payload)
+            timeout = resolve_timeout(cfg, self.parent.settings["timeout_config"], payload)
+            media = cfg.media
+            if media is None or media.type != "image":
+                raise ValueError(f"不支持的响应媒体类型: {getattr(media, 'type', None)}")
+            binary_phrase = str(media.content_type).upper() == "BINARY"
+            retry = getattr(cfg.configs, "retry", None) if cfg.configs is not None else None
+            r, t, c, status, decision = await request_with_handlers(
+                APIKernal.request_api, cfg.handlers,
+                req["url"], "", cfg.func,
+                translator=cfg.tr,
+                request_kwargs={"payload": payload, "headers": req["headers"],
+                                "body_type": req["body_type"], "body": req["body"],
+                                "timeout": timeout, "split_str": split_str,
+                                "raw": binary_phrase,
+                                "ssl_verify": self.parent.settings["ssl_verify_config"],
+                                "network_retry": retry})
+            if decision.action == "response" and cfg.polling is not None:
+                response_context = decision.extracted if decision.extracted is not None else (t or c or r)
+                r, t, c, status, decision = await run_polling(
+                    APIKernal.request_api, cfg.polling, response_context, cfg.handlers, payload,
+                    headers=req["headers"], ssl_verify=self.parent.settings["ssl_verify_config"],
+                    translator=cfg.tr, network_retry=retry)
+            if decision.action != "response":
+                if decision.action == "browser" and decision.link:
+                    webbrowser.open_new_tab(decision.link)
+                detail = decision.message or str(decision.extracted or f"HTTP {status}")
+                if decision.action == "run":
+                    detail = await authorize_and_run(decision.rule,
+                        getattr(cfg.raw, "id", None) or cfg.link, self.window())
+                    decision = type(decision)("success", decision.rule, detail, decision.extracted, decision.link)
+                QTimer.singleShot(0, lambda a=decision.action, m=detail: self.finish_handler_action(a, m, cfg))
+                return
             
             # 逻辑最复杂的部分，解析响应
             result, response = None, []
             if binary_phrase: # 二进制
-                if not cfg.response().image().get('is_base64', False): # 不是base64编码的单/多图片
+                if not media.is_base64:
                     response = await MainKernal.phrase_binary_images(r, t, c)
                     # logger.debug(f"二进制图片提取格式化: {response}")
                 else: # base64编码的单/多图片
-                    path = str(cfg.response().image().get('path', ''))
+                    path = str(media.path or '')
                     if not path:
                         raise ValueError("API 配置文件中返回结果中缺少图片路径")
                         
@@ -637,7 +735,7 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
                         response = MainKernal.adaptive_base64_extractor(str(r))
                     elif isinstance(r, list):
                         response = MainKernal.adaptive_base64_extractor("\n".join(r))
-                    elif not cfg.response().image().get('is_list', True): # 不在列表里的 base64 图片
+                    elif not media.is_list:
                         response = MainKernal.adaptive_base64_extractor(APIKernal.parse_response(r, path))
                     else:
                         response = APIKernal.parse_response(r, path)
@@ -651,7 +749,7 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
                     
             else: # URL
                 logger.info(f"结果返回: {str(r)} {type(r)}")
-                path = str(cfg.response().image().get('path', ''))
+                path = str(media.path or '')
                 if not path:
                     raise ValueError("API 配置文件中返回结果中缺少图片路径")
                 
@@ -660,12 +758,12 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
                     logger.debug(f"文本链接提取格式化: {response}")
                 elif isinstance(r, list):
                     response = MainKernal.adaptive_link_splitter("\n".join(r))
-                elif not cfg.response().image().get('is_list', True): # 不在列表里的URL
+                elif not media.is_list:
                     response = MainKernal.adaptive_link_splitter(APIKernal.parse_response(r, path))
                 else:
                     response = APIKernal.parse_response(r, path)
                     
-                if cfg.response().image().get('is_base64', False): # 用base64编码的URL
+                if media.is_base64:
                     response[:] = [base64.b64decode(str(item)).decode('utf-8') for item in response]
                         
                 self.StartButton.setText(QCoreApplication.translate("MainWindow", f"生成 (预计生成 {len(response)} 张)", None))
@@ -677,19 +775,20 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
                 )
 
             # 其他响应
-            if len(cfg.response().others()) > 0:
-                for other in cfg.response().others():
-                    name = other.get('friendly_name', '')
-                    data = other.get('data', [])
+            if cfg.others:
+                for other in cfg.others:
+                    name = cfg.tr(other.friendly_name)
+                    data = other.data
                     if not name or not data or len(data) == 0:
                         continue
 
                     field = {name: {}}
                     for d in data:
-                        if not bool(d.get('one-to-one-mapping', True)):
-                            field[name].update({f"{d['friendly_name']}-no-one-to-one-mapping": APIKernal.parse_response(r, d['path'])})
+                        field_name = cfg.tr(d.friendly_name)
+                        if not bool(getattr(d, 'one_to_one_mapping', True)):
+                            field[name].update({f"{field_name}-no-one-to-one-mapping": APIKernal.parse_response(r, d.path)})
                         else:
-                            content = APIKernal.parse_response(r, d['path'])
+                            content = APIKernal.parse_response(r, d.path)
                             if isinstance(content, list) and len(content) == len(response):
                                 # result中所有False值都代表图片下载失败，需要从content中删除
                                 false_indices = []
@@ -701,7 +800,7 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
                                     if idx < len(content):
                                         del content[idx]
                                         
-                            field[name].update({d['friendly_name']: content})
+                            field[name].update({field_name: content})
 
                     self._other_responses.append(field)
 
@@ -710,12 +809,15 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
             # 在主线程中完成操作
             QTimer.singleShot(0, lambda: self.on_api_complete(
                 True,
-                f"{cfg.friendly_name()} 生成成功",
+                f"{cfg.friendly_name} 生成成功",
                 result if result else {},
                 response, 
                 cfg
             ))
             
+        except asyncio.CancelledError:
+            QTimer.singleShot(0, lambda: self.on_api_complete(False, "请求已取消", {}, [], cfg))
+            raise
         except Exception as e:
             # progress_timer.stop()
             logger.error(f"API请求失败: {str(e)}")
@@ -733,7 +835,7 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
                 cfg
             ))
     
-    def on_api_complete(self, success, message, response: dict, links: list, cfg: APICORE):
+    def on_api_complete(self, success, message, response: dict, links: list, cfg: ApicoreDoc):
         logger.info(f"API请求完成，成功: {success}, 信息: {message}, 结果: {response}")
         for k, v in response.items():
             if v is not False:
@@ -789,6 +891,14 @@ class PageTemplate(QWidget, PageTemplate_ui.Ui_Form):
                     isClosable=True,
                 )
             
+        self.ProgressLine.setVisible(False)
+        self.StartButton.setEnabled(True)
+        self.StartButton.setText(QCoreApplication.translate("MainWindow", u"生成", None))
+
+    def finish_handler_action(self, action, message, cfg):
+        icon = InfoBarIcon.SUCCESS if action == "success" else InfoBarIcon.WARNING if action == "warning" else InfoBarIcon.INFORMATION
+        Flyout.create(icon=icon, title=cfg.friendly_name, content=message,
+                      target=self.StartButton, parent=self, isClosable=True)
         self.ProgressLine.setVisible(False)
         self.StartButton.setEnabled(True)
         self.StartButton.setText(QCoreApplication.translate("MainWindow", u"生成", None))
@@ -953,11 +1063,11 @@ class MainWindow(QWidget, MainWindowTemplate_ui.Ui_Form):
         for i in range(len(cfgs)):
             path = str(cfgs[i])
             try:
-                cfg = APICORE(path).init()
+                cfg = load_doc(path)
             except Exception as e:
                 logger.error(f"API配置文件 {path} 加载失败: {str(e)}")
                 logger.debug(traceback.format_exc())
-                InfoBar.info(title='图片源加载失败', content=f"{str(e)}", orient=Qt.Horizontal,
+                InfoBar.info(title='图片源加载失败', content=describe_apicore_error(e), orient=Qt.Horizontal,
                     isClosable=True,
                     position=InfoBarPosition.BOTTOM_RIGHT,
                     duration=6000, 
@@ -966,7 +1076,7 @@ class MainWindow(QWidget, MainWindowTemplate_ui.Ui_Form):
                 continue
             
             if not os.path.basename(cfgs[i]) in exclude_apis:
-                self.addSubInterface(PageTemplate(self, cfg), f"api_{os.path.basename(cfgs[i]).split('.')[0]}", cfg.friendly_name())
+                self.addSubInterface(PageTemplate(self, cfg), f"api_{os.path.basename(cfgs[i]).split('.')[0]}", cfg.friendly_name)
 
         self.addSubInterface(MarketKernal.MarketUI(self), "marketplace", "图片源市场")
         self.addSubInterface(SettingsKernal.SettingsUI(self), "settings", "设置")

@@ -26,7 +26,7 @@ class SettingsKernal():
         for file in os.listdir(path):
             full_path = os.path.join(path, file)
             logger.debug(f"Checking {full_path}")
-            if os.path.isfile(full_path) and full_path.endswith('.api.json') and not file.startswith('_'):
+            if os.path.isfile(full_path) and file.endswith(('.api.json', '.api.yaml', '.api.toml')) and not file.startswith('_'):
                 api_json_files.append(full_path)
         
         return api_json_files

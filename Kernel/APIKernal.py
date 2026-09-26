@@ -19,19 +19,22 @@ import asyncio
 from typing import Any, Dict, List, Optional, Union, Tuple
 import json
 import re
+from urllib.parse import quote, urlencode
 
 try:
     from Kernel.Logger import logger
 except ImportError:
     from Logger import logger
 
-def construct_api(api: str, payload: Optional[Dict[str, Any]] = None, split_str: Dict[str, str] = {}):
+def construct_api(api: str, payload: Optional[Dict[str, Any]] = None, split_str: Optional[Dict[str, str]] = None):
     """构造请求的URL和参数
     
     :param api: API端点URL
     :param payload: 请求负载(对于POST/PUT等)
     :param split_str: 对于是列表类型的请求负载，如果是 GET 方法，则将列表中的每个值用此字符连接（缺省为 '|'）"""
     
+    payload = payload or {}
+    split_str = split_str or {}
     url = api.rstrip('/').rstrip('?')
     none_params = []
     other_params = {}
@@ -41,9 +44,7 @@ def construct_api(api: str, payload: Optional[Dict[str, Any]] = None, split_str:
         if key is None:
             none_params.append(str(value))
         else:
-            s = split_str.get(key, "")
-            if not s:
-                s = '|'
+            s = split_str.get(key, '|')
                 
             if isinstance(value, list):
                 other_params[key] = s.join(str(v) for v in value)
@@ -52,9 +53,9 @@ def construct_api(api: str, payload: Optional[Dict[str, Any]] = None, split_str:
     
     # 构建最终URL
     if none_params:
-        url += '/' + '/'.join(none_params)
+        url += '/' + '/'.join(quote(v, safe='') for v in none_params)
     if other_params:
-        url += '?' + '&'.join(f'{k}={v}' for k, v in other_params.items())
+        url += ('&' if '?' in url else '?') + urlencode(other_params, doseq=True)
     
     logger.debug(f"构建的请求URL: {url}")
     return url
@@ -66,10 +67,16 @@ async def request_api(
     method: str = "GET",
     headers: Optional[Dict[str, str]] = None,
     payload: Optional[Dict[str, Any]] = None,
-    split_str: Dict[str, str] = {},
-    timeout: int = 15, 
+    split_str: Optional[Dict[str, str]] = None,
+    timeout: Union[int, float] = 15,
     raw: bool = False,
-    ssl_verify: bool = True  
+    ssl_verify: bool = True,
+    *,
+    body_type: str = "json",
+    body: Any = None,
+    return_status: bool = False,
+    network_retries: int = 0,
+    retry_delay_ms: int = 10000,
 ) -> Any:
     """
     异步执行API请求并解析响应数据
@@ -85,8 +92,11 @@ async def request_api(
     :param ssl_verify: 是否验证SSL证书，设置为False可禁用SSL验证
     :return: 解析后的数据
     """
-    headers = headers or {}
+    headers = dict(headers or {})
     payload = payload or {}
+    split_str = split_str or {}
+    headers.setdefault("User-Agent", "WallpaperGenerator/6")
+    request_body = payload if body is None else body
     
     try:
         # 如果禁用SSL验证，创建一个不验证SSL的ClientSession
@@ -105,20 +115,43 @@ async def request_api(
             if method.upper() in ["GET", "HEAD"]:
                 url = construct_api(api, payload, split_str)
                 async with session.request(method, url, headers=headers) as response:
-                    return await handle_response(response, paths, raw)
+                    return await handle_response(response, paths, raw, return_status)
             else:
-                async with session.request(method, api, headers=headers, json=payload) as response:
-                    return await handle_response(response, paths, raw)
+                kwargs = {}
+                if body_type == "json":
+                    kwargs["json"] = request_body
+                elif body_type in ("form-data", "form_data", "x-www-form-urlencoded"):
+                    kwargs["data"] = request_body
+                    if body_type == "x-www-form-urlencoded":
+                        headers.setdefault("Content-Type", "application/x-www-form-urlencoded")
+                elif body_type == "raw":
+                    kwargs["data"] = request_body
+                else:
+                    raise ValueError(f"不支持的 body_type: {body_type}")
+                async with session.request(method, api, headers=headers, **kwargs) as response:
+                    return await handle_response(response, paths, raw, return_status)
     except asyncio.TimeoutError:
+        if network_retries > 0:
+            await asyncio.sleep(max(0, retry_delay_ms) / 1000)
+            return await request_api(api, paths, method, headers, payload, split_str,
+                                     timeout, raw, ssl_verify, body_type=body_type, body=body,
+                                     return_status=return_status, network_retries=network_retries - 1,
+                                     retry_delay_ms=retry_delay_ms)
         raise RuntimeError(f"API请求超时: 超过 {timeout} 秒")
     except aiohttp.ClientError as e:
+        if network_retries > 0:
+            await asyncio.sleep(max(0, retry_delay_ms) / 1000)
+            return await request_api(api, paths, method, headers, payload, split_str,
+                                     timeout, raw, ssl_verify, body_type=body_type, body=body,
+                                     return_status=return_status, network_retries=network_retries - 1,
+                                     retry_delay_ms=retry_delay_ms)
         error_msg = f"API请求失败: {str(e)}"
         if hasattr(e, 'status') and e.status:
             error_msg += f" (状态码: {e.status})"
         raise RuntimeError(error_msg)
 
 # 响应处理函数
-async def handle_response(response: aiohttp.ClientResponse, paths: Optional[Union[str, List[str]]] = None, raw = False) -> Tuple[Any, Any, Any]:
+async def handle_response(response: aiohttp.ClientResponse, paths: Optional[Union[str, List[str]]] = None, raw = False, return_status=False) -> Tuple[Any, ...]:
     """处理响应并返回解析后的数据（由 request_api 调用）"""
 
     # raw 模式直接读取二进制，避免 response.text() 消费响应体后 response.read() 为空
@@ -132,13 +165,14 @@ async def handle_response(response: aiohttp.ClientResponse, paths: Optional[Unio
 
         logger.debug(f"API返回状态码: {response.status} {response.reason}")
         logger.debug(f"API返回二进制大小: {len(binary_data)} bytes")
-        if not response.ok:
+        if not response.ok and not return_status:
             error_msg = f"API返回错误: {response.status} {response.reason}"
             if content:
                 error_msg += f"\n错误详情: {content[:200]}..."
             raise RuntimeError(error_msg)
 
-        return response, content, binary_data
+        result = (response, content, binary_data)
+        return (*result, response.status) if return_status else result
 
     try:
         content = await response.text()
@@ -147,7 +181,7 @@ async def handle_response(response: aiohttp.ClientResponse, paths: Optional[Unio
 
     logger.debug(f"API返回状态码: {response.status} {response.reason}")
     logger.debug(f"API返回内容: {content[:200]}...")
-    if not response.ok:
+    if not response.ok and not return_status:
         error_msg = f"API返回错误: {response.status} {response.reason}"
         if content:
             error_msg += f"\n错误详情: {content[:200]}..."
@@ -160,10 +194,12 @@ async def handle_response(response: aiohttp.ClientResponse, paths: Optional[Unio
         data = content
     
     if not paths:
-        return data, None, None
+        result = (data, None, None)
+        return (*result, response.status) if return_status else result
     
     # 解析指定的路径
-    return parse_response(data, paths), None, None
+    result = (parse_response(data, paths), None, None)
+    return (*result, response.status) if return_status else result
 
 def parse_response(data: Any, paths: Union[str, List[str]]) -> Any:
     """

@@ -1,0 +1,420 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/SRON-org/APICORE-2/refs/heads/main/APICORE.v2.Schema.json",
+    "title": "APICORE v2.1 Configuration File",
+    "description": "Configuration specification for APICORE v2.0/v2.1 API interactions",
+    "type": "object",
+    "required": [
+      "friendly_name",
+      "link",
+      "func",
+      "APICORE_version",
+      "parameters",
+      "response"
+    ],
+    "properties": {
+      "$schema": {
+        "type": "string",
+        "format": "uri",
+        "description": "JSON Schema URL for IDE auto-completion and real-time validation"
+      },
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the configuration file (Slug / Unique ID)"
+      },
+      "version": {
+        "type": "string",
+        "description": "Semantic version of the configuration file itself (e.g., '1.2.0')"
+      },
+      "author": {
+        "type": "string",
+        "description": "Author or contributor of the configuration file"
+      },
+      "license": {
+        "type": "string",
+        "description": "Open source license of the configuration file"
+      },
+      "repository": {
+        "type": "string",
+        "format": "uri",
+        "description": "Source code or maintenance repository URL"
+      },
+      "updated_at": {
+        "type": "string",
+        "description": "Last updated date in ISO 8601 format (e.g., '2026-08-01')"
+      },
+      "friendly_name": {
+        "$ref": "#/$defs/i18n_string",
+        "description": "Name of the API interface for UI display"
+      },
+      "intro": {
+        "$ref": "#/$defs/i18n_string",
+        "description": "Brief introduction of the API"
+      },
+      "icon": {
+        "type": "string",
+        "format": "uri",
+        "description": "URL of the API icon"
+      },
+      "link": {
+        "type": "string",
+        "format": "uri",
+        "description": "Full URL of the API endpoint. Supports {{parameters.name}} path parameter interpolation."
+      },
+      "func": {
+        "type": "string",
+        "enum": ["GET", "POST", "PUT", "DELETE", "HEAD", "PATCH", "OPTIONS"],
+        "description": "HTTP request method (uppercase)"
+      },
+      "APICORE_version": {
+        "enum": ["2.0", "2.1"],
+        "description": "Version identifier, must be '2.0' or '2.1'"
+      },
+      "configs": {
+        "$ref": "#/$defs/configs"
+      },
+      "parameters": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/parameter"
+        },
+        "description": "List of API request parameters"
+      },
+      "handlers": {
+        "$ref": "#/$defs/handlers"
+      },
+      "response": {
+        "$ref": "#/$defs/response"
+      }
+    },
+    "$defs": {
+      "i18n_string": {
+        "description": "Supports either a plain string or an i18n language dictionary",
+        "oneOf": [
+          { "type": "string" },
+          {
+            "type": "object",
+            "minProperties": 1,
+            "patternProperties": {
+              "^[a-z]{2}(-[A-Z]{2})?$": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        ]
+      },
+      "configs": {
+        "type": "object",
+        "properties": {
+          "request": {
+            "type": "object",
+            "properties": {
+              "body_type": {
+                "type": "string",
+                "enum": ["json", "form-data", "x-www-form-urlencoded", "raw"],
+                "default": "json",
+                "description": "Request body format type, only effective for POST/PUT/PATCH"
+              },
+              "body_template": {
+                "description": "Custom request body template. Supports {{parameters.name}} interpolation."
+              },
+              "headers": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "description": "HTTP request headers"
+              },
+              "timeout_ms": {
+                "type": "integer",
+                "default": 30000
+              }
+            }
+          },
+          "retry": {
+            "type": "object",
+            "properties": {
+              "count": {
+                "type": "integer",
+                "default": 3
+              },
+              "delay_ms": {
+                "type": "integer",
+                "default": 10000
+              }
+            }
+          },
+          "rate_limit": {
+            "type": "object",
+            "properties": {
+              "frequency": {
+                "type": "integer"
+              },
+              "per": {
+                "type": "string",
+                "enum": ["sec", "min", "hour", "day"],
+                "default": "min"
+              }
+            }
+          },
+          "polling": {
+            "type": "object",
+            "required": ["interval_ms", "timeout_ms", "check_link", "status_path", "success_value"],
+            "properties": {
+              "interval_ms": {
+                "type": "integer",
+                "description": "Polling interval in milliseconds"
+              },
+              "timeout_ms": {
+                "type": "integer",
+                "description": "Total polling timeout in milliseconds"
+              },
+              "check_link": {
+                "type": "string",
+                "description": "Polling request URL, supports {{response.xxx}} interpolation"
+              },
+              "status_path": {
+                "type": "string",
+                "description": "JSON path to the status field in polling response"
+              },
+              "success_value": {
+                "description": "Value indicating task success"
+              },
+              "failed_value": {
+                "description": "Value(s) indicating task failure. Supports single value or array."
+              }
+            }
+          }
+        }
+      },
+      "parameter": {
+        "type": "object",
+        "required": ["type", "friendly_name", "value"],
+        "properties": {
+          "enable": {
+            "type": "boolean",
+            "default": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Parameter key name. Optional for GET/HEAD."
+          },
+          "type": {
+            "type": "string",
+            "description": "Parameter type (standard or custom)"
+          },
+          "required": {
+            "type": "boolean",
+            "default": true
+          },
+          "friendly_name": {
+            "$ref": "#/$defs/i18n_string",
+            "description": "UI display name for the parameter"
+          },
+          "tooltip": {
+            "$ref": "#/$defs/i18n_string",
+            "description": "Tooltip shown on hover"
+          },
+          "value": {
+            "description": "Default value. For enum type in v2.1, this is the single selected default."
+          },
+          "placeholder": {
+            "$ref": "#/$defs/i18n_string",
+            "description": "Placeholder text in input field"
+          },
+          "text_secret": {
+            "type": "boolean",
+            "default": false
+          },
+          "friendly_value": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "DEPRECATED in v2.1: use 'options' + 'friendly_options' instead"
+          },
+          "options": {
+            "type": "array",
+            "description": "List of all selectable values (v2.1, required for enum type)"
+          },
+          "friendly_options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "UI display names for options, one-to-one mapping with 'options'"
+          },
+          "min_value": {
+            "type": ["integer", "number", "null"]
+          },
+          "max_value": {
+            "type": ["integer", "number", "null"]
+          },
+          "split_str": {
+            "type": ["string", "null"]
+          },
+          "show_if": {
+            "type": "object",
+            "required": ["parameter"],
+            "properties": {
+              "parameter": {
+                "type": "string",
+                "description": "Target parameter name to watch"
+              },
+              "equals": {
+                "description": "Show this parameter when target equals this value"
+              },
+              "in": {
+                "type": "array",
+                "description": "Show this parameter when target value is in this array"
+              }
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": { "type": { "const": "enum" } },
+              "required": ["type"]
+            },
+            "then": {
+              "anyOf": [
+                { "required": ["friendly_value"] },
+                { "required": ["options"] }
+              ]
+            }
+          },
+          {
+            "if": { "properties": { "type": { "const": "list" } } },
+            "then": { "required": ["split_str"] }
+          },
+          {
+            "if": { "properties": { "type": { "enum": ["integer", "number"] } } },
+            "then": {
+              "properties": {
+                "value": { "type": "number" }
+              }
+            }
+          },
+          {
+            "if": { "properties": { "type": { "const": "boolean" } } },
+            "then": {
+              "properties": {
+                "value": { "type": "boolean" }
+              }
+            }
+          }
+        ]
+      },
+      "handlers": {
+        "type": "object",
+        "patternProperties": {
+          "^([1-5]\\d{2}|default)$": {
+            "$ref": "#/$defs/handler_rule"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Handler rules keyed by HTTP status code or 'default'"
+      },
+      "handler_rule": {
+        "type": "object",
+        "required": ["action"],
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["response", "success", "warning", "error", "message", "browser", "run", "retry", "return"]
+          },
+          "message": {
+            "$ref": "#/$defs/i18n_string"
+          },
+          "extract": {
+            "type": "object",
+            "additionalProperties": { "type": "string" }
+          },
+          "link": { "type": "string" },
+          "script": { "type": "string" },
+          "front": { "type": "boolean", "default": false },
+          "count": { "type": "integer" },
+          "delay_ms": { "type": "integer" }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "action": { "const": "browser" } } },
+            "then": { "required": ["link"] }
+          },
+          {
+            "if": { "properties": { "action": { "const": "run" } } },
+            "then": { "required": ["script"] }
+          },
+          {
+            "if": { "properties": { "action": { "const": "retry" } } },
+            "then": { "required": ["count", "delay_ms"] }
+          }
+        ]
+      },
+      "response": {
+        "type": "object",
+        "anyOf": [
+          { "required": ["image"] },
+          { "required": ["media"] }
+        ],
+        "properties": {
+          "media": {
+            "type": "object",
+            "required": ["type", "content_type", "path"],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["image", "audio", "video", "text", "markdown", "file"],
+                "description": "Output media type"
+              },
+              "content_type": {
+                "enum": ["URL", "BINARY"],
+                "description": "Content format: URL (remote) or BINARY (raw data)"
+              },
+              "path": {
+                "type": "string",
+                "description": "JSON path to the data in the response"
+              },
+              "is_list": { "type": "boolean", "default": false },
+              "is_base64": { "type": "boolean", "default": false }
+            }
+          },
+          "image": {
+            "type": "object",
+            "required": ["content_type", "path"],
+            "properties": {
+              "content_type": { "enum": ["URL", "BINARY"] },
+              "path": { "type": "string" },
+              "is_list": { "type": "boolean", "default": false },
+              "is_base64": { "type": "boolean", "default": false }
+            }
+          },
+          "others": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["friendly_name", "data"],
+              "properties": {
+                "friendly_name": {
+                  "$ref": "#/$defs/i18n_string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["friendly_name", "path"],
+                    "properties": {
+                      "friendly_name": {
+                        "$ref": "#/$defs/i18n_string"
+                      },
+                      "path": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
